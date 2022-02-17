@@ -96,6 +96,16 @@
     //                 let perguntaPrompt =  prompt("Digite uma frase:")
     //                     funcao2_D(perguntaPrompt)
          
+                              // // // ou // // // 
+
+    //         let funcaoUp = (n1,n2) => {
+    //             n1 = n1.toUpperCase() 
+    //             n2 = n2.length 
+    //             console.log(`O tamanho da frase é ${n2} e ela em maiúscula fica ${n1}`)
+    //             return n1 + n2   
+    //         }    
+    //                      let perguntaPrompt =  prompt("Digite uma frase:")
+    //                      funcaoUp(perguntaPrompt,perguntaPrompt)
 
 
 
