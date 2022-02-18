@@ -124,36 +124,45 @@
     //         // Divisão: 10
 
 
-    //         function somar(n1,n2){
-    //         let soma = n1 + n2 
-    //         return soma  
-    //         } 
-    //             let userSoma = Number(prompt("digite um número:"))
-    //                 let userSomaDois = Number(prompt("digite outro número:"))
-    //                     console.log(somar(userSoma,userSomaDois))
-
-    //         function subtrair(n1,n2){
-    //         let subtracao = n1 - n2 
-    //         return subtracao  
-    //         }
-    //             let userMenos = Number(prompt("digite um número:"))
-    //                 let userMenosDois = Number(prompt("digite outro número:"))
-    //                     console.log(subtrair(userMenos,userMenosDois))
+    // let soma = (v1,v2) => console.log("soma", v1 + v2) 
+    // let subtracao = (v1,v2) => console.log("subtração", v1 - v2) 
+    // let multiplicacao = (v1,v2) => console.log("multiplicação", v1 * v2) 
+    // let divisao = (v1,v2) => console.log("divisão:", v1 / v2) 
+    //     let v1 = Number(prompt("Digite um número:"))
+    //         let v2 = Number(prompt("Digite outro número:"))
+    //             soma(v1,v2)
+    //             subtracao(v1,v2)
+    //             multiplicacao(v1,v2)
+    //             divisao(v1,v2)
 
 
-    //         function multiplicar(n1,n2){
-    //         let multiplicacao = n1 * n2 
-    //         return multiplicacao  
-    //         }
-    //             let userMult = Number(prompt("digite um número:"))
-    //                 let userMultDois = Number(prompt("digite outro número:"))
-    //                     console.log(multiplicar(userMult,userMultDois))
+// // // // // // // // // // // // // FUNÇÕES DESAFIOS // // // // // // // // // // // // 
 
+    // a) Escreva uma *arrow function* que recebe um parâmetro e imprime 
+    // no console esse parâmetro
 
-    //         function dividir(n1,n2){
-    //         let divisao = n1 / n2 
-    //         return divisao  
-    //         }  
-    //             let userDiv = Number(prompt("digite um número:"))
-    //                 let userDivDois = Number(prompt("digite outro número:"))
-    //                     console.log(dividir(userDiv,userDivDois))
+    // b) Escreva outra *arrow function* que recebe dois valores como 
+    // parâmetros mas **nenhum retorno.** Faça a soma entre esses valores 
+    // e chame a sua primeira função mandando este resultado da soma como 
+    // entrada para imprimi-lo
+
+                // /*A:*/  let arrow = (n) => console.log(n)
+
+                // /*B:*/  let arrowDois = (a1,a2) => a1 + a2 
+                //             let a1 = Number(prompt("digite um numero:"))
+                //                 let a2 = Number(prompt("digite um numero:"))
+                //                     arrow(arrowDois(a1,a2))
+
+    // Faça uma função que execute o teorema de Pitágoras, recebendo 
+    // dois catetos e calculando o valor da hipotenusa. Retorne este valor, 
+    // invoque a função e imprima o resultado no console. 
+
+                // let pitagoras = (b,c) => {
+                //     const hipotenusa = Math.sqrt((b * b) + (c * c)) 
+                //     console.log(`O valor da hipotenusa é: ${hipotenusa}`) 
+                //     return hipotenusa
+                // }
+
+                // let b = Number(prompt("digite o cateto 1:"))
+                // let c = Number(prompt("digite o cateto 2:"))
+                // pitagoras(b,c) 
