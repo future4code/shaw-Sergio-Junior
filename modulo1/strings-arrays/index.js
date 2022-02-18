@@ -104,3 +104,11 @@
             //    let indexAba = array.indexOf("Abacaxi")
             //    console.log("O índice do abacaxi é:", indexAba, "o tamanho da array é:", array.length)
 
+
+            function checaAnoBissexto(ano) {
+                ano = Number(prompt("Digite um ano:"))
+                if (ano % 400 === 0 || ano % 4 === 0 && ano % 100 !=0)
+                 {console.log(true)} 
+                 else {console.log(false)}
+                }
+               checaAnoBissexto()

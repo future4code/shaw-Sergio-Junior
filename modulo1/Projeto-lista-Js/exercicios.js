@@ -44,7 +44,7 @@ function imprimeInformacoesUsuario(nome,idade,email) {
   console.log(`Meu nome é ${nome}, tenho ${idade} anos, e o meu email é ${email}.`)
 }
 
-EXERCÍCIO 05
+// EXERCÍCIO 05
 function imprimeTresCoresFavoritas(cor1,cor2,cor3) {
   cor1 = (prompt("digite uma cor favorita:")) 
   cor2 = (prompt("digite outra cor favorita:")) 
@@ -85,7 +85,6 @@ let ultimo = array[comprimento-1]
 return ultimo
 }
 
-
 // EXERCÍCIO 11
 function trocaPrimeiroEUltimo(array) {
 comprimento = array.length
@@ -96,29 +95,40 @@ array[0] = ultimo
 return array
 }
 
-let array = [1,2,3,4,5,6]
-console.log(trocaPrimeiroEUltimo(array))
-
 // EXERCÍCIO 12
 function checaIgualdadeDesconsiderandoCase(string1, string2) {
 return string1.toLowerCase() === string2.toLowerCase() 
 }
 
-
 // EXERCÍCIO 13
-function checaRenovacaoRG() {
-  // implemente sua lógica aqui
-
+function checaRenovacaoRG(renovacao) {
+anoAtual = Number(prompt("Digite o ano atual:"))
+anoNascimento = Number(prompt("Digite seu ano de nascimento:"))
+anoRG = Number(prompt("Digite ano da expedição do RG"))
+idade = anoAtual - anoNascimento
+vencimentoRG = anoAtual - anoRG 
+renovacao = (idade <= 20 && vencimentoRG >=5) 
+|| (idade <= 50 && vencimentoRG >=10) 
+|| (idade > 50 && vencimentoRG >=15) 
+console.log(renovacao)
 }
 
 // EXERCÍCIO 14
 function checaAnoBissexto(ano) {
-  // implemente sua lógica aqui
-
+ let anoBiUm = (ano % 400) === 0
+ let anoBiDois = (ano % 4) === 0
+ let anoBiTres = (ano % 100) != 0 
+ anoBissexto = anoBiUm || anoBiDois && anoBiTres
+ return anoBissexto         
 }
+
 
 // EXERCÍCIO 15
 function checaValidadeInscricaoLabenu() {
-  // implemente sua lógica aqui
-
+maiorDeIdade = prompt("é maior de 18 anos?") === "sim"
+ensinoMedio = prompt("possui ensino medio completo?") === "sim"
+disponibilidade = prompt("possui disponibilidade de horario?") === "sim"
+console.log(maiorDeIdade&&ensinoMedio&&disponibilidade)
+return (maiorDeIdade && ensinoMedio && disponibilidade)
 }
+
