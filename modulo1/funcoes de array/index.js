@@ -47,9 +47,7 @@ item 2 array completa: [nome: "Letícia Chijo", apelido: "Chijo"]
 
 // let arrayDesconto = []
 // const descontoPoodle = pets.filter((pet) => {
-//     if (pet.raca === "Poodle") {
-//         return pet.nome
-//     }
+//         return pet.raca === "Poodle"
 // }).map((elemento) => {
 //     arrayDesconto.push((`Você ganhou um cupom de descontao de 10% para tosar o/a ${elemento.nome}`))
 // })
@@ -95,21 +93,16 @@ item 2 array completa: [nome: "Letícia Chijo", apelido: "Chijo"]
 // ------------------------------------------------------------------------------------ //
 //  c) Crie um novo array que contenha apenas os objetos da categoria Bebidas
 
-// let somenteBebidas = []
 // const sohBebidas = produtos.filter((produto)=>{
-//     if (produto.categoria === "Bebidas") {
-//         somenteBebidas.push(produto)
-//     }
+//     return produto.categoria === "Bebidas"    
 // })
-// console.log(somenteBebidas)
+// console.log(sohBebidas)
 
 // ------------------------------------------------------------------------------------ //
 // d) Crie um novo array que contenha apenas os objetos cujo nome contenha a palavra "Ypê"
 
 // const somenteYpe = produtos.filter((produto) => {
-//     if (produto.nome.includes("Ypê")) {
-//         return produto
-//     }
+//         return produto.nome.includes("Ypê")
 // })
 // console.log(somenteYpe)
 
@@ -119,10 +112,8 @@ item 2 array completa: [nome: "Letícia Chijo", apelido: "Chijo"]
 
 // let arrayYpeFrase = []
 // const fraseDeCompra = produtos.filter((produto) => {
-//     if (produto.nome.includes("Ypê")) {
-//         return produto
-//     }
-// }).map((produto)=>{
+//     return produto.nome.includes("Ypê")
+// }).map((produto) => {
 //     arrayYpeFrase.push(`Compre ${produto.nome} por ${produto.preco}`)
 // })
 // console.log(arrayYpeFrase)
