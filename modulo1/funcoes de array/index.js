@@ -82,11 +82,14 @@ item 2 array completa: [nome: "Letícia Chijo", apelido: "Chijo"]
 //  b) Crie um novo array que contenha um objeto com o nome e o preço 
 //  de cada item, aplicando 5% de desconto em todos eles
 
-// let novaArrayDesconto = []
 // const precoDesconto = produtos.map((produto) => {
-//     novaArrayDesconto.push(`${produto.nome}, ${(produto.preco * 0.95).toFixed(2)}`)
+//     delete produto.categoria;
+//     return {
+//         ...produto,
+//         preco: Number(produto.preco * 0.95).toFixed(2)
+//     }
 // })
-// console.log(novaArrayDesconto)
+// console.log(precoDesconto)
 
 // ------------------------------------------------------------------------------------ //
 //  c) Crie um novo array que contenha apenas os objetos da categoria Bebidas
@@ -108,12 +111,11 @@ item 2 array completa: [nome: "Letícia Chijo", apelido: "Chijo"]
 // e) Crie um novo array onde cada item é uma frase "Compre [NOME] por [PREÇO]".
 //  Esse array deve conter frases apenas dos itens cujo nome contenha a palavra "Ypê"
 
-// let arrayYpeFrase = []
 // const fraseDeCompra = produtos.filter((produto) => {
 //     return produto.nome.includes("Ypê")
 // }).map((produto) => {
-//     arrayYpeFrase.push(`Compre ${produto.nome} por ${produto.preco}`)
+//     return `Compre ${ produto.nome } por R$${ produto.preco } `
 // })
-// console.log(arrayYpeFrase)
+// console.log(fraseDeCompra)
 
 // ------------------------------------------------------------------------------------ //
