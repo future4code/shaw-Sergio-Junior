@@ -83,10 +83,8 @@ item 2 array completa: [nome: "Letícia Chijo", apelido: "Chijo"]
 //  de cada item, aplicando 5% de desconto em todos eles
 
 // let novaArrayDesconto = []
-// const precoDesconto = produtos.filter((produto) => {
-//    return produto.nome, produto.preco
-// }).map((produto)=>{
-//     novaArrayDesconto.push(`${produto.nome}, ${produto.preco*0.95}`)
+// const precoDesconto = produtos.map((produto) => {
+//     novaArrayDesconto.push(`${produto.nome}, ${(produto.preco * 0.95).toFixed(2)}`)
 // })
 // console.log(novaArrayDesconto)
 
@@ -94,7 +92,7 @@ item 2 array completa: [nome: "Letícia Chijo", apelido: "Chijo"]
 //  c) Crie um novo array que contenha apenas os objetos da categoria Bebidas
 
 // const sohBebidas = produtos.filter((produto)=>{
-//     return produto.categoria === "Bebidas"    
+//     return produto.categoria === "Bebidas"
 // })
 // console.log(sohBebidas)
 
