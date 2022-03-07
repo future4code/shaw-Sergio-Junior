@@ -82,14 +82,13 @@ function retornaObjetoEntreDoisNumeros(num1, num2) {
 
 // EXERCÍCIO 08
 function retornaNPrimeirosPares(n) {
-    let numeros = []
-    for (let i = 0; i < n * 2; i++) {
-        if (numeros[i] % 2 === 0) {
-            numeros.push(numeros[i])
+    let numerosPares = [];
+    for (let i = 0; numerosPares.length < n; i++) {
+        if (i % 2 === 0) {
+            numerosPares.push(i)
         }
     }
-    numeros.length = n
-    return numeros
+    return numerosPares;
 }
 
 // EXERCÍCIO 09
@@ -107,21 +106,11 @@ function classificaTriangulo(ladoA, ladoB, ladoC) {
 
 // EXERCÍCIO 10
 function retornaSegundoMaiorESegundoMenor(array) {
-    let maiorNumero = 0
-    let menorNumero = Infinity
-    for (let i = 0; i < array.length; i++) {
-        if (maiorNumero < array[i]) {
-            maiorNumero = array[i]
-        }
-        if (menorNumero > array[i]) {
-            menorNumero = array[i]
-        }
-    }
-    let a = indexOf(maiorNumero)
-    let b = indexOf(menorNumero)
-    array.splice(a, 1)
-    array.splice(b, 1)
-    return array
+    array.sort((a, b) => a - b)
+    const segundoMenor = array[1]
+    const segundoMaior = array[array.length - 2]
+
+    return [segundoMaior, segundoMenor]
 }
 
 // EXERCÍCIO 11
@@ -166,21 +155,27 @@ function retornaPessoasNaoAutorizadas(pessoas) {
 
 // EXERCÍCIO 14
 function retornaContasComSaldoAtualizado(contas) {
-    let contaNova = contas.map((conta) => {
-        let soma = 0
-        for (let i = 0; i < conta.compras.length; i++) {
-            soma = soma + conta.compras[i]
-        }
-        conta.saldoTotal = conta.saldoTotal - soma
-        return conta.saldoTotal
-
-    })
-    return (contas)
+    contas.forEach((conta) => {
+        let totalCompras = 0;
+        conta.compras.forEach((compra) => {
+            totalCompras = totalCompras + compra
+        })
+        conta.saldoTotal = conta.saldoTotal - totalCompras
+        return conta.compras = []
+    });
+    return contas
 }
 
 // EXERCÍCIO 15A
 function retornaArrayOrdenadoAlfabeticamente(consultas) {
-
+    consultas.sort(function (a, b) {
+        if (a.nome < b.nome) {
+            return -1
+        } else {
+            return +1
+        }
+    })
+    return consultas
 }
 
 // EXERCÍCIO 15B
