@@ -15,7 +15,13 @@ function retornaArrayInvertido(array) {
 
 // EXERCÍCIO 03
 function retornaArrayOrdenado(array) {
-
+    return array.sort(function (a, b) {
+        if (a < b) {
+            return - 1
+        } else {
+            return 1
+        }
+    })
 }
 
 // EXERCÍCIO 04
@@ -112,7 +118,7 @@ function retornaChamadaDeFilme(filme) {
 
 // EXERCÍCIO 12
 function retornaPessoaAnonimizada(pessoa) {
-    let novoObejot = {  
+    let novoObejot = {
         ...pessoa,
         nome: "ANÔNIMO"
     }
@@ -131,7 +137,16 @@ function retornaPessoasNaoAutorizadas(pessoas) {
 
 // EXERCÍCIO 14
 function retornaContasComSaldoAtualizado(contas) {
+    let contaNova = contas.map((conta) => {
+        let soma = 0
+        for (let i = 0; i < conta.compras.length; i++) {
+            soma = soma + conta.compras[i]
+        }
+        conta.saldoTotal = conta.saldoTotal - soma
+        return conta.saldoTotal
 
+    })
+    return (contas)
 }
 
 // EXERCÍCIO 15A
