@@ -15,7 +15,7 @@ function retornaArrayInvertido(array) {
 
 // EXERCÍCIO 03
 function retornaArrayOrdenado(array) {
-   return comparaArray(array)
+    return comparaArray(array)
 }
 
 // EXERCÍCIO 04
@@ -25,12 +25,18 @@ function retornaNumerosPares(array) {
 
 // EXERCÍCIO 05
 function retornaNumerosParesElevadosADois(array) {
-
+    let numerosPares = []
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] % 2 === 0) {
+            numerosPares.push(array[i] ** 2)
+        }
+    }
+    return numerosPares
 }
 
 // EXERCÍCIO 06
 function retornaMaiorNumero(array) {
-    let maiorNumero = 0 
+    let maiorNumero = 0
     for (let i = 0; i < array.length; i++)
         if (array[i] > maiorNumero) {
             maiorNumero = array[i]
