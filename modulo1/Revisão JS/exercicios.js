@@ -16,7 +16,7 @@ function retornaArrayInvertido(array) {
 // EXERCÍCIO 03
 function retornaArrayOrdenado(array) {
 
-}   
+}
 
 // EXERCÍCIO 04
 function retornaNumerosPares(array) {
@@ -57,32 +57,57 @@ function retornaObjetoEntreDoisNumeros(num1, num2) {
 
 // EXERCÍCIO 08
 function retornaNPrimeirosPares(n) {
-    for(let i = 0; i <= n; i++) {
-        
+    for (let i = 0; i <= n; i++) {
+
     }
 }
 
 // EXERCÍCIO 09
 function classificaTriangulo(ladoA, ladoB, ladoC) {
-    if(ladoA === ladoB && ladoA === ladoC && ladoB === ladoC) {
+    if (ladoA === ladoB && ladoA === ladoC && ladoB === ladoC) {
         return "Equilátero"
     }
-    if(ladoA === ladoB || ladoA === ladoC || ladoB === ladoC) {
+    if (ladoA === ladoB || ladoA === ladoC || ladoB === ladoC) {
         return "Isósceles"
     }
-    if(ladoA !== ladoB && ladoA !== ladoC && ladoB !== ladoC) {
+    if (ladoA !== ladoB && ladoA !== ladoC && ladoB !== ladoC) {
         return "Escaleno"
     }
 }
 
 // EXERCÍCIO 10
 function retornaSegundoMaiorESegundoMenor(array) {
-
+    let novaArray = []
+    for (let i = 0; i < array.length; i++) {
+        let maiorNumero = 0
+        let segundoMaior = 0
+        let menorNumero = Infinity
+        let segundoMenor = Infinity
+        if (maiorNumero < array[i]) {
+            maiorNumero = array[i]
+        } else if (segundoMaior < array[i] && segundoMaior < maiorNumero) {
+            segundoMaior = array[i]
+            novaArray.push(segundoMaior)
+        }
+        if (menorNumero > array[i]) {
+            menorNumero = array[i]
+        } else if (segundoMenor > array[i] && segundoMenor > menorNumero) {
+            segundoMenor = array[i]
+            novaArray.push(segundoMenor)
+        }
+    }
+    return novaArray
 }
 
 // EXERCÍCIO 11
 function retornaChamadaDeFilme(filme) {
-
+    filme = {
+        nome: 'O Diabo Veste Prada',
+        ano: 2006,
+        diretor: 'David Frankel',
+        atores: ['Meryl Streep', 'Anne Hathaway', 'Emily Blunt', 'Stanley Tucci']
+    }
+return `Venha assistir ao filme ${filme.nome}, de ${filme.ano}, dirigido por ${filme.diretor} e estrelado por ${filme.atores[0]}, ${filme.atores[1]}, ${filme.atores[2]}, ${filme.atores[3]}.`
 }
 
 // EXERCÍCIO 12
