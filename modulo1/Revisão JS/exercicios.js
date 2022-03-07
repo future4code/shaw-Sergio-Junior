@@ -15,8 +15,8 @@ function retornaArrayInvertido(array) {
 
 // EXERCÍCIO 03
 function retornaArrayOrdenado(array) {
-    return comparaArray(array)
-}
+
+}   
 
 // EXERCÍCIO 04
 function retornaNumerosPares(array) {
@@ -57,12 +57,22 @@ function retornaObjetoEntreDoisNumeros(num1, num2) {
 
 // EXERCÍCIO 08
 function retornaNPrimeirosPares(n) {
-
+    for(let i = 0; i <= n; i++) {
+        
+    }
 }
 
 // EXERCÍCIO 09
 function classificaTriangulo(ladoA, ladoB, ladoC) {
-
+    if(ladoA === ladoB && ladoA === ladoC && ladoB === ladoC) {
+        return "Equilátero"
+    }
+    if(ladoA === ladoB || ladoA === ladoC || ladoB === ladoC) {
+        return "Isósceles"
+    }
+    if(ladoA !== ladoB && ladoA !== ladoC && ladoB !== ladoC) {
+        return "Escaleno"
+    }
 }
 
 // EXERCÍCIO 10
