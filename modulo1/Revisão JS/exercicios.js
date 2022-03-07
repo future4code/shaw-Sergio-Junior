@@ -68,24 +68,28 @@ function retornaObjetoEntreDoisNumeros(num1, num2) {
     if (num1 < num2) {
         menorNumero = num1
     } else {
-        menorNumero = num2 
+        menorNumero = num2
     }
-    let maiorDivisivelPorMenor = maiorNumero % menorNumero === 0 
-    let diferenca = maiorNumero - menorNumero 
+    let maiorDivisivelPorMenor = maiorNumero % menorNumero === 0
+    let diferenca = maiorNumero - menorNumero
     let objeto = {
-        maiorNumero: maiorNumero, 
-        maiorDivisivelPorMenor: maiorDivisivelPorMenor, 
+        maiorNumero: maiorNumero,
+        maiorDivisivelPorMenor: maiorDivisivelPorMenor,
         diferenca: diferenca
     }
     return objeto
-
 }
 
 // EXERCÍCIO 08
 function retornaNPrimeirosPares(n) {
-    for (let i = 0; i <= n; i++) {
-
+    let numeros = []
+    for (let i = 0; i < n * 2; i++) {
+        if (numeros[i] % 2 === 0) {
+            numeros.push(numeros[i])
+        }
     }
+    numeros.length = n
+    return numeros
 }
 
 // EXERCÍCIO 09
@@ -103,26 +107,21 @@ function classificaTriangulo(ladoA, ladoB, ladoC) {
 
 // EXERCÍCIO 10
 function retornaSegundoMaiorESegundoMenor(array) {
-    let novaArray = []
+    let maiorNumero = 0
+    let menorNumero = Infinity
     for (let i = 0; i < array.length; i++) {
-        let maiorNumero = 0
-        let segundoMaior = 0
-        let menorNumero = Infinity
-        let segundoMenor = Infinity
         if (maiorNumero < array[i]) {
             maiorNumero = array[i]
-        } else if (segundoMaior < array[i] && segundoMaior < maiorNumero) {
-            segundoMaior = array[i]
-            novaArray.push(segundoMaior)
         }
         if (menorNumero > array[i]) {
             menorNumero = array[i]
-        } else if (segundoMenor > array[i] && segundoMenor > menorNumero) {
-            segundoMenor = array[i]
-            novaArray.push(segundoMenor)
         }
     }
-    return novaArray
+    let a = indexOf(maiorNumero)
+    let b = indexOf(menorNumero)
+    array.splice(a, 1)
+    array.splice(b, 1)
+    return array
 }
 
 // EXERCÍCIO 11
@@ -147,12 +146,22 @@ function retornaPessoaAnonimizada(pessoa) {
 
 // EXERCÍCIO 13A
 function retornaPessoasAutorizadas(pessoas) {
-
+    const pessoasAutorizadas = pessoas.filter((pessoa) => {
+        if (pessoa.idade > 14 && pessoa.idade < 60 && pessoa.altura >= 1.5) {
+            return pessoa
+        }
+    })
+    return pessoasAutorizadas
 }
 
 // EXERCÍCIO 13B
 function retornaPessoasNaoAutorizadas(pessoas) {
-
+    const pessoasNaoAutorizadas = pessoas.filter((pessoa) => {
+        if (pessoa.idade <= 14 || pessoa.idade >= 60 || pessoa.altura < 1.5) {
+            return pessoa
+        }
+    })
+    return pessoasNaoAutorizadas
 }
 
 // EXERCÍCIO 14
