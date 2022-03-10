@@ -57,14 +57,20 @@ div img {
 .container {
     height: 500px;
     text-align: center;
-    padding-top: 100px;
 }
 
 .icone {
-    width: 12px;
-    height: 12px;
+    width: 20px;
+    height: 20px;
 }
 
+.icone:active {
+opacity: 1;
+}
+
+.icone:hover {
+opacity: 0.5;
+}
 
 /** 
   *
@@ -77,8 +83,15 @@ div img {
     color: white; 
 }
 
-#container-de-descricao>ol {
+#container-de-descricao p {
+    display: block;
+    padding-top: 120px;
+}
+
+#container-de-descricao ol {
     padding: 15px 0px;
+    display: block; 
+    list-style-position: inside;
 }
 
 #container-para-comprar {
@@ -89,7 +102,8 @@ div img {
     color: #c44f00;
     font-size: 60px;
     display: block;
-    padding-bottom: 130px;
+    padding-bottom: 80px;
+    padding-top: 100px;
 }
 
 
