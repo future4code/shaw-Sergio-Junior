@@ -1,0 +1,219 @@
+/*fabulous-skate.surge.sh*/
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif; 
+    font-size: 2rem;
+    color: darkcyan;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+}
+
+h1 {
+    font-size: 6rem;
+    line-height: 1;
+}
+
+h2 {
+    font-size: 5.5rem;
+    line-height: 1;
+}
+
+h3 {
+    font-size: 5rem;
+}
+
+h4 {
+    font-size: 4.5rem;
+}
+
+h5 {
+    font-size: 4rem;
+}
+
+h6 {
+    font-size: 3.5rem;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+/*     ////////////////                  MENU                  ////////////////     */ 
+
+.menu {
+    background-color: #f2efeb;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-bottom: 0.1rem solid rgb(80, 110, 9);
+    z-index: 1;
+}
+
+.image-menu {
+    height: 7.5rem;
+    width: 7.5rem;
+    padding-left: 5rem;
+    padding-top: 1.15rem;
+}
+
+.menu-content {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 120rem;
+    align-items: center;
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.menu ul {
+    list-style: none;
+    display: flex;
+}
+
+.menu ul li a { 
+    position: relative;
+    padding: 2rem;
+    color: darkcyan;
+    font-size: 2.2rem;
+}
+
+
+.menu ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0.8rem;
+    left: 2rem;
+    width: 0;
+    height: 0.2rem;
+    background-color: crimson;
+    transition: all 300ms ease-in-out;
+}
+
+.menu ul li a:hover::after { 
+    width: 80%;
+}
+
+
+/*     ////////////////                 ESTRUTURAS                 ////////////////     */
+
+.main-bg {
+    background-image: url(/img/background\ test\ 2.svg);
+    background-position: center center;
+    background-size: auto;
+    color: #f2efeb;
+}
+
+.white-bg {
+    background-color: #f2efeb;
+    color: darkcyan;
+}
+
+.main-content {
+    padding: 3rem;
+    margin: 0 auto;
+    max-width: 120rem;
+}
+
+.section {
+    min-height: 100vh;
+}
+/*                   SECAO SOBRE-MIM                              */ 
+
+.sobre-mim {
+    padding: 3rem;
+}
+
+.sobre-mim-content {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    height: 100vh;
+}
+
+.sobre-mim-text-content {
+    position: relative;
+    margin-top: -25rem;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+.sobre-mim-text-content h2 {
+    font-size: 7rem;
+    margin-bottom: 3rem;
+}
+
+.img-sobre-mim img {
+    max-width: 100%;
+    height: 100%;    
+    padding-left: 3rem;
+    margin-top: -10rem;
+}
+
+/*                   SECAO COMPETENCIAS                              */ 
+
+.competencias {
+    padding: 3rem; 
+}
+
+.competencias-content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    height: 100vh;
+}
+
+.competencias-text-content {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    padding-left: 3rem;
+}
+
+.competencias-text-content h2 {
+    font-size: 7rem;
+    margin-bottom: 3rem;
+}
+
+.img-competencias img {
+    max-width: 80%;
+    height: 100%;
+}
+
+/*                   GALERIA                              */ 
+
+.gallery {
+    padding: 3rem;
+}
+
+.gallery h2 {
+    margin-bottom: 3rem;
+}
+
+.gallery-images {
+    display: grid;
+    grid-template-columns: 0.33fr 0.33fr 0.33fr;
+    height: 100vh;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.gallery img {
+    max-width: 100vh;
+    height: auto;
+}
