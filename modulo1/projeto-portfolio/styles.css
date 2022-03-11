@@ -202,7 +202,7 @@ html {
 }
 
 .gallery h2 {
-    margin-bottom: 3rem;
+    margin-top: 7rem;
 }
 
 .gallery-images {
@@ -216,4 +216,5 @@ html {
 .gallery img {
     max-width: 100vh;
     height: auto;
+    margin-top: -25rem;
 }
