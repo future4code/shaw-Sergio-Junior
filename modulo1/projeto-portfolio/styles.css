@@ -3,12 +3,13 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Open Sans', sans-serif; 
+    font-family: 'Montserrat', sans-serif;
     font-size: 2rem;
-    color: darkcyan;
+    color: rgb(8, 8, 8);
     line-height: 1.5;
 }
 
@@ -17,7 +18,7 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Open Sans', sans-serif; 
     text-transform: uppercase;
 }
 
@@ -54,7 +55,7 @@ html {
 /*     ////////////////                  MENU                  ////////////////     */ 
 
 .menu {
-    background-color: #f2efeb;
+    background-color: rgb(245, 245, 245);
     position: sticky;
     top: 0;
     left: 0;
@@ -63,12 +64,11 @@ html {
     border-bottom: 0.1rem solid rgb(80, 110, 9);
     z-index: 1;
 }
-
-.image-menu {
-    height: 7.5rem;
-    width: 7.5rem;
-    padding-left: 5rem;
-    padding-top: 1.15rem;
+.menu h3 {
+    font-size: 3rem;
+    color: rgb(8, 8, 8);
+    line-height: 1.5;
+    font-family: 'Open Sans', sans-serif; 
 }
 
 .menu-content {
@@ -89,8 +89,9 @@ html {
 .menu ul li a { 
     position: relative;
     padding: 2rem;
-    color: darkcyan;
-    font-size: 2.2rem;
+    color: rgb(8, 8, 8);
+    font-size: 1.8rem;
+    font-weight: 700;
 }
 
 
@@ -120,8 +121,8 @@ html {
 }
 
 .white-bg {
-    background-color: #f2efeb;
-    color: darkcyan;
+    background-color: beige;
+    color: rgb(8, 8, 8);
 }
 
 .main-content {
@@ -137,12 +138,15 @@ html {
 
 .sobre-mim {
     padding: 3rem;
+    margin-top: auto;
+    text-align: center;
 }
 
 .sobre-mim-content {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
     height: 100vh;
+    margin-top: 10rem;
 }
 
 .sobre-mim-text-content {
@@ -173,8 +177,8 @@ html {
 
 .competencias-content {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    height: 100vh;
+    grid-template-columns: 1fr 2.5fr;
+    min-height: 100vh;
 }
 
 .competencias-text-content {
@@ -195,7 +199,7 @@ html {
     height: 100%;
 }
 
-/*                   GALERIA                              */ 
+/*                   PROJETOS                              */ 
 
 .gallery {
     padding: 3rem;
@@ -208,13 +212,138 @@ html {
 .gallery-images {
     display: grid;
     grid-template-columns: 0.33fr 0.33fr 0.33fr;
+    max-width: 100vh;
     height: 100vh;
     align-items: center;
     justify-content: space-between;
 }
 
 .gallery img {
-    max-width: 100vh;
+    max-width: 80%;
     height: auto;
     margin-top: -25rem;
+    border: 5px solid rgba(0, 0, 0, 0.377);
+    border-radius: 10%;
+    padding: 3rem;
 }
+
+/*                   FORMS                   */ 
+
+.contato {
+    padding: 3rem;
+}
+
+.contato-text-content h2 {
+    margin-bottom: 1rem;
+}
+
+.contato-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.contato-text-content {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap; 
+    line-height: 25px; 
+}
+
+.img-contato img {
+    max-width: 80%;
+    height: auto;
+}
+
+div .contato-form {
+    max-width: 80%;
+    height: auto;
+    grid-column: span 2;
+    margin: auto;
+}
+
+.fieldset {
+    border: 5px solid rgba(0, 0, 0, 0.568);
+    display: flex;
+    flex-flow:column;
+    padding: 0.5rem;
+    align-items: left;
+    max-width: 50%;
+    text-align: center;
+}
+
+.formulario label, .mensagem {
+    display: block;
+    text-align: center; 
+}
+
+.formulario input, 
+.formulario textarea {
+    border: none;
+    width: auto;
+    font-size: 2rem;
+    outline: none;
+}
+
+.formulario textarea {
+    align-items: center;
+    max-width: 40vh;
+    max-height: 100px;
+}
+
+legend {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.formulario button {
+    border-color: rgb(0, 0, 0);
+    background: none;
+    color: black;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.formulario button:hover {
+    background-color: whitesmoke;
+}
+
+
+/*                   FOOTER                   */ 
+.footer {
+    height: auto;
+}
+
+.footer-links {
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+/*                   FOOTER PROJETOS LP                   */ 
+
+.home-page {
+   text-align: center;
+   padding: 0.5rem;
+}
+
+.home-page img {
+    height: 6rem;
+    width: 6rem;
+    padding: 0.2rem;
+    border: 5px solid rgba(0, 0, 0, 0.315);
+    border-radius: 100%;
+}
+
+.projetos-landing-page {
+    text-align: center;
+}
+
+.projetos-landing-page img {
+    max-width: 50vh;
+    height: auto;
+}
+
