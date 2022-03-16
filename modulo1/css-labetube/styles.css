@@ -8,12 +8,13 @@
 #main-content {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100vh;
+    height: 100%;
+    width: 100vw;
 }
 
+
 header {
-    height: 7vh;
+    height: 10vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -31,7 +32,8 @@ input {
     height: 1.3rem;
     width: 10rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.5rem;
+    padding: 0.7rem;
 }
 
 button {
@@ -40,23 +42,21 @@ button {
     cursor: pointer;
 }
 
-#main-videos {
-    display: grid;
-    width: 100%;
-    height: 100%; 
-}
-
 .main-grid-videos {
-    background-color: white;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(18rem,1fr));
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(auto-fill, 1fr);
+    height: 80vh;
+    background-color: white;
     padding: 0.5rem; 
     margin-left: 8rem;
     margin-right: 8rem; 
 }
 
 .main-grid-videos div {
-    display: grid;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     box-shadow: 0px 0px 5px 0px black;
     margin: 0.5rem;
 }
@@ -73,6 +73,7 @@ button {
     padding: 0.5rem; 
     align-self: center;
     text-align: center;
+    width: 100%;
 }
 
 footer {
@@ -80,7 +81,7 @@ footer {
     justify-content: center;
     align-items: center;
     font-size: 1rem;
-    height: 7vh;
+    height: 10vh;
     background-color: orange;
 }
 
@@ -88,13 +89,63 @@ footer {
 
 .video-lp h5 {
     text-align: center;
-    padding-bottom: 5rem;
+    padding-bottom: 3rem;
 }
 
 .video-lp {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: minmax(15rem, 50rem);
-    width: minmax(20rem,60rem);
+    align-items: center; 
+    bottom: 0;
 }
+
+/*       MEDIA QUERIES       */
+
+@media screen and (min-device-width : 320px) and (max-device-width : 800px) {
+    input {
+        width: 6rem;
+    }
+    
+    .main-grid-videos{
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 0.5rem; 
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}
+    
+@media screen and (min-device-width : 801px) and (max-device-width : 1200px) {
+    input {
+        width: 8rem;
+    }
+    
+    .main-grid-videos{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(auto-fill, 1fr);
+        height: 100%;
+        padding: 0.5rem; 
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+}
+
+@media screen and (min-device-width : 1201px) {
+    input {
+        width: 12rem;
+    }
+   
+    .main-grid-videos{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(auto-fill, 1fr);
+        height: 80vh;
+        padding: 0.5rem; 
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+}
+    
