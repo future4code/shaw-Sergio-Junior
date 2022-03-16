@@ -88,8 +88,8 @@ footer {
 /* VIDEO LP */
 
 .videoDimensoes {
-    width:640px;
-    height:360px;
+    width:750px;
+    height:405px;
 }
 
 .videoLP {
@@ -102,24 +102,11 @@ footer {
     padding-bottom: 2rem;
 }
 
+h5 {
+    padding-bottom: 1rem;
+}
+
 /*       MEDIA QUERIES       */
-
-@media screen and (min-device-width : 320px) and (max-device-width : 500px) {
-    .videoDimensoes {
-        width: 300px;
-        height: 200px;
-    }
-
-}
-
-@media screen and (min-device-width : 501px) and (max-device-width : 800px) {
-    .videoDimensoes {
-        width: 480px;
-        height: 300px;
-    }
-
-}
-
 @media screen and (min-device-width : 320px) and (max-device-width : 800px) {
     input {
         width: 6rem;
@@ -133,6 +120,11 @@ footer {
         padding: 0.5rem; 
         margin-left: 1rem;
         margin-right: 1rem;
+    }
+
+    .videoDimensoes {
+        width: 90vw;
+        height: auto;
     }
 
     .videoLP {
