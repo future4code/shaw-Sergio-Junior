@@ -34,14 +34,14 @@ function CardPequeno(props) {
             <SmallCard>
                 <img src={props.imagem} /> 
                 <div>
-                    <h4>Email:</h4>
+                    <h4>📧 Email:</h4>
                     <p>{props.email}</p>
                 </div>
             </SmallCard>
             <SmallCard>
                 <img src={props.imagem} /> 
                 <div>
-                    <h4>Endereço:</h4>
+                    <h4>🏠 Endereço:</h4>
                     <p>{props.endereco}</p>
                 </div>
             </SmallCard>
