@@ -45,21 +45,38 @@ class Post extends React.Component {
     curtido: false,
     numeroCurtidas: 0,
     comentando: false,
-    numeroComentarios: 0
+    numeroComentarios: 0,
+    pessoas: [
+      {
+        nome: 'Paulinha',
+        fotoPerfil: 'https://picsum.photos/50/50?random=3',
+        fotoPost:'https://picsum.photos/200/150' 
+      },
+      {
+        nome: 'Sérgio',
+        fotoPerfil: 'https://picsum.photos/50/50?random=2',
+        fotoPost:'https://picsum.photos/200/150?random=2' 
+      },
+      {
+        nome: 'Wesley',
+        fotoPerfil: 'https://picsum.photos/50/50?random=1',
+        fotoPost: 'https://picsum.photos/200/150?random=1'
+      }
+    ]
   }
 
   onClickCurtida = () => {
     this.setState({
       curtido: true,
-      numeroCurtidas: this.state.numeroCurtidas +1 
+      numeroCurtidas: this.state.numeroCurtidas + 1
     })
 
     if (this.state.curtido === true) {
       this.setState({
         curtido: false,
-        numeroCurtidas: this.state.numeroCurtidas -1
-      }) 
-    } 
+        numeroCurtidas: this.state.numeroCurtidas - 1
+      })
+    }
   }
 
   onClickComentario = () => {
