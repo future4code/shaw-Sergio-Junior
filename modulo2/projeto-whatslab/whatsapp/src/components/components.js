@@ -1,62 +1,58 @@
 import React from 'react'
 import styled from 'styled-components'
+import PostMensagem from './PostMensagem'
+import { Titulo } from './EstilizacaoBalao'
 
-const MainContent = styled.div`
-    display: flex;
-    justify-content:space-evenly;
-    text-align: center;
-    align-items:center;
-    
-    button{
-        border: none;
-        height: 2rem;
-        background-color:white;
-        width: 5rem;
+const InputUm = styled.input`
+width: 10%;
+height: 1.5rem;
+@media(max-width: 620px) {
+    width: 30%;
+    }
+`
+const InputDois = styled.input`
+width: 40%;
+min-height: 1.5rem;
+@media(max-width: 620px) {
+    width: 60%;
+    }
+`
+const Botao = styled.button`
+height: 1.5rem;
+border-radius: 15px;
+&:hover {
+    cursor: pointer; 
+    background-color:darkgreen;
+    color: white;
+    opacity: 0.8;
+}
+`
+
+const InputsBotao = styled.div`
+display:flex; 
+align-items: center;
+justify-content: center; 
+padding: 3rem;
+
+    input { 
         border-radius: 15px;
-        cursor:pointer; 
-        margin-right: 13rem;
-        &:hover { 
-            color:white; 
-            background-color:darkgreen;
-            opacity: 0.7;
-        }
-    }
-
-    input{
-        width: 40%;
-        height: 2rem;
+        padding-left:1rem;
         border: none;
-        padding-left: 1rem;
-        border-radius: 20px;
-        text-align: start; 
+        margin: 1rem;  
         font-weight: 600;
-        margin-left: 5rem
     }
+
+    @media(max-width: 620px) {
+    flex-direction: column;
+  }
 `
 
-const ChangedInput = styled.div`
-    margin-right: -8rem
+const MainContainer = styled.div`
+display:flex;
+justify-content: space-between;
+flex-direction: column;
+min-height:100vh;
 `
-
-const MensagemFinal = styled.div`
-    display:flex;
-    align-self: flex-start;
-    align-items:center;
-    border: none;
-    border-radius: 20px;
-    margin: 1rem;
-    background-color:white;
-    text-align: center;
-    max-width: 60%;
-    min-width: 8%;
-    margin-bottom: 1.5rem;
-
-    h4 {
-        margin-right: 1rem;
-        margin-left: 1rem;
-    }
-`
-
 
 
 class Mensagem extends React.Component {
@@ -89,40 +85,37 @@ class Mensagem extends React.Component {
         this.setState({ valorInputConteudo: event.target.value });
     }
 
-    //  dentro do render fazer o map da array de objs 
-
     render() {
 
-        const listaConteudo = this.state.conteudo.map((content) => {
-            return <MensagemFinal>
-                    <h4>{content.nome} :</h4>
-                    <p>{content.conteudo}</p>
-            </MensagemFinal>
+        const listaConteudo = this.state.conteudo.map((pessoa) => {
+            return <PostMensagem
+                nome={pessoa.nome}
+                conteudo={pessoa.conteudo}
+            />
+
         })
 
         return (
 
-            <div>
+            <MainContainer>
+                <Titulo><h3>WhatsLab</h3></Titulo>
                 <div>
                     {listaConteudo}
-                </div>
-
-                <MainContent>
-                    <ChangedInput>
-                        <input
+                    <InputsBotao>
+                        <InputUm
                             value={this.state.valorInputUsuario}
                             onChange={this.onChangeInputUsuario}
                             placeholder={"Nome"}
                         />
-                    </ChangedInput>
-                    <input
-                        value={this.state.valorInputConteudo}
-                        onChange={this.onChangeInputConteudo}
-                        placeholder={"Mensagem"}
-                    />
-                    <button onClick={this.adicionaConteudo}>Enviar</button>
-                </MainContent>
-            </div>
+                        <InputDois
+                            value={this.state.valorInputConteudo}
+                            onChange={this.onChangeInputConteudo}
+                            placeholder={"Mensagem"}
+                        />
+                        <Botao onClick={this.adicionaConteudo}>Enviar</Botao>
+                    </InputsBotao>
+                </div>
+            </MainContainer>
         )
     }
 }
