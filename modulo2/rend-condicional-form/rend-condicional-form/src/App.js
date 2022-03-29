@@ -48,15 +48,13 @@ class App extends React.Component {
 
   render() {
 
-
-
     return (
       <MainContainer>
         {this.renderizaEtapa()}
         <br />
-        {this.state.etapa <=3 && 
-        <button id='x' onClick={this.proximaEtapa}>Próxima etapa</button>
-      }
+        {this.state.etapa <= 3 &&  /* se a primeira está true, executa a segunda. Se a segunda true, então executa a próxima */
+          <button onClick={this.proximaEtapa}>Próxima etapa</button>
+        }
       </MainContainer>
     );
   }
