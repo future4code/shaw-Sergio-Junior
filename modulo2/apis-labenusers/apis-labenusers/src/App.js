@@ -1,23 +1,36 @@
 import React from 'react'
-import axios from 'axios'
 import SegundaTela from './components/segundaTela'
 import PrimeiraTela from './components/primeiraTela'
-
+import styled from 'styled-components'
 
 export const headers = {
-
   headers: {
     Authorization: "Sergio-Dias-shaw"
   }
 }
 
+const MainContainerButton = styled.div`
+display: flex;
+justify-content:center;
+text-align: center;
+align-items: center;
+padding: 2rem;
+button{
+box-shadow: 0 2px 5px 1px ;
+width: 25%;
+padding: 5px;
+margin: 0 1px 0 1px; 
+border: none;
+border-radius: 15px;
+opacity: 0.8;
+&:hover { 
+  opacity: 1;} 
+}
+`
+
 class App extends React.Component {
 
   state = {
-    user: [],
-    valorInputNome: "",
-    valorInputEmail: "",
-    filtrarNome: "",
     etapa: 1
   }
 
@@ -40,10 +53,11 @@ class App extends React.Component {
   };
 
   render() {
-
     return (
       <div>
-        <button onClick={this.onClickScreen}>Trocar de tela</button>
+        <MainContainerButton>
+          <button onClick={this.onClickScreen}>Trocar de tela</button>
+        </MainContainerButton>
         {this.renderizarEtapa()}
       </div >
     );
