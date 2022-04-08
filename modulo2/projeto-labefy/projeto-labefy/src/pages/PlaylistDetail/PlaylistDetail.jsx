@@ -1,7 +1,75 @@
 import React from "react";
 import axios from "axios";
 import { headers } from "../Playlists/Playlist";
+import styled from "styled-components"
+import dark2 from "../../dark2.jpg"
 
+const ContainerDetalhes = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100vw;
+    justify-content: space-evenly;
+    align-items: center;
+    background-image: url(${dark2});
+    background-size: cover;
+    color: white;
+`
+const ContainerNewTrack = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+
+p {
+font-family: cursive;
+background-color: #00000092;
+border-radius: 15px;
+opacity: 0.9;
+}
+
+input{
+    margin: 0.2rem;
+    border:none;
+    height: 2rem;
+    border-radius: 15px;
+    text-align:center;
+}
+
+button { 
+    margin: 0.2rem;
+    border: none;
+    width: 30%;
+    padding: 0.5rem;
+    border-radius: 15px;
+    opacity: 0.7; 
+    &:hover{
+        opacity:1;
+        cursor: grab
+    }
+}
+`
+
+const SongsContainer = styled.div`
+    display:flex;
+    justify-content: space-evenly;
+    text-align: center;
+    font-family: cursive;
+    font-weight: 500; 
+    audio{
+        width: 15vw;
+        margin: 0.1rem 1rem;
+    }
+`
+
+const BotaoApagar = styled.button`
+    font-size: 1.5rem;
+    border:none;
+    background-color: inherit;
+    &:hover{
+        cursor: pointer;
+    }
+`
 
 export default class PlaylistDetail extends React.Component {
 
@@ -12,11 +80,9 @@ export default class PlaylistDetail extends React.Component {
         inputUrl: "",
 
     }
-
     componentDidMount() {
         this.getPlaylistTracks()
     }
-
     getPlaylistTracks = () => {
         axios
             .get(`https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${this.props.idPlaylist}/tracks`, headers)
@@ -27,7 +93,6 @@ export default class PlaylistDetail extends React.Component {
                 console.log(err.response)
             })
     }
-
     addPlaylistTracks = (idPlaylist) => {
         const body = {
             name: this.state.inputName,
@@ -48,7 +113,6 @@ export default class PlaylistDetail extends React.Component {
                 console.log(err.response)
             })
     }
-
     onChangeInputName = (e) => {
         this.setState({ inputName: e.target.value })
     }
@@ -58,39 +122,55 @@ export default class PlaylistDetail extends React.Component {
     onChangeInputUrl = (e) => {
         this.setState({ inputUrl: e.target.value })
     }
-
+    deleteTrack = (idPlaylist) => {
+        axios
+            .delete(`https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${this.props.idPlaylist}/tracks/${idPlaylist}`, headers)
+            .then((res) => {
+                this.getPlaylistTracks()
+            })
+            .catch((err) => {
+                console.log(err.response)
+            })
+    }
 
     render() {
-
         const songs = this.state.songs.map((song) => {
-            return <li key={song.id}> {song.name} </li>
+            return (
+                <SongsContainer key={song.id}>
+                    <p>{song.name}</p>
+                    <audio controls="controls">
+                        <source src={song.url} type="audio/mp3" />
+                    </audio>
+                    <BotaoApagar onClick={() => this.deleteTrack(song.id)}>🙅</BotaoApagar>
+                </SongsContainer>
+            )
         })
-        
         return (
-            <div>
+            <ContainerDetalhes>
                 <div>
                     {songs}
                 </div>
-                <div>
-                    <h4>Adicionar novas músicas:</h4>
+                {/* inputs */}
+                <ContainerNewTrack>
+                    <p>Adicionar novas músicas:</p>
                     <input
                         placeholder="Música"
                         value={this.state.inputName}
                         onChange={this.onChangeInputName}
-                    /> <br /> <br />
+                    />
                     <input
                         placeholder="Artista"
                         value={this.state.inputArtist}
                         onChange={this.onChangeInputArtist}
-                    /> <br /> <br />
+                    />
                     <input
                         placeholder="Url"
                         value={this.state.inputUrl}
                         onChange={this.onChangeInputUrl}
-                    /> <br /> <br />
+                    />
                     <button onClick={() => this.addPlaylistTracks(this.props.idPlaylist)}>Adicionar</button>
-                </div>
-            </div>
+                </ContainerNewTrack>
+            </ContainerDetalhes>
         )
     }
 }

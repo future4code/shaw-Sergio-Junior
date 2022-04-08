@@ -1,5 +1,21 @@
 import React from "react";
 import axios from "axios";
+import styled from "styled-components"
+
+const ContainerPlaylist = styled.div`
+    display: flex; 
+    flex-direction: column;
+    text-align: center;
+    align-items:center; 
+`
+const BotaoApagar = styled.button`
+    font-size: 1.5rem;
+    border:none;
+    background-color: inherit;
+    &:hover{
+        cursor: pointer;
+    }
+`
 
 
 export const headers = {
@@ -7,17 +23,13 @@ export const headers = {
         Authorization: "Sergio-Dias-Shaw"
     }
 }
-
 export default class Playlist extends React.Component {
-
     state = {
         playlist: []
     }
-
     componentDidMount() {
         this.getAllPlaylists()
     }
-
     getAllPlaylists = () => {
         const url = "https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists"
         axios
@@ -30,7 +42,6 @@ export default class Playlist extends React.Component {
             })
 
     }
-
     deletePlaylist = (idPlaylist) => {
         axios
             .delete(`https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${idPlaylist}`, headers)
@@ -46,21 +57,21 @@ export default class Playlist extends React.Component {
         const playlistList = this.state.playlist.map((list) => {
             return (
                 <div>
-                    <li
+                    <p
                         key={list.id}
                         onClick={() => this.props.paginaDetalhes(list.id)}
                     >
                         {list.name}
-                        <button onClick={() => this.deletePlaylist(list.id)}>Apagar playlist</button>
-                    </li>
+                        <BotaoApagar onClick={() => this.deletePlaylist(list.id)}>🙅</BotaoApagar>
+                    </p>
                 </div>
             )
         })
         return (
-            <div>
+            <ContainerPlaylist>
                 <h1>Playlists</h1>
                 <h2>{playlistList}</h2>
-            </div>
+            </ContainerPlaylist>
         )
     }
 }
