@@ -10,7 +10,7 @@ export default class PlaylistDetail extends React.Component {
         inputName: "",
         inputArtist: "",
         inputUrl: "",
-
+        playlist: "",
     }
     componentDidMount() {
         this.getPlaylistTracks()
@@ -65,6 +65,8 @@ export default class PlaylistDetail extends React.Component {
             })
     }
 
+
+
     render() {
         const songs = this.state.songs.map((song) => {
             return (
@@ -80,6 +82,9 @@ export default class PlaylistDetail extends React.Component {
         return (
             <ContainerDetalhes>
                 <div>
+                    <SongsContainer>
+                        {this.props.playlistName}
+                    </SongsContainer>
                     {songs}
                 </div>
                 {/* inputs */}

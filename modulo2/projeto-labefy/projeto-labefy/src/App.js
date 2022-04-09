@@ -5,22 +5,24 @@ import NewPlaylist from "./pages/Playlists/NewPlaylist";
 import { MainContainer, ContainerBotoes, ContainerDois } from "./styles";
 
 export default class App extends React.Component {
-    state = {
+  state = {
     currentScreen: "Playlists",
-    clickedPlaylist: ""
+    clickedPlaylist: "",
+    playlistName: ""
   }
+
   screenSelector = (screenValue) => {
     this.setState({ currentScreen: screenValue })
   }
-  paginaDetalhes = (listId) => {
-    this.setState({ currentScreen: "Detail", clickedPlaylist: listId })
+  paginaDetalhes = (listId, listName) => {
+    this.setState({ currentScreen: "Detail", clickedPlaylist: listId, playlistName: listName })
   }
   selectScreen = () => {
     switch (this.state.currentScreen) {
       case "Playlist":
         return <Playlist paginaDetalhes={this.paginaDetalhes} />
       case "Detail":
-        return <PlaylistDetail idPlaylist={this.state.clickedPlaylist} />
+        return <PlaylistDetail idPlaylist={this.state.clickedPlaylist} playlistName={this.state.playlistName} />
       case "New":
         return <NewPlaylist />
       default:
