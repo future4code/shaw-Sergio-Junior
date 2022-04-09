@@ -1,21 +1,6 @@
 import React from "react";
 import axios from "axios";
-import styled from "styled-components"
-
-const ContainerPlaylist = styled.div`
-    display: flex; 
-    flex-direction: column;
-    text-align: center;
-    align-items:center; 
-`
-const BotaoApagar = styled.button`
-    font-size: 1.5rem;
-    border:none;
-    background-color: inherit;
-    &:hover{
-        cursor: pointer;
-    }
-`
+import { ContainerPlaylist, PlaylistP, BotaoApagar, DivBotaoApagar } from "./styles";
 
 
 export const headers = {
@@ -56,15 +41,12 @@ export default class Playlist extends React.Component {
     render() {
         const playlistList = this.state.playlist.map((list) => {
             return (
-                <div>
-                    <p
-                        key={list.id}
-                        onClick={() => this.props.paginaDetalhes(list.id)}
-                    >
+                <DivBotaoApagar>
+                    <PlaylistP key={list.id} onClick={() => this.props.paginaDetalhes(list.id)}>
                         {list.name}
-                        <BotaoApagar onClick={() => this.deletePlaylist(list.id)}>🙅</BotaoApagar>
-                    </p>
-                </div>
+                    </PlaylistP>
+                    <BotaoApagar onClick={() => this.deletePlaylist(list.id)}>🙅</BotaoApagar>
+                </DivBotaoApagar>
             )
         })
         return (
