@@ -13,21 +13,24 @@ root.render(
 
 export const Header = styled.div`
 display: flex;
+text-align: center;
 justify-content: space-evenly;
 align-items: center;
 border-bottom: 2px solid #63636318;
 .buttonsHeader{
   height: 30px;
   width: 30px;
+  margin-left: 2rem;
   border: none;
   background-color: white;
   font-size: 20px;
-  margin-right: -4rem;
+  margin-right: 0;
   &:hover{
     cursor: pointer;
   }
 }
 h1 {
+    margin-left: 5rem;
    color: purple;
   span{ 
     color: darkcyan;
@@ -35,8 +38,9 @@ h1 {
 }
 `
 export const Footer = styled.footer`
+margin-top: -2rem;
 display: flex;
-justify-content: flex-end;
+justify-content: center;
 button{ 
   padding: 0.1rem 0.3rem;
   margin-right: 0.3rem;
@@ -58,7 +62,7 @@ export const Body = styled.div`
     background-color: lightgray;
     display: flex; 
     flex-direction: column;
-    width: 100vw;
+    min-width: 100%;
     min-height: 100vh;
   `
 
