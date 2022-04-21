@@ -4,6 +4,7 @@ import { Main } from "./index"
 export default function Matches(props) {
 
     useEffect(() => {
+        
     }, [props.matches])
 
     const matches = props.matches.map((match) => {

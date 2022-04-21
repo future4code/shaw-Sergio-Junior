@@ -26,7 +26,8 @@ font-size: 30px;
 margin: 1rem 2rem;
 &:hover{
   color: white; 
-  background-color: red
+  background-color: red;
+  cursor: pointer;
 }
 `
 
@@ -41,6 +42,7 @@ font-size: 30px;
 margin: 1rem 2rem;
 &:hover{
   color: white; 
-  background-color: green
+  background-color: green;
+  cursor: pointer;
 }
 `

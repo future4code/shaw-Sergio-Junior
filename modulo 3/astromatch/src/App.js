@@ -33,6 +33,7 @@ function App() {
       .put("https://us-central1-missao-newton.cloudfunctions.net/astroMatch/sergio/clear")
       .then(res => {
         alert("Matches are emprty")
+        setMatches([])
       })
       .catch(err => {
         console.log(err.response);
