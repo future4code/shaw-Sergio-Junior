@@ -3,7 +3,7 @@ import axios from "axios";
 import "./styles.css";
 import Profiles from './components/Profile/Profiles';
 import Matches from "./components/Matches/Matches";
-import { Header, Footer, MainContainerApp, Body } from "./index" 
+import { Header, Footer, MainContainerApp, Body } from "./css" 
 
 function App() {
 
