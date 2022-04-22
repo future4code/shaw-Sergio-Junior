@@ -34,6 +34,7 @@ function App() {
       .then(res => {
         alert("Matches are emprty")
         setMatches([])
+        setIsMatch("")
       })
       .catch(err => {
         console.log(err.response);
@@ -83,7 +84,7 @@ function App() {
           </div>
         </Header>
         <div>
-          {profile ? selectPage() : putClear()}
+          {profile && selectPage()}
         </div>
       </MainContainerApp>
       <Footer>
