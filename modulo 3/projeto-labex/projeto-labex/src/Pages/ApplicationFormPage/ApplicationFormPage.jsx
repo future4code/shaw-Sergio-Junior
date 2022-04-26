@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import React from "react";
+import { useNavigate } from "react-router-dom"; 
 
 const FlexContainer = styled.div`
     display: flex;
@@ -16,6 +18,12 @@ const FlexContainer = styled.div`
     }
     `
 export default function ApplicationFormPage() {
+    const navigate = useNavigate()
+
+    const goBackPage = () => {
+        navigate(-1)
+    }
+
     return (
         <FlexContainer>
             <h4>
@@ -36,7 +44,7 @@ export default function ApplicationFormPage() {
                 <option value="Argentina">Argentina</option>
             </select>
             <div>
-                <button>Voltar</button>
+                <button onClick={goBackPage}>Voltar</button>
                 <button>Enviar</button>
             </div>
         </FlexContainer>
