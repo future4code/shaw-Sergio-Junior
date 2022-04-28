@@ -1,12 +1,34 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
 
-export default function ListTripsPage() {
+export default function ListTripsPage(props) {
     const navigate = useNavigate()
 
     const goBackPage = () => {
         navigate(-1)
     }
+
+    useEffect(() => {
+        props.getTripsList()
+    }, [props.tripList])
+    
+    console.log(props.tripList)
+
+    const tripListMap = props.tripList.map((trip) => {
+        return (
+            <div key={trip.id}>
+                <p><strong>Nome:</strong> {trip.name}</p>
+                <p><strong>Descrição:</strong> {trip.description}</p>
+                <p><strong>Planeta:</strong> {trip.planet}</p>
+                <p><strong>Duração:</strong> {trip.durationInDays} Dias</p>
+                <p><strong>Data:</strong> {trip.date}</p>
+                <br />
+                <br />
+            </div>
+        )
+    })
 
     const goToApplicationFormPage = () => {
         navigate("/trips/application")
@@ -18,7 +40,8 @@ export default function ListTripsPage() {
             <h1>
                 Lista de Viagens
             </h1>
-            <p>lista de viagens</p>
+            <br />
+            {tripListMap}
         </div>
     )
 }

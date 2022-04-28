@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react';
+import { UseProtectedPage } from "../../Hooks/UseProtectedPage";
+
 
 const FlexContainer = styled.div`
     display: flex;
@@ -17,8 +20,11 @@ const FlexContainer = styled.div`
         padding: 0.2rem;
     }
     `
+
 export default function CreateTripPage() {
     const navigate = useNavigate()
+
+    UseProtectedPage() 
 
     const goBackPage = () => {
         navigate(-1)
