@@ -24,6 +24,8 @@ export default function LoginPage() {
     //-- NAVIGATE --// 
     const navigate = useNavigate()
 
+    const token = localStorage.getItem("token")
+
     //-- BOTÃO VOLTAR --//
     const goBackPage = () => {
         navigate(-1)
@@ -59,9 +61,10 @@ export default function LoginPage() {
                 setPassword("")
             })
     }
-    
+
     return (
         <DivContainerMain>
+
             <h1>
                 Login
             </h1>
@@ -69,6 +72,7 @@ export default function LoginPage() {
             <input placeholder="Digite sua senha" type="password" value={password} onChange={onChangePassword} />
             <button onClick={goBackPage}>Voltar</button>
             <button onClick={() => onSubmitLogin()}>Entrar</button>
+
         </DivContainerMain>
     )
 }

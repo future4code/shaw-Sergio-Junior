@@ -29,13 +29,28 @@ export default function AdminHomePage(props) {
         navigate(`/admin/trips/${tripId}`)
     }
 
-    // -- funcao apagar trip 
+    const onClickDeleteTrip = (tripId) => {
+        const token = localStorage.getItem("token")
+        const header = {
+            headers: {
+                auth: token
+            }
+        }
+        axios
+            .delete(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/trips/${tripId}`, header)
+            .then((res)=>{
+                alert("trip deleted")
+            })
+            .catch((err)=>{
+                console.log(err.response);
+            })
+    }
 
     const tripsList = props.tripList.map((tripName) => {
         return (
             <div key={tripName.id}>
                 <p onClick={() => getTripId(tripName.id)}>{tripName.name}</p>
-                <button>X</button>
+                <button onClick={()=>onClickDeleteTrip(tripName.id)}>X</button>
             </div>
         )
     })

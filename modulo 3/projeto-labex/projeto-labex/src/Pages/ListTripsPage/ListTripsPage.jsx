@@ -13,8 +13,6 @@ export default function ListTripsPage(props) {
     useEffect(() => {
         props.getTripsList()
     }, [props.tripList])
-    
-    console.log(props.tripList)
 
     const tripListMap = props.tripList.map((trip) => {
         return (

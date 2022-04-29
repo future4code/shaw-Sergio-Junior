@@ -28,19 +28,20 @@ export default function TripDetailsPage(props) {
     UseProtectedPage()
     useEffect(() => {
         getTripDetail(props.tripId)
-    }, [])
+    }, [candidates])
     const goBackPage = () => {
         navigate(-1)
     }
 
+    const token = localStorage.getItem("token")
+    const headers = {
+        headers: {
+            auth: token
+        }
+    }
 
     const getTripDetail = (tripId) => {
-        const token = localStorage.getItem("token")
-        const headers = {
-            headers: {
-                auth: token
-            }
-        }
+
         axios
             .get(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/trip/${tripId}`, headers)
             .then((res) => {
@@ -53,6 +54,19 @@ export default function TripDetailsPage(props) {
             })
     }
 
+    const decideCandidate = (tripId, candidateId, boolean) => {
+        const body = {
+            "approve": boolean
+        }
+        axios 
+        .put(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/trips/${tripId}/candidates/${candidateId}/decide`, body, headers)
+        .then((res)=>{
+            console.log(res.data)
+        })
+        .catch((err)=>{
+            console.log(err.response);
+        })
+    }
 
 
     const approved = approvedCandidates.map((candidate) => {
@@ -62,6 +76,7 @@ export default function TripDetailsPage(props) {
     })
 
     const candidatos = candidates.map((candidate) => {
+        console.log(candidate)
         return (
             <div>
                 <div>
@@ -71,8 +86,8 @@ export default function TripDetailsPage(props) {
                     <p><strong>País: {candidate.country}</strong></p>
                     <p><strong>Texto da candidatura: {candidate.applicationText}</strong></p>
                 </div>
-                <button>Aprovar</button>
-                <button>Reprovar</button>
+                <button onClick={()=>decideCandidate(props.tripId, candidate.id, true )}>Aprovar</button>
+                <button onClick={()=>decideCandidate(props.tripId, candidate.id, false)}>Reprovar</button>
             </div>
 
         )
