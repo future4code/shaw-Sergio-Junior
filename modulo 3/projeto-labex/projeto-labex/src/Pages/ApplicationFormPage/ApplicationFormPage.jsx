@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import dataJson from '../../json/paises-array.json'
+import { goBackPage } from '../../Routes/Coordinator'
 
 const FlexContainer = styled.div`
     display: flex;
@@ -21,6 +22,9 @@ const FlexContainer = styled.div`
     }
     `
 export default function ApplicationFormPage(props) {
+    const navigate = useNavigate()
+
+    //-- STATE --//
     const [name, setName] = useState("")
     const [age, setAge] = useState("")
     const [applicationText, setApplicationText] = useState("")
@@ -28,21 +32,19 @@ export default function ApplicationFormPage(props) {
     const [country, setCountry] = useState("")
     const [idTrip, setIdTrip] = useState("")
 
+    //-- DID MOUNT - DID UPDATE --//
     useEffect(() => {
         props.getTripsList()
     }, [props.tripList])
 
-    const navigate = useNavigate()
-    const goBackPage = () => {
-        navigate(-1)
-    }
-
+    //-- MAP PARA RENDERIZAR NO SELECT DE VIAGENS --//
     const tripsNames = props.tripList.map((tripName) => {
         return (
             <option key={tripName.id} value={tripName.id}> {tripName.name} </option >
         )
     })
 
+    //-- OBS REALIZAR O FORM AQUI --//
     const onChangeName = (ev) => {
         setName(ev.target.value)
     }
@@ -62,6 +64,7 @@ export default function ApplicationFormPage(props) {
         setIdTrip(ev.target.value)
     }
 
+    //-- AXIOS DE APLICAR PARA VIAGEM --//
     const applyToTrip = (tripId) => {
         const body = {
             name: name,
@@ -137,7 +140,7 @@ export default function ApplicationFormPage(props) {
                 {paises}
             </select>
             <div>
-                <button onClick={goBackPage}>Voltar</button>
+                <button onClick={() => goBackPage(navigate)}>Voltar</button>
                 <button onClick={() => applyToTrip(idTrip)}>Enviar</button>
             </div>
         </FlexContainer>

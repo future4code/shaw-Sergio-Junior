@@ -1,15 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import axios from "axios";
+import { goBackPage, goToApplicationFormPage } from '../../Routes/Coordinator'
 
 export default function ListTripsPage(props) {
     const navigate = useNavigate()
 
-    const goBackPage = () => {
-        navigate(-1)
-    }
-
+    //-- DID MOUNT E DID UPDATE --//
     useEffect(() => {
         props.getTripsList()
     }, [props.tripList])
@@ -28,13 +25,11 @@ export default function ListTripsPage(props) {
         )
     })
 
-    const goToApplicationFormPage = () => {
-        navigate("/trips/application")
-    }
+
     return (
         <div>
-            <button onClick={goBackPage}>Voltar</button>
-            <button onClick={goToApplicationFormPage}>Inscrever-se</button>
+            <button onClick={() => goBackPage(navigate)}>Voltar</button>
+            <button onClick={() => goToApplicationFormPage(navigate)}>Inscrever-se</button>
             <h1>
                 Lista de Viagens
             </h1>

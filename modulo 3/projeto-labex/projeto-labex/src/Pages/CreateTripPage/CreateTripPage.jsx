@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 import { UseProtectedPage } from "../../Hooks/UseProtectedPage";
 import axios from 'axios';
+import { goBackPage } from "../../Routes/Coordinator"
+import { token, header } from '../../Constants/constants'
 
 
 const FlexContainer = styled.div`
@@ -22,16 +24,21 @@ const FlexContainer = styled.div`
     `
 
 export default function CreateTripPage() {
+    const navigate = useNavigate()
+    UseProtectedPage()
+
+    //-- STATE --//
     const [name, setName] = useState("")
     const [planet, setPlanet] = useState("")
     const [date, setDate] = useState("")
     const [description, setDescription] = useState("")
     const [durationInDays, setDurationInDays] = useState(0)
 
+    //-- CONVERSAO DA DATA PARA FORMATO BR --//
     const convertedDate = new Date(date)
     const dateInBr = convertedDate.getDate() + "/" + (convertedDate.getMonth() + 1) + "/" + convertedDate.getFullYear()
 
-
+    //-- FAZER O FORM --//
     const onChangeName = (ev) => {
         setName(ev.target.value)
     }
@@ -48,21 +55,8 @@ export default function CreateTripPage() {
         setDurationInDays(ev.target.value)
     }
 
-    const navigate = useNavigate()
-    const goBackPage = () => {
-        navigate(-1)
-    }
-    UseProtectedPage()
-
-
-
+    //--  --//
     const createTrip = () => {
-        const token = localStorage.getItem("token")
-        const header = {
-            headers: {
-                auth: token
-            }
-        }
         const body = {
             name: name,
             planet: planet,
@@ -128,7 +122,7 @@ export default function CreateTripPage() {
                 onChange={onChangeDurationInDays}
             />
             <div>
-                <button onClick={goBackPage}>Voltar</button>
+                <button onClick={() => goBackPage(navigate)}>Voltar</button>
                 <button onClick={createTrip}>Enviar</button>
             </div>
         </FlexContainer>

@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react'
 import axios from "axios";
+import { goBackPage, setTokenAndGoToAdminHome } from '../../Routes/Coordinator'
 
 const DivContainerMain = styled.div`
         display: flex;
@@ -17,43 +18,32 @@ const DivContainerMain = styled.div`
 `
 
 export default function LoginPage() {
+    const navigate = useNavigate()
+
     //-- STATES --//
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-    //-- NAVIGATE --// 
-    const navigate = useNavigate()
-
-    const token = localStorage.getItem("token")
-
-    //-- BOTÃO VOLTAR --//
-    const goBackPage = () => {
-        navigate(-1)
-    }
-
+    //-- OBS FAZER O FORM --//
     const onChangeEmail = (ev) => {
         setEmail(ev.target.value)
     }
-
     const onChangePassword = (ev) => {
         setPassword(ev.target.value)
     }
 
-    //-- BOTÃO ENTRAR --//
+    //-- BOTÃO ENTRAR E SETAR TOKEN DO USUARIO --//
     const onSubmitLogin = () => {
-        //-- Body será necessário para o nosso axios, composto pela email e password que o usuário inserir --//
         const body = {
             email: email,
             password: password,
         }
         axios
-            //-- Aqui usaremos o nosso body --/
             .post(
                 "https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/login", body
             )
             .then((res) => {
-                localStorage.setItem("token", res.data.token)
-                navigate("/admin/trips/list")
+                setTokenAndGoToAdminHome(res, navigate)
             })
             .catch((err) => {
                 alert(err.response.data.message)
@@ -70,7 +60,7 @@ export default function LoginPage() {
             </h1>
             <input placeholder="Digite seu email" type="email" value={email} onChange={onChangeEmail} />
             <input placeholder="Digite sua senha" type="password" value={password} onChange={onChangePassword} />
-            <button onClick={goBackPage}>Voltar</button>
+            <button onClick={() => goBackPage(navigate)}>Voltar</button>
             <button onClick={() => onSubmitLogin()}>Entrar</button>
 
         </DivContainerMain>

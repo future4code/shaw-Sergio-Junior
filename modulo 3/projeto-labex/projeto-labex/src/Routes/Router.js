@@ -13,8 +13,6 @@ export const Router = (props) => {
     const [tripId, setTripId] = useState("")
     const [tripList, setTripList] = useState([])
 
-
-
     const getTripsList = () => {
         axios
             .get("https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/trips")
@@ -31,13 +29,12 @@ export const Router = (props) => {
         <BrowserRouter>
             <Routes>
                 <Route index element={<HomePage />} />
-                <Route path="/trips/list"
-                    element={
-                        <ListTripsPage
-                            getTripsList={getTripsList}
-                            tripList={tripList}
-                            setTripList={setTripList}
-                        />}
+                <Route path="/trips/list" element={
+                    <ListTripsPage
+                        getTripsList={getTripsList}
+                        tripList={tripList}
+                        setTripList={setTripList}
+                    />}
                 />
                 <Route path="/trips/application" element={
                     <ApplicationFormPage

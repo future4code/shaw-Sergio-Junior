@@ -4,7 +4,8 @@ import styled from "styled-components"
 import { useState, useEffect } from 'react'
 import axios from "axios";
 import { UseProtectedPage } from "../../Hooks/UseProtectedPage";
-
+import { goBackPage } from "../../Routes/Coordinator"
+import { header } from "../../Constants/constants"
 
 
 const DivContainerMain = styled.div`
@@ -21,29 +22,23 @@ const DivContainerMain = styled.div`
 
 export default function TripDetailsPage(props) {
     const navigate = useNavigate()
+    UseProtectedPage()
+
+
+    //-- STATE --//
     const [tripDetails, setTripDetails] = useState({})
     const [candidates, setCandidates] = useState([])
     const [approvedCandidates, setApprovedCandidates] = useState([])
 
-    UseProtectedPage()
+    //-- DID MOUNT AND UPDATE --//
     useEffect(() => {
         getTripDetail(props.tripId)
     }, [candidates])
-    const goBackPage = () => {
-        navigate(-1)
-    }
 
-    const token = localStorage.getItem("token")
-    const headers = {
-        headers: {
-            auth: token
-        }
-    }
-
+    //-- AXIOS PARA PEGAR DETALHES E SETAR NO STATE  --//
     const getTripDetail = (tripId) => {
-
         axios
-            .get(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/trip/${tripId}`, headers)
+            .get(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/trip/${tripId}`, header)
             .then((res) => {
                 setTripDetails(res.data.trip)
                 setCandidates(res.data.trip.candidates)
@@ -54,31 +49,32 @@ export default function TripDetailsPage(props) {
             })
     }
 
+    //-- AXIOS PARA APROVAR OU REPROVAR CANDIDATOS A VIAGENS --//
     const decideCandidate = (tripId, candidateId, boolean) => {
         const body = {
             "approve": boolean
         }
-        axios 
-        .put(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/trips/${tripId}/candidates/${candidateId}/decide`, body, headers)
-        .then((res)=>{
-            console.log(res.data)
-        })
-        .catch((err)=>{
-            console.log(err.response);
-        })
+        axios
+            .put(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/trips/${tripId}/candidates/${candidateId}/decide`, body, header)
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((err) => {
+                console.log(err.response);
+            })
     }
 
-
+    //-- MAP DA ARRAY DE CANDIDATOS APROVADOS (SOMENTE NOME) --//
     const approved = approvedCandidates.map((candidate) => {
         return (
-            <li>{candidate.name}</li>
+            <li key={candidate.id}>{candidate.name}</li>
         )
     })
 
+    //-- MAP DO ARRAY DE CANDIDATOS PENDENTES --//
     const candidatos = candidates.map((candidate) => {
-        console.log(candidate)
         return (
-            <div>
+            <div key={candidate.id}>
                 <div>
                     <p><strong>Nome: {candidate.name}</strong></p>
                     <p><strong>Profissão: {candidate.profession}</strong></p>
@@ -86,8 +82,8 @@ export default function TripDetailsPage(props) {
                     <p><strong>País: {candidate.country}</strong></p>
                     <p><strong>Texto da candidatura: {candidate.applicationText}</strong></p>
                 </div>
-                <button onClick={()=>decideCandidate(props.tripId, candidate.id, true )}>Aprovar</button>
-                <button onClick={()=>decideCandidate(props.tripId, candidate.id, false)}>Reprovar</button>
+                <button onClick={() => decideCandidate(props.tripId, candidate.id, true)}>Aprovar</button>
+                <button onClick={() => decideCandidate(props.tripId, candidate.id, false)}>Reprovar</button>
             </div>
 
         )
@@ -102,24 +98,26 @@ export default function TripDetailsPage(props) {
                 <p>
                     Nome: {tripDetails.name}
                     Descrição: {tripDetails.description}
-                    <br />
                     Planeta: {tripDetails.planet}
                     Duração: {tripDetails.durationInDays} Dias
                     Data: {tripDetails.date}
                 </p>
             </div>
 
-            <button onClick={goBackPage}>Voltar</button>
+            <button onClick={() => goBackPage(navigate)}>Voltar</button>
 
             <div>
                 <h4>Candidatos Pendentes</h4>
-                {candidatos}
+                <div>
+                    {candidatos}
+                </div>
             </div>
-
-            <h4>Candidatos Aprovados</h4>
-            <ul>
-                {approved}
-            </ul>
+            <div>
+                <h4>Candidatos Aprovados</h4>
+                <ul>
+                    {approved}
+                </ul>
+            </div>
         </DivContainerMain>
     )
 }
