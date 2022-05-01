@@ -21,7 +21,6 @@ export default function CreateTripPage() {
     const convertedDate = new Date(form.date)
     const dateInBr = convertedDate.getDate() + "/" + (convertedDate.getMonth() + 1) + "/" + convertedDate.getFullYear()
 
-    console.log(dateInBr)
     //-- USANDO O AXIOS DE CREATE TRIP --//
     const createTrip = (event) => {
         event.preventDefault()

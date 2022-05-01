@@ -20,7 +20,7 @@ export default function AdminHomePage(props) {
         props.getTripsList()
     }, [props.tripList])
 
-    //-- PEGANDO TRIP ID --// obs possivel problema 
+    //-- PEGANDO TRIP ID --//  
     const getTripId = (tripId) => {
         props.setTripId(tripId)
         navigate(`/admin/trips/${tripId}`)
