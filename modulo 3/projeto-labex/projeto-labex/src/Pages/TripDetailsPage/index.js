@@ -1,6 +1,7 @@
 import styled from "styled-components"
 
 export const DivContainerMain = styled.div`
+    word-break: break; 
     display: flex;
     flex-direction: column;
     width: 50vw;
@@ -10,7 +11,7 @@ export const DivContainerMain = styled.div`
     button{ 
         border-radius: 10px;
         height: auto;
-        width: 10vw;
+        width: 15vw;
         border: none; 
         margin: 0.5rem;
         font-weight: 800;
@@ -21,6 +22,9 @@ export const DivContainerMain = styled.div`
             color: darkcyan; 
             background-color: #00008b;
             cursor: pointer;
+        }
+        @media screen and (max-width: 500px){
+            width: 100%;
         }
     }
 `

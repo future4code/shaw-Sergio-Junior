@@ -4,9 +4,8 @@ import { useState, useEffect } from 'react'
 import axios from "axios";
 import { UseProtectedPage } from "../../Hooks/UseProtectedPage";
 import { goBackPage } from "../../Routes/Coordinator"
-// import { header } from "../../Constants/constants"
-import { baseUrl } from "../../Constants/constants";
-import { DivContainerMain, ContainerInfoCandidates, ContainerPCadidates, ContainerInfoTripCandidate} from './index'
+import { header, baseUrl, loadingUrl } from "../../Constants/constants"
+import { DivContainerMain, ContainerInfoCandidates, ContainerPCadidates, ContainerInfoTripCandidate } from './index'
 
 
 
@@ -17,23 +16,17 @@ export default function TripDetailsPage(props) {
 
 
     //-- STATE --//
-    const [tripDetails, setTripDetails] = useState({})
+    const [tripDetails, setTripDetails] = useState([])
     const [candidates, setCandidates] = useState([])
     const [approvedCandidates, setApprovedCandidates] = useState([])
 
     //-- DID MOUNT AND UPDATE --//
     useEffect(() => {
         getTripDetail()
-    }, [])
+    }, [candidates])
 
     //-- AXIOS PARA PEGAR DETALHES E SETAR NO STATE  --//
     const getTripDetail = () => {
-        const token = localStorage.getItem("token")
-        const header = {
-            headers: {
-                auth: token
-            }
-        }
         axios
             .get(`${baseUrl}trip/${props.tripId}`, header)
             .then((res) => {
@@ -48,18 +41,11 @@ export default function TripDetailsPage(props) {
 
     //-- AXIOS PARA APROVAR OU REPROVAR CANDIDATOS A VIAGENS --//
     const decideCandidate = (tripId, candidateId, boolean) => {
-        const token = localStorage.getItem("token")
-        const header = {
-            headers: {
-                auth: token
-            }
-        }
-
         const body = {
             "approve": boolean
         }
         axios
-            .put(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/trips/${tripId}/candidates/${candidateId}/decide`, body, header)
+            .put(`${baseUrl}trips/${tripId}/candidates/${candidateId}/decide`, body, header)
             .then((res) => {
                 console.log(res.data)
             })
@@ -97,32 +83,37 @@ export default function TripDetailsPage(props) {
 
     return (
         <DivContainerMain>
-            <ContainerInfoTripCandidate>
-                <h1>
-                    {tripDetails.name}
-                </h1>
-                <p><span>Nome:</span> {tripDetails.name}</p>
-                <p><span>Descrição:</span> {tripDetails.description}</p>
-                <p><span>Planeta:</span> {tripDetails.planet}</p>
-                <p><span>Duração:</span> {tripDetails.durationInDays} Dias</p>
-                <p><span>Data:</span> {tripDetails.date}</p>
+            {tripDetails.name ?
+                <>
+                    <ContainerInfoTripCandidate>
+                        <h1>
+                            {tripDetails.name}
+                        </h1>
+                        <p><span>Nome:</span> {tripDetails.name}</p>
+                        <p><span>Descrição:</span> {tripDetails.description}</p>
+                        <p><span>Planeta:</span> {tripDetails.planet}</p>
+                        <p><span>Duração:</span> {tripDetails.durationInDays} Dias</p>
+                        <p><span>Data:</span> {tripDetails.date}</p>
 
-            </ContainerInfoTripCandidate>
+                    </ContainerInfoTripCandidate>
 
-            <button onClick={() => goBackPage(navigate)}>Voltar</button>
+                    <button onClick={() => goBackPage(navigate)}>Voltar</button>
 
-            <div>
-                <h4>Candidatos Pendentes</h4>
-                <div>
-                    {candidatos}
-                </div>
-            </div>
-            <div>
-                <h4>Candidatos Aprovados</h4>
-                <ul>
-                    {approved}
-                </ul>
-            </div>
+                    <div>
+                        <h4>Candidatos Pendentes</h4>
+                        <div>
+                            {candidatos}
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Candidatos Aprovados</h4>
+                        <ul>
+                            {approved}
+                        </ul>
+                    </div>
+                </>
+                :
+                <img src={loadingUrl} />}
         </DivContainerMain>
     )
 }

@@ -20,7 +20,7 @@ export const MainButtonContainer = styled.div`
         font-weight: 600;
         padding: 1rem; 
         margin: 0.5rem 1rem; 
-        width: 10vw;
+        width: auto;
         border: none; 
         border-radius: 15px;
 

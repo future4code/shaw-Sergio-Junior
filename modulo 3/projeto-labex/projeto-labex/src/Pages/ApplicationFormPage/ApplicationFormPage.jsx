@@ -6,6 +6,7 @@ import axios from 'axios';
 import dataJson from '../../json/paises-array.json'
 import { goBackPage } from '../../Routes/Coordinator'
 import { useForm } from "../../Hooks/useForm"
+import { baseUrl } from '../../Constants/constants'
 
 export default function ApplicationFormPage(props) {
     const navigate = useNavigate()
@@ -39,7 +40,7 @@ export default function ApplicationFormPage(props) {
             country: form.country,
         }
         axios
-            .post(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/trips/${idTrip}/apply`, body)
+            .post(`${baseUrl}trips/${idTrip}/apply`, body)
             .then((res) => {
                 alert(res.data.message)
                 cleanFields()

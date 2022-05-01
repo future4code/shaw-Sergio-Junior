@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { UseProtectedPage } from "../../Hooks/UseProtectedPage";
 import { goBackPage, goToCreateTripPage, onClickLogOut } from '../../Routes/Coordinator'
 import { MainContainerAdminHome, ContainerTripListAdmin } from "./index";
-
+import { header, baseUrl, loadingUrl } from "../../Constants/constants"
 
 
 
@@ -20,7 +20,7 @@ export default function AdminHomePage(props) {
         props.getTripsList()
     }, [props.tripList])
 
-    //-- PEGANDO TRIP ID --//
+    //-- PEGANDO TRIP ID --// obs possivel problema 
     const getTripId = (tripId) => {
         props.setTripId(tripId)
         navigate(`/admin/trips/${tripId}`)
@@ -28,14 +28,8 @@ export default function AdminHomePage(props) {
 
     //-- USANDO AXIOS DE DELETE --//  
     const onClickDeleteTrip = (tripId) => {
-        const token = localStorage.getItem("token")
-        const header = {
-            headers: {
-                auth: token
-            }
-        }
         axios
-            .delete(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/trips/${tripId}`, header)
+            .delete(`${baseUrl}trips/${tripId}`, header)
             .then((res) => {
                 alert("trip deleted")
             })
@@ -65,7 +59,7 @@ export default function AdminHomePage(props) {
                 <button onClick={() => onClickLogOut(navigate)}>Logout</button>
             </div>
             <div>
-                {tripsList}
+                {props.tripList.length ? tripsList : <img src={loadingUrl} />}
             </div>
         </MainContainerAdminHome >
     );

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { goBackPage, goToApplicationFormPage } from '../../Routes/Coordinator'
 import { MainContainerTripList, CardTripList, ButtonsTripList } from "./index"
+import { loadingUrl } from '../../Constants/constants'
 
 
 export default function ListTripsPage(props) {
@@ -36,7 +37,7 @@ export default function ListTripsPage(props) {
                 Lista de Viagens
             </h1>
             <div>
-                {tripListMap}
+            {props.tripList.length ? tripListMap : <img src={loadingUrl}/>}
             </div>
         </MainContainerTripList>
     )
