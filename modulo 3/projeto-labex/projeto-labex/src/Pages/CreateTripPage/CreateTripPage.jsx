@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import { FlexContainerCreateTrip } from './index'
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 import { UseProtectedPage } from "../../Hooks/UseProtectedPage";
@@ -6,22 +6,6 @@ import axios from 'axios';
 import { goBackPage } from "../../Routes/Coordinator"
 import { token, header } from '../../Constants/constants'
 
-
-const FlexContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 10vw;
-    margin: 1rem auto;
-    gap: 0.5rem;
-    input { 
-        border-radius: 10px;
-        padding: 0.2rem;
-    }
-    select {
-        border-radius: 10px;
-        padding: 0.2rem;
-    }
-    `
 
 export default function CreateTripPage() {
     const navigate = useNavigate()
@@ -80,7 +64,7 @@ export default function CreateTripPage() {
     }
 
     return (
-        <FlexContainer>
+        <FlexContainerCreateTrip>
             <h4>
                 Criar viagem
             </h4>
@@ -125,6 +109,6 @@ export default function CreateTripPage() {
                 <button onClick={() => goBackPage(navigate)}>Voltar</button>
                 <button onClick={createTrip}>Enviar</button>
             </div>
-        </FlexContainer>
+        </FlexContainerCreateTrip>
     )
 }

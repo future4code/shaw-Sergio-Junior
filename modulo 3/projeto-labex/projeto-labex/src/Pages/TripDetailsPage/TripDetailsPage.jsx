@@ -1,24 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components"
 import { useState, useEffect } from 'react'
 import axios from "axios";
 import { UseProtectedPage } from "../../Hooks/UseProtectedPage";
 import { goBackPage } from "../../Routes/Coordinator"
-import { header } from "../../Constants/constants"
+// import { header } from "../../Constants/constants"
+import { baseUrl } from "../../Constants/constants";
+import { DivContainerMain, ContainerInfoCandidates, ContainerPCadidates, ContainerInfoTripCandidate} from './index'
 
 
-const DivContainerMain = styled.div`
-        display: flex;
-    flex-direction: column;
-    width: 10vw;
-    margin: 1rem auto;
-    gap: 0.5rem;
-    input { 
-        border-radius: 10px;
-        padding: 0.5rem;
-    }
-`
+
 
 export default function TripDetailsPage(props) {
     const navigate = useNavigate()
@@ -32,13 +23,19 @@ export default function TripDetailsPage(props) {
 
     //-- DID MOUNT AND UPDATE --//
     useEffect(() => {
-        getTripDetail(props.tripId)
-    }, [candidates])
+        getTripDetail()
+    }, [])
 
     //-- AXIOS PARA PEGAR DETALHES E SETAR NO STATE  --//
-    const getTripDetail = (tripId) => {
+    const getTripDetail = () => {
+        const token = localStorage.getItem("token")
+        const header = {
+            headers: {
+                auth: token
+            }
+        }
         axios
-            .get(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/trip/${tripId}`, header)
+            .get(`${baseUrl}trip/${props.tripId}`, header)
             .then((res) => {
                 setTripDetails(res.data.trip)
                 setCandidates(res.data.trip.candidates)
@@ -51,6 +48,13 @@ export default function TripDetailsPage(props) {
 
     //-- AXIOS PARA APROVAR OU REPROVAR CANDIDATOS A VIAGENS --//
     const decideCandidate = (tripId, candidateId, boolean) => {
+        const token = localStorage.getItem("token")
+        const header = {
+            headers: {
+                auth: token
+            }
+        }
+
         const body = {
             "approve": boolean
         }
@@ -74,35 +78,36 @@ export default function TripDetailsPage(props) {
     //-- MAP DO ARRAY DE CANDIDATOS PENDENTES --//
     const candidatos = candidates.map((candidate) => {
         return (
-            <div key={candidate.id}>
+            <ContainerInfoCandidates key={candidate.id}>
+                <ContainerPCadidates>
+                    <p><span>Nome:</span> {candidate.name}</p>
+                    <p><span>Profissão:</span> {candidate.profession}</p>
+                    <p><span>Idade:</span> {candidate.age}</p>
+                    <p><span>País:</span> {candidate.country}</p>
+                    <p><span>Texto da candidatura:</span> {candidate.applicationText}</p>
+                </ContainerPCadidates>
                 <div>
-                    <p><strong>Nome: {candidate.name}</strong></p>
-                    <p><strong>Profissão: {candidate.profession}</strong></p>
-                    <p><strong>Idade: {candidate.age}</strong></p>
-                    <p><strong>País: {candidate.country}</strong></p>
-                    <p><strong>Texto da candidatura: {candidate.applicationText}</strong></p>
+                    <button onClick={() => decideCandidate(props.tripId, candidate.id, true)}>Aprovar</button>
+                    <button onClick={() => decideCandidate(props.tripId, candidate.id, false)}>Reprovar</button>
                 </div>
-                <button onClick={() => decideCandidate(props.tripId, candidate.id, true)}>Aprovar</button>
-                <button onClick={() => decideCandidate(props.tripId, candidate.id, false)}>Reprovar</button>
-            </div>
+            </ContainerInfoCandidates>
 
         )
     })
 
     return (
         <DivContainerMain>
-            <div>
+            <ContainerInfoTripCandidate>
                 <h1>
                     {tripDetails.name}
                 </h1>
-                <p>
-                    Nome: {tripDetails.name}
-                    Descrição: {tripDetails.description}
-                    Planeta: {tripDetails.planet}
-                    Duração: {tripDetails.durationInDays} Dias
-                    Data: {tripDetails.date}
-                </p>
-            </div>
+                <p><span>Nome:</span> {tripDetails.name}</p>
+                <p><span>Descrição:</span> {tripDetails.description}</p>
+                <p><span>Planeta:</span> {tripDetails.planet}</p>
+                <p><span>Duração:</span> {tripDetails.durationInDays} Dias</p>
+                <p><span>Data:</span> {tripDetails.date}</p>
+
+            </ContainerInfoTripCandidate>
 
             <button onClick={() => goBackPage(navigate)}>Voltar</button>
 

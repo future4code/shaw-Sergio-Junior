@@ -6,3 +6,4 @@ export const header = {
     }
 }
 
+export const baseUrl = "https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/"

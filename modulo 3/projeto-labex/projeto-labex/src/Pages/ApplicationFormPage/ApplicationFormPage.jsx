@@ -1,36 +1,19 @@
-import styled from 'styled-components'
+import { FlexContainerApplicationForm } from "./index"
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 import dataJson from '../../json/paises-array.json'
 import { goBackPage } from '../../Routes/Coordinator'
+import { useForm } from "../../Hooks/useForm"
 
-const FlexContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 10vw;
-    margin: 1rem auto;
-    gap: 0.5rem;
-    input { 
-        border-radius: 10px;
-        padding: 0.2rem;
-    }
-    select {
-        border-radius: 10px;
-        padding: 0.2rem;
-    }
-    `
 export default function ApplicationFormPage(props) {
     const navigate = useNavigate()
 
-    //-- STATE --//
-    const [name, setName] = useState("")
-    const [age, setAge] = useState("")
-    const [applicationText, setApplicationText] = useState("")
-    const [profession, setProfession] = useState("")
-    const [country, setCountry] = useState("")
-    const [idTrip, setIdTrip] = useState("")
+    //-- STATE --/
+    const { form, onChange, cleanFields } = useForm({
+        name: "", age: "", applicationText: "", profession: "", country: "", idTrip: ""
+    })
 
     //-- DID MOUNT - DID UPDATE --//
     useEffect(() => {
@@ -44,48 +27,25 @@ export default function ApplicationFormPage(props) {
         )
     })
 
-    //-- OBS REALIZAR O FORM AQUI --//
-    const onChangeName = (ev) => {
-        setName(ev.target.value)
-    }
-    const onChangeAge = (ev) => {
-        setAge(ev.target.value)
-    }
-    const onChangeApplicationText = (ev) => {
-        setApplicationText(ev.target.value)
-    }
-    const onChangeProfession = (ev) => {
-        setProfession(ev.target.value)
-    }
-    const onChangeCountry = (ev) => {
-        setCountry(ev.target.value)
-    }
-    const onChangeId = (ev) => {
-        setIdTrip(ev.target.value)
-    }
-
+    const idTrip = form.idTrip
     //-- AXIOS DE APLICAR PARA VIAGEM --//
-    const applyToTrip = (tripId) => {
+    const applyToTrip = (event) => {
+        event.preventDefault()
         const body = {
-            name: name,
-            age: age,
-            applicationText: applicationText,
-            profession: profession,
-            country: country,
+            name: form.name,
+            age: form.age,
+            applicationText: form.applicationText,
+            profession: form.profession,
+            country: form.country,
         }
         axios
-            .post(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/trips/${tripId}/apply`, body)
+            .post(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/sergio-dias-shaw/trips/${idTrip}/apply`, body)
             .then((res) => {
                 alert(res.data.message)
-                setName("")
-                setApplicationText("")
-                setAge("")
-                setCountry("")
-                setProfession("")
-                setIdTrip("")
+                cleanFields()
             })
             .catch((err) => {
-                alert(err.response.data.message);
+                alert("Please, fill all the parameters");
             })
     }
 
@@ -95,54 +55,72 @@ export default function ApplicationFormPage(props) {
             <option key={pais.ordem} value={pais.nome}>{pais.nome}</option>
         )
     })
-
     return (
-        <FlexContainer>
+        <FlexContainerApplicationForm>
             <h4>
                 Inscreva-se para uma viagem
             </h4>
-            <select value={idTrip} onChange={onChangeId} required>
-                <option>Escolha uma viagem</option>
-                {tripsNames}
-            </select>
-            <input
-                required
-                type="text"
-                placeholder="Name"
-                value={name}
-                onChange={onChangeName}
-            />
-            <input
-                required
-                type="number"
-                placeholder="Age"
-                value={age}
-                onChange={onChangeAge}
-                min={18}
-                max={200}
-            />
-            <input
-                required
-                type="text"
-                placeholder='Application text'
-                value={applicationText}
-                onChange={onChangeApplicationText}
-            />
-            <input
-                required
-                type="text"
-                placeholder="Job"
-                value={profession}
-                onChange={onChangeProfession}
-            />
-            <select value={country} onChange={onChangeCountry}>
-                <option value="Escolha um país">Escolha um país</option>
-                {paises}
-            </select>
-            <div>
-                <button onClick={() => goBackPage(navigate)}>Voltar</button>
-                <button onClick={() => applyToTrip(idTrip)}>Enviar</button>
-            </div>
-        </FlexContainer>
+            <form onSubmit={applyToTrip}>
+                <select
+                    name={"idTrip"}
+                    value={form.idTrip}
+                    onChange={onChange}
+                >
+                    <option>Escolha uma viagem</option>
+                    {tripsNames}
+                </select>
+                <input
+                    required
+                    name={"name"}
+                    value={form.name}
+                    onChange={onChange}
+                    placeholder="Name"
+                    pattern={"^.{3,}"}
+                    title={"O nome deve ter no mínimo 3 letras"}
+                />
+                <input
+                    name={"age"}
+                    required
+                    type="number"
+                    placeholder="Age"
+                    value={form.age}
+                    onChange={onChange}
+                    min={18}
+                    max={200}
+                />
+                <input
+                    name={"applicationText"}
+                    required
+                    type="text"
+                    placeholder='Application text'
+                    value={form.applicationText}
+                    onChange={onChange}
+                    pattern={"^.{10,}"}
+                    title={"O texto deve ter no mínimo 10 letras"}
+                />
+                <input
+                    name={"profession"}
+                    required
+                    type="text"
+                    placeholder="Job"
+                    value={form.profession}
+                    onChange={onChange}
+                    pattern={"^.{5,}"}
+                    title={"A profissão deve ter no mínimo 5 letras"}
+                />
+                <select
+                    name={"country"}
+                    value={form.country}
+                    onChange={onChange}
+                >
+                    <option value="Escolha um país">Escolha um país</option>
+                    {paises}
+                </select>
+                <div>
+                    <button onClick={() => goBackPage(navigate)}>Voltar</button>
+                    <button>Enviar</button>
+                </div>
+            </form>
+        </FlexContainerApplicationForm>
     )
 }

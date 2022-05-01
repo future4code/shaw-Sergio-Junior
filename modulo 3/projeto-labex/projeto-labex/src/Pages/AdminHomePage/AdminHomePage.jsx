@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect } from "react";
 import { UseProtectedPage } from "../../Hooks/UseProtectedPage";
 import { goBackPage, goToCreateTripPage, onClickLogOut } from '../../Routes/Coordinator'
+import { MainContainerAdminHome, ContainerTripListAdmin } from "./index";
+
+
 
 
 export default function AdminHomePage(props) {
@@ -44,25 +47,27 @@ export default function AdminHomePage(props) {
     //-- FAZENDO MAP DA LISTA DE TRIP --// 
     const tripsList = props.tripList.map((tripName) => {
         return (
-            <div key={tripName.id}>
+            <ContainerTripListAdmin key={tripName.id}>
                 <p onClick={() => getTripId(tripName.id)}>{tripName.name}</p>
                 <button onClick={() => onClickDeleteTrip(tripName.id)}>X</button>
-            </div>
+            </ContainerTripListAdmin>
         )
     })
 
     return (
-        <div>
+        <MainContainerAdminHome>
             <h4>
                 Painel Administrativo
             </h4>
-            <button onClick={() => goBackPage(navigate)}>Voltar</button>
-            <button onClick={() => goToCreateTripPage(navigate)}>Criar Viagem</button>
-            <button onClick={() => onClickLogOut(navigate)}>Logout</button>
+            <div>
+                <button onClick={() => goBackPage(navigate)}>Voltar</button>
+                <button onClick={() => goToCreateTripPage(navigate)}>Criar Viagem</button>
+                <button onClick={() => onClickLogOut(navigate)}>Logout</button>
+            </div>
             <div>
                 {tripsList}
             </div>
-        </div >
+        </MainContainerAdminHome >
     );
 }
 
