@@ -14,7 +14,7 @@ export default function PostPage() {
     const { states } = useContext(GlobalContext)
     const params = useParams()
     const id = params.id
-    const [comments] = useRequestData(`${BASE_URL}/posts/${id}/comments`)
+    const [comments] = useRequestData(`${BASE_URL}/posts/${id}/comments`, states.count)
 
     const post = states.posts?.filter((item) => {
         return item.id === id

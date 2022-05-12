@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { goToPostPage } from "../../routes/coordinator";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -7,10 +7,11 @@ import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import { BASE_URL, headers } from "../../constants/Constants";
 import axios from "axios";
+import { GlobalContext } from '../../global/GlobalContext';
 
 export const PostCard = (props) => {
     const navigate = useNavigate()
-
+    const { setters, states } = useContext(GlobalContext)
     //-- funcoes para setar o like --//
     let onClickTop = () => createPostVote()
     let onClickBottom = () => changePostVote()
@@ -28,6 +29,7 @@ export const PostCard = (props) => {
             .post(`${BASE_URL}/posts/${props.post.id}/votes`, body, headers)
             .then((res) => {
                 console.log(res.data);
+                setters.setCount(states.count +1)
             })
             .catch((err) => {
                 console.log(err.response.data);
@@ -41,6 +43,7 @@ export const PostCard = (props) => {
             .put(`${BASE_URL}/posts/${props.post.id}/votes`, body, headers)
             .then((res) => {
                 console.log(res.data);
+                setters.setCount(states.count +1)
             })
             .catch((err) => {
                 console.log(err.response.data);
@@ -51,6 +54,7 @@ export const PostCard = (props) => {
             .delete(`${BASE_URL}/posts/${props.post.id}/votes`, headers)
             .then((res) => {
                 console.log(res.data)
+                setters.setCount(states.count +1)
             })
             .catch((err) => {
                 console.log(err.response)

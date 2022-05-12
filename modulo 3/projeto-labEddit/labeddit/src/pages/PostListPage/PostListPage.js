@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext } from "react"
 import { UseProtectedPage } from "../../hooks/useProtectedPage"
 import { GlobalContext } from '../../global/GlobalContext';
 import { PostCard } from "../../components/PostCard/PostCard";

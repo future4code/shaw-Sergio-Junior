@@ -1,13 +1,15 @@
-import React from "react"
+import React, { useContext } from "react"
 import { useForm } from "../../hooks/useForm"
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { BASE_URL } from "../../constants/Constants"
 import axios from "axios";
 import { headers } from "../../constants/Constants"
+import { GlobalContext } from "../../global/GlobalContext";
+
 
 export default function CreatePostCard() {
-
+    const { setters, states } = useContext(GlobalContext)
     const { form, onChange, clearFields } = useForm({ title: "", body: "" })
 
     const createPost = () => {
@@ -16,6 +18,7 @@ export default function CreatePostCard() {
             .then((res) => {
                 alert("Post was created!");
                 clearFields()
+                setters.setCount(states.count + 1)
             })
             .catch((err) => {
                 console.log(err.response);

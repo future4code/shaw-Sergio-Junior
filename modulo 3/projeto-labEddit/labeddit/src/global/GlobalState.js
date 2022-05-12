@@ -14,9 +14,8 @@ export default function GlobalState(props) {
 
     //-- estados --//
     const [rightButtonText, setRightButtonText] = useState(token ? "Logout" : "Login")
-    const [posts] = useRequestData(`${BASE_URL}/posts`)
-
-    console.log(posts)
+    const [count, setCount] = useState(0)
+    const [posts] = useRequestData(`${BASE_URL}/posts`, count)
     //-- functions --//
     const logout = () => {
         localStorage.removeItem("token")
@@ -62,8 +61,8 @@ export default function GlobalState(props) {
     }
 
     //-- Organização dos objetos --//
-    const states = { rightButtonText, posts }
-    const setters = { setRightButtonText }
+    const states = { rightButtonText, posts, count }
+    const setters = { setRightButtonText, setCount }
     const functions = { rightButtonAction }
     const requests = { createUser, login }
     return (

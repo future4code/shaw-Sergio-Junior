@@ -1,6 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { goToPostPage } from "../../routes/coordinator";
+import React, { useContext } from "react";
+import { GlobalContext } from "../../global/GlobalContext";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
@@ -9,7 +8,7 @@ import { BASE_URL, headers } from "../../constants/Constants";
 import axios from "axios";
 
 export const IdPostCard = (props) => {
-    const navigate = useNavigate()
+    const { setters, states } = useContext(GlobalContext)
 
     //-- funcoes para setar o like --//
     let onClickTop = () => createPostVote()
@@ -28,6 +27,7 @@ export const IdPostCard = (props) => {
             .post(`${BASE_URL}/posts/${props.item.id}/votes`, body, headers)
             .then((res) => {
                 console.log(res.data);
+                setters.setCount(states.count + 1)
             })
             .catch((err) => {
                 console.log(err.response.data);
@@ -41,6 +41,7 @@ export const IdPostCard = (props) => {
             .put(`${BASE_URL}/posts/${props.item.id}/votes`, body, headers)
             .then((res) => {
                 console.log(res.data);
+                setters.setCount(states.count + 1)
             })
             .catch((err) => {
                 console.log(err.response.data);
@@ -51,6 +52,7 @@ export const IdPostCard = (props) => {
             .delete(`${BASE_URL}/posts/${props.item.id}/votes`, headers)
             .then((res) => {
                 console.log(res.data)
+                setters.setCount(states.count + 1)
             })
             .catch((err) => {
                 console.log(err.response)

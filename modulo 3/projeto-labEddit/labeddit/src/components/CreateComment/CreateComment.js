@@ -1,13 +1,14 @@
-import React from "react"
+import React, { useContext } from "react";
 import { useForm } from "../../hooks/useForm"
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { BASE_URL } from "../../constants/Constants"
 import axios from "axios";
 import { headers } from "../../constants/Constants"
+import { GlobalContext } from "../../global/GlobalContext";
 
 export default function CreateComment(props) {
-
+    const { setters, states } = useContext(GlobalContext)
     const { form, onChange, clearFields } = useForm({ body: "" })
 
     const createComment = (id) => {
@@ -16,6 +17,7 @@ export default function CreateComment(props) {
             .then((res) => {
                 alert("Comment was sent!");
                 clearFields()
+                setters.setCount(states.count + 1)
             })
             .catch((err) => {
                 console.log(err.response.data);

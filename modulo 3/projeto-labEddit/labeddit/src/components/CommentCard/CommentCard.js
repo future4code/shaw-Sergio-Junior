@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import { BASE_URL, headers } from "../../constants/Constants";
 import axios from "axios";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
-
+import { GlobalContext } from "../../global/GlobalContext";
 export const CommentCard = (props) => {
+    const { setters, states } = useContext(GlobalContext)
+
     //-- funcoes para setar o like --//
     let onClickTop = () => createCommentVote()
     let onClickBottom = () => changeCommentVote()
@@ -25,6 +27,7 @@ export const CommentCard = (props) => {
             .post(`${BASE_URL}/comments/${props.comment.id}/votes`, body, headers)
             .then((res) => {
                 console.log(res.data);
+                setters.setCount(states.count + 1)
             })
             .catch((err) => {
                 console.log(err.response.data);
@@ -38,6 +41,7 @@ export const CommentCard = (props) => {
             .put(`${BASE_URL}/comments/${props.comment.id}/votes`, body, headers)
             .then((res) => {
                 console.log(res.data);
+                setters.setCount(states.count + 1)
             })
             .catch((err) => {
                 console.log(err.response.data);
@@ -48,6 +52,7 @@ export const CommentCard = (props) => {
             .delete(`${BASE_URL}/comments/${props.comment.id}/votes`, headers)
             .then((res) => {
                 console.log(res.data)
+                setters.setCount(states.count + 1)
             })
             .catch((err) => {
                 console.log(err.response)
