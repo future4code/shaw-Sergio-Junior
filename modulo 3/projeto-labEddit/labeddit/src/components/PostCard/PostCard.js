@@ -8,6 +8,14 @@ import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import { BASE_URL, headers } from "../../constants/Constants";
 import axios from "axios";
 import { GlobalContext } from '../../global/GlobalContext';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import ModeCommentIcon from '@mui/icons-material/ModeComment';
+import { PostCardContainer } from './styled'
+
 
 export const PostCard = (props) => {
     const navigate = useNavigate()
@@ -29,7 +37,7 @@ export const PostCard = (props) => {
             .post(`${BASE_URL}/posts/${props.post.id}/votes`, body, headers)
             .then((res) => {
                 console.log(res.data);
-                setters.setCount(states.count +1)
+                setters.setCount(states.count + 1)
             })
             .catch((err) => {
                 console.log(err.response.data);
@@ -43,7 +51,7 @@ export const PostCard = (props) => {
             .put(`${BASE_URL}/posts/${props.post.id}/votes`, body, headers)
             .then((res) => {
                 console.log(res.data);
-                setters.setCount(states.count +1)
+                setters.setCount(states.count + 1)
             })
             .catch((err) => {
                 console.log(err.response.data);
@@ -54,7 +62,7 @@ export const PostCard = (props) => {
             .delete(`${BASE_URL}/posts/${props.post.id}/votes`, headers)
             .then((res) => {
                 console.log(res.data)
-                setters.setCount(states.count +1)
+                setters.setCount(states.count + 1)
             })
             .catch((err) => {
                 console.log(err.response)
@@ -78,17 +86,26 @@ export const PostCard = (props) => {
     //-- fazer funcao curtir e descutir --// 
 
     return (
-        <div>
-            <p>Enviado por: {props.post?.username}</p>
-            <h3>
-                {props.post?.body}
-            </h3>
-            <p>
-                <button onClick={() => onClickTop()}>{imgTop}</button> {props.post?.voteSum ? props.post?.voteSum : 0}
-                <button onClick={() => onClickBottom()}>{imgBottom}</button>
-                <button onClick={() => goToPostPage(navigate, props.post?.id)}>Comments</button>
-                {props.post?.commentCount ? props.post?.commentCount : 0}
-            </p>
-        </div>
+        <PostCardContainer sx={{ minWidth: 275 }}>
+            <CardContent>
+                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>Enviado por: {props.post?.username}</Typography>
+                <Typography variant="h5" component="div">
+                    {props.post?.body}
+                </Typography>
+                <CardActions>
+                    <Button size="small" onClick={() => onClickTop()}>
+                        {imgTop}
+                    </Button>
+                    <p>{props.post?.voteSum ? props.post?.voteSum : 0}</p>
+                    <Button size="small" onClick={() => onClickBottom()}>
+                        {imgBottom}
+                    </Button>
+                    <Button size="small" onClick={() => goToPostPage(navigate, props.post?.id)}>
+                        <ModeCommentIcon />
+                    </Button>
+                    <p>{props.post?.commentCount ? props.post?.commentCount : 0}</p>
+                </CardActions>
+            </CardContent>
+        </PostCardContainer>
     );
 }

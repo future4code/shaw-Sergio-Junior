@@ -6,6 +6,9 @@ import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import { BASE_URL, headers } from "../../constants/Constants";
 import axios from "axios";
+import ModeCommentIcon from '@mui/icons-material/ModeComment';
+
+
 
 export const IdPostCard = (props) => {
     const { setters, states } = useContext(GlobalContext)
@@ -82,7 +85,7 @@ export const IdPostCard = (props) => {
             <p>
                 <button onClick={() => onClickTop()}>{imgTop}</button> {props.item?.voteSum ? props.item?.voteSum : 0}
                 <button onClick={() => onClickBottom()}>{imgBottom}</button>
-                Comments
+                <ModeCommentIcon/>
                 {props.item?.commentCount ? props.item?.commentCount : 0}
             </p>
         </div>

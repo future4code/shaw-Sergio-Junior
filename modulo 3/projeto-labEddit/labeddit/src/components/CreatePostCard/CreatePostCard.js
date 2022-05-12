@@ -6,7 +6,8 @@ import { BASE_URL } from "../../constants/Constants"
 import axios from "axios";
 import { headers } from "../../constants/Constants"
 import { GlobalContext } from "../../global/GlobalContext";
-
+import CardContent from '@mui/material/CardContent';
+import { CardCreatePost, CardCreatePostButton } from "./styled";
 
 export default function CreatePostCard() {
     const { setters, states } = useContext(GlobalContext)
@@ -31,33 +32,41 @@ export default function CreatePostCard() {
     }
 
     return (
-        <div>
-            <form onSubmit={onSubmitForm}>
-                <TextField
-                    pattern={"^.{3,}"}
-                    title={"Title must have at least 3 characters"}
-                    label="Title"
-                    variant="standard"
-                    name={"title"}
-                    value={form.title}
-                    onChange={onChange}
-                    required
-                />
-                <TextField
-                    label="Post"
-                    variant="standard"
-                    name={"body"}
-                    value={form.body}
-                    onChange={onChange}
-                    required
-                />
-                <Button
-                    type={"submit"}
-                    variant="contained"
-                >
-                    Create post
-                </Button>
-            </form>
-        </div>
+        <CardCreatePost sx={{ minWidth: 275 }}>
+            <CardContent onSubmit={onSubmitForm}>
+                <CardCreatePostButton>
+                    <TextField
+                        pattern={"^.{3,}"}
+                        title={"Title must have at least 3 characters"}
+                        label="Title"
+                        variant="standard"
+                        name={"title"}
+                        value={form.title}
+                        onChange={onChange}
+                        required
+                    />
+                </CardCreatePostButton>
+                <CardCreatePostButton>
+                    <TextField
+                        size="large"
+                        type="text"
+                        label="Post"
+                        variant="outlined"
+                        name={"body"}
+                        value={form.body}
+                        onChange={onChange}
+                        required
+                    />
+                </CardCreatePostButton>
+                <CardCreatePostButton>
+                    <Button
+                        type={"submit"}
+                        variant="contained"
+                    >
+                        Create post
+                    </Button>
+                </CardCreatePostButton>
+            </CardContent>
+        </CardCreatePost >
     )
 }
