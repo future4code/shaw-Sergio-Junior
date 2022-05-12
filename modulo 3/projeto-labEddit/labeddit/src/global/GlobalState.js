@@ -1,20 +1,22 @@
 import React, { useState } from 'react'
 import { GlobalContext } from './GlobalContext'
 import axios from 'axios'
-import { BASE_URL } from '../constants/Constants'
+import { BASE_URL, headers, token } from '../constants/Constants'
 import { useForm } from "../hooks/useForm"
 import { goToLogin, goToPostListPage } from "../routes/coordinator"
+import useRequestData from '../hooks/useRequestData'
 
 
 
 
 export default function GlobalState(props) {
     const { clearFields } = useForm()
-    const token = localStorage.getItem("token")
 
     //-- estados --//
     const [rightButtonText, setRightButtonText] = useState(token ? "Logout" : "Login")
+    const [posts] = useRequestData(`${BASE_URL}/posts`)
 
+    console.log(posts)
     //-- functions --//
     const logout = () => {
         localStorage.removeItem("token")
@@ -60,7 +62,7 @@ export default function GlobalState(props) {
     }
 
     //-- Organização dos objetos --//
-    const states = { rightButtonText }
+    const states = { rightButtonText, posts }
     const setters = { setRightButtonText }
     const functions = { rightButtonAction }
     const requests = { createUser, login }

@@ -8,7 +8,7 @@ import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import { BASE_URL, headers } from "../../constants/Constants";
 import axios from "axios";
 
-export const PostCard = (props) => {
+export const IdPostCard = (props) => {
     const navigate = useNavigate()
 
     //-- funcoes para setar o like --//
@@ -25,7 +25,7 @@ export const PostCard = (props) => {
             direction: 1
         }
         axios
-            .post(`${BASE_URL}/posts/${props.post.id}/votes`, body, headers)
+            .post(`${BASE_URL}/posts/${props.item.id}/votes`, body, headers)
             .then((res) => {
                 console.log(res.data);
             })
@@ -38,7 +38,7 @@ export const PostCard = (props) => {
             direction: -1
         }
         axios
-            .put(`${BASE_URL}/posts/${props.post.id}/votes`, body, headers)
+            .put(`${BASE_URL}/posts/${props.item.id}/votes`, body, headers)
             .then((res) => {
                 console.log(res.data);
             })
@@ -48,7 +48,7 @@ export const PostCard = (props) => {
     }
     const deletePostVote = () => {
         axios
-            .delete(`${BASE_URL}/posts/${props.post.id}/votes`, headers)
+            .delete(`${BASE_URL}/posts/${props.item.id}/votes`, headers)
             .then((res) => {
                 console.log(res.data)
             })
@@ -58,32 +58,30 @@ export const PostCard = (props) => {
     }
 
     //-- configurando as condicionais if else --//
-    if (props.post.userVote === null) {
+    if (props.item.userVote === null) {
         imgTop = <ThumbUpOutlinedIcon />
         imgBottom = <ThumbDownAltOutlinedIcon />
-    } else if (props.post.userVote > 0) {
+    } else if (props.item.userVote > 0) {
         imgTop = <ThumbUpIcon />
         imgBottom = <ThumbDownAltOutlinedIcon />
         onClickTop = () => deletePostVote()
-    } else if (props.post.userVote < 0) {
+    } else if (props.item.userVote < 0) {
         imgTop = <ThumbUpOutlinedIcon />
         imgBottom = <ThumbDownAltIcon />
         onClickBottom = () => deletePostVote()
     }
 
-    //-- fazer funcao curtir e descutir --// 
-
     return (
         <div>
-            <p>Enviado por: {props.post?.username}</p>
+            <p>Enviado por: {props.item.username}</p>
             <h3>
-                {props.post?.body}
+                {props.item.body}
             </h3>
             <p>
-                <button onClick={() => onClickTop()}>{imgTop}</button> {props.post?.voteSum ? props.post?.voteSum : 0}
+                <button onClick={() => onClickTop()}>{imgTop}</button> {props.item?.voteSum ? props.item?.voteSum : 0}
                 <button onClick={() => onClickBottom()}>{imgBottom}</button>
-                <button onClick={() => goToPostPage(navigate, props.post?.id)}>Comments</button>
-                {props.post?.commentCount ? props.post?.commentCount : 0}
+                Comments
+                {props.item?.commentCount ? props.item?.commentCount : 0}
             </p>
         </div>
     );

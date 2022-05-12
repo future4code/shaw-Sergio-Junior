@@ -10,6 +10,3 @@ export const goToPostPage = (navigate, id) => {
 export const goToSignUpPage = (navigate) => {
     navigate("/SignUp")
 }
-// export const goBackPage = (navigate) => {
-//     navigate(-1)
-// }
