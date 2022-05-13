@@ -3,6 +3,6 @@ import Card from '@mui/material/Card';
 
 
 export const PostCardContainer = styled(Card)`
-width: 75%;
+width: 80%;
 margin: 0.5rem auto;
 `

@@ -7,7 +7,7 @@ export const CardCreatePost = styled(Card)`
 display:flex;
 justify-content: center;
 margin: 0.5rem auto;
-width: 75%;
+width: 80%;
 `
 export const CardCreatePostButton = styled(CardContent)`
     display: flex;

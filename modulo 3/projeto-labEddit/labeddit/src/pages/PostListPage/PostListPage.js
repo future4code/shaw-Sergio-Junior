@@ -7,6 +7,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import CardContent from '@mui/material/CardContent';
+import tictac from "../../assets/tictac.gif"
+import { ContainerLoading } from "./styled"
 
 export default function PostListPage() {
     UseProtectedPage()
@@ -18,20 +20,35 @@ export default function PostListPage() {
     //--- fazer atualizar automatico ---//
 
     return (
-        <React.Fragment>
+        <React.Fragment >
             <CssBaseline />
-            <Container fullwidth>
-                <Box sx={{ bgcolor: '#cfe8fc', minheight: '100vh' }} >
-                    <CardContent>
-                        <div>
-                            <CreatePostCard />
-                        </div>
-                        <div>
-                            {postsMap}
-                        </div>
-                    </CardContent>
-                </Box>
-            </Container>
+            {postsMap ?
+                (
+
+                    <Container>
+                        <Box sx={{ bgcolor: '#cfe8fc', minheight: '100vh' }} >
+                            <CardContent>
+                                <div>
+                                    <CreatePostCard />
+                                </div>
+                                <div>
+                                    {postsMap}
+                                </div>
+                            </CardContent>
+                        </Box>
+                    </Container >
+
+                )
+                :
+                (
+                    <Container>
+                        <ContainerLoading>
+                            <img src={tictac} />
+                        </ContainerLoading>
+                    </Container>
+                )
+            }
+
         </React.Fragment >
     )
 }

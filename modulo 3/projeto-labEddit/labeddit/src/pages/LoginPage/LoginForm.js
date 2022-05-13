@@ -7,6 +7,7 @@ import { BASE_URL } from "../../constants/Constants"
 import { useNavigate } from "react-router-dom";
 import { goToPostListPage } from "../../routes/coordinator";
 import { GlobalContext } from '../../global/GlobalContext';
+import { ContainerForm } from "./styled"
 
 export default function LoginForm() {
     const navigate = useNavigate()
@@ -37,7 +38,7 @@ export default function LoginForm() {
 
     return (
         <div>
-            <form onSubmit={onSubmitForm}>
+            <ContainerForm onSubmit={onSubmitForm}>
                 <TextField
                     type="email"
                     label="Email"
@@ -62,7 +63,7 @@ export default function LoginForm() {
                 >
                     Login
                 </Button>
-            </form>
+            </ContainerForm>
         </div>
     )
 }

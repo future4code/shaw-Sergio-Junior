@@ -12,7 +12,7 @@ export const Header = () => {
 
     return (
         <AppBar position="static">
-            <StyledToolbar>
+            <StyledToolbar >
                 <Button onClick={() => goToPostListPage(navigate)} color="inherit">Labeddit</Button>
                 <Button onClick={() => functions.rightButtonAction(navigate)} color="inherit">{states.rightButtonText}</Button>
             </StyledToolbar>
