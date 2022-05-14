@@ -27,17 +27,15 @@ export default function CreatePostCard() {
     }
 
     const onSubmitForm = (ev) => {
-        createPost()
         ev.preventDefault()
+        createPost()
     }
 
     return (
         <CardCreatePost sx={{ minWidth: 275 }}>
-            <CardContent onSubmit={onSubmitForm}>
+            <form onSubmit={onSubmitForm}>
                 <CardCreatePostButton>
                     <TextField
-                        pattern={"^.{3,}"}
-                        title={"Title must have at least 3 characters"}
                         label="Title"
                         variant="standard"
                         name={"title"}
@@ -66,7 +64,7 @@ export default function CreatePostCard() {
                         Create post
                     </Button>
                 </CardCreatePostButton>
-            </CardContent>
+            </form>
         </CardCreatePost >
     )
 }

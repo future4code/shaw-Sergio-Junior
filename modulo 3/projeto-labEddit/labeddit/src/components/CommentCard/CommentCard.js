@@ -6,6 +6,9 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import { GlobalContext } from "../../global/GlobalContext";
+import { ContainerCommentCard, ContainerBoxCommentCard } from "../../pages/PostPage/styled";
+import { Button } from "@mui/material";
+
 export const CommentCard = (props) => {
     const { setters, states } = useContext(GlobalContext)
 
@@ -74,14 +77,18 @@ export const CommentCard = (props) => {
     }
 
     return (
-        <div>
+        <ContainerBoxCommentCard>
+            <ContainerCommentCard>
             <p>Enviado por: {props.comment.username}</p>
             <p>
                 {props.comment.body}
             </p>
-            <button onClick={() => onClickTop()}>{imgTop}</button>
-            {props.comment.voteSum}
-            <button onClick={() => onClickBottom()}>{imgBottom}</button>
-        </div>
+            </ContainerCommentCard>
+            <div>
+                <Button onClick={() => onClickTop()}>{imgTop}</Button>
+                {props.comment.voteSum}
+                <Button onClick={() => onClickBottom()}>{imgBottom}</Button>
+            </div>
+        </ContainerBoxCommentCard>
     );
 }

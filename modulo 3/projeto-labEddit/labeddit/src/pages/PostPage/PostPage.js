@@ -8,7 +8,7 @@ import { IdPostCard } from "../../components/IdPostCard/IdPostCard"
 import useRequestData from "../../hooks/useRequestData"
 import CreateComment from '../../components/CreateComment/CreateComment'
 import tictac from "../../assets/tictac.gif"
-import { ContainerLoading } from "./styled"
+import { ContainerLoading, ContainerPostPage, ContainerPostPageCreateComment } from "./styled"
 
 export default function PostPage() {
     UseProtectedPage()
@@ -33,21 +33,21 @@ export default function PostPage() {
     return (
         <div>
             {post && commentsMap ? (
-                <>
-                    <div>
+                <div>
+                    <ContainerPostPage>
                         {post}
-                    </div>
-                    <div>
+                    </ContainerPostPage>
+                    <ContainerPostPageCreateComment>
                         <CreateComment id={id} />
-                    </div>
-                    <div>
+                    </ContainerPostPageCreateComment>
+                    <ContainerPostPage>
                         {commentsMap}
-                    </div>
-                </>
-            ) : 
-            <ContainerLoading>
-                <img src={tictac} />
-            </ContainerLoading>}
+                    </ContainerPostPage>
+                </div>
+            ) :
+                <ContainerLoading>
+                    <img src={tictac} />
+                </ContainerLoading>}
 
         </div>
     )

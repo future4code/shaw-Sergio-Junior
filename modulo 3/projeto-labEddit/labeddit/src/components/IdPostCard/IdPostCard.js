@@ -7,7 +7,7 @@ import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import { BASE_URL, headers } from "../../constants/Constants";
 import axios from "axios";
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
-
+import { Button } from "@mui/material";
 
 
 export const IdPostCard = (props) => {
@@ -83,9 +83,11 @@ export const IdPostCard = (props) => {
                 {props.item.body}
             </h3>
             <p>
-                <button onClick={() => onClickTop()}>{imgTop}</button> {props.item?.voteSum ? props.item?.voteSum : 0}
-                <button onClick={() => onClickBottom()}>{imgBottom}</button>
+                <Button onClick={() => onClickTop()}>{imgTop}</Button> {props.item?.voteSum ? props.item?.voteSum : 0}
+                <Button onClick={() => onClickBottom()}>{imgBottom}</Button>
+                <Button>
                 <ModeCommentIcon/>
+                </Button>
                 {props.item?.commentCount ? props.item?.commentCount : 0}
             </p>
         </div>
