@@ -22,7 +22,7 @@ export default function PostListPage() {
     return (
         <React.Fragment >
             <CssBaseline />
-            {postsMap ?
+            {states.posts ?
                 (
 
                     <Container>
