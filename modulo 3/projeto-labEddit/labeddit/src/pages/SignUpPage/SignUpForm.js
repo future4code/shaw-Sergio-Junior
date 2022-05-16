@@ -10,7 +10,7 @@ import { BASE_URL } from "../../constants/Constants"
 import { GlobalContext } from '../../global/GlobalContext';
 import { CardCreateUser, CardCreateUserFormButton, CardContentButtonUserForm, ContainerImgLogin } from "./styled"
 import labenu from "../../assets/labenu.gif"
-
+import { Typography } from "@mui/material";
 
 export default function SignUpForm() {
     const navigate = useNavigate()
@@ -22,7 +22,6 @@ export default function SignUpForm() {
             .post(`${BASE_URL}/users/signup`, form)
             .then((res) => {
                 localStorage.setItem("token", res.data.token)
-                clearFields()
                 alert("User has been created! You aren't a robot")
                 goToPostListPage(navigate)
                 setters.setRightButtonText("Logout")
@@ -42,7 +41,7 @@ export default function SignUpForm() {
         <CardCreateUser sx={{ minWidth: 275 }}>
             <ContainerImgLogin >
                 <img src={labenu} />
-                <p>Olá, boas vindas ao LabEddit ;)</p>
+                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>Hey, welcome to LabEddit ;)</Typography>
             </ContainerImgLogin>
             <form onSubmit={onSubmitForm}>
                 <CardCreateUserFormButton>
@@ -82,13 +81,11 @@ export default function SignUpForm() {
                     />
                 </CardCreateUserFormButton>
                 <CardContentButtonUserForm>
-                    <p>
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                         Ao continuar, você concorda com o nosso <a href="#">Contrato de usuário</a> e nossa <a href="#">Política de privacidade</a>
-                    </p>
-                    <p>
                         <Checkbox />
                         Eu concordo em receber coisas legais do LabEddit por email!
-                    </p>
+                    </Typography>
                 </CardContentButtonUserForm>
                 <CardContentButtonUserForm>
                     <Button

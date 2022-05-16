@@ -17,15 +17,14 @@ export default function PostPage() {
     const id = params.id
     const [comments] = useRequestData(`${BASE_URL}/posts/${id}/comments`, states.count)
 
+    //-- Post card individual --//
     const post = states.posts?.filter((item) => {
         return item.id === id
     }).map((item) => {
         return <IdPostCard key={item.id} item={item} />
     })
 
-
-
-
+    //-- Lista de comentarios do post individual --//
     const commentsMap = comments?.map((comment) => {
         return <CommentCard key={comment.id} comment={comment} />
     })

@@ -16,6 +16,7 @@ export default function GlobalState(props) {
     const [rightButtonText, setRightButtonText] = useState(token ? "Logout" : "Login")
     const [count, setCount] = useState(0)
     const [posts] = useRequestData(`${BASE_URL}/posts`, count)
+    
     //-- functions --//
     const logout = () => {
         localStorage.removeItem("token")

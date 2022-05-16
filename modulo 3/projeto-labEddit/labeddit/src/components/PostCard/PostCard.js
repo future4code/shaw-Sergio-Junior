@@ -8,7 +8,6 @@ import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import { BASE_URL, headers } from "../../constants/Constants";
 import axios from "axios";
 import { GlobalContext } from '../../global/GlobalContext';
-import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
@@ -20,6 +19,7 @@ import { PostCardContainer } from './styled'
 export const PostCard = (props) => {
     const navigate = useNavigate()
     const { setters, states } = useContext(GlobalContext)
+
     //-- funcoes para setar o like --//
     let onClickTop = () => createPostVote()
     let onClickBottom = () => changePostVote()
@@ -83,12 +83,10 @@ export const PostCard = (props) => {
         onClickBottom = () => deletePostVote()
     }
 
-    //-- fazer funcao curtir e descutir --// 
-
     return (
         <PostCardContainer sx={{ minWidth: 275 }}>
             <CardContent>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>Enviado por: {props.post?.username}</Typography>
+                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>sent by: {props.post?.username}</Typography>
                 <Typography variant="h5" component="div">
                     {props.post?.body}
                 </Typography>

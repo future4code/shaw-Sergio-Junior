@@ -17,8 +17,6 @@ export default function PostListPage() {
         return <PostCard key={post?.id} post={post} />
     })
 
-    //--- fazer atualizar automatico ---//
-
     return (
         <React.Fragment >
             <CssBaseline />

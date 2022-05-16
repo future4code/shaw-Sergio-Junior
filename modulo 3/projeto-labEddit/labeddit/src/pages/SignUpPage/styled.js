@@ -26,7 +26,7 @@ export const CardContentButtonUserForm = styled(CardContent)`
 export const ContainerImgLogin = styled(CardContent)`
 display: flex; 
 flex-direction: column; 
-margin: 5vh auto;
+margin: 5vh auto 0 auto;
 justify-content: center;
 align-items: center;
 text-align: center;

@@ -4,7 +4,6 @@ import LoginPage from "../pages/LoginPage/LoginPage"
 import PostListPage from "../pages/PostListPage/PostListPage"
 import PostPage from "../pages/PostPage/PostPage"
 import SignUpPage from "../pages/SignUpPage/SignUpPage"
-import ErrorPage from "../pages/ErrorPage/ErrorPage"
 import { Header } from "../components/Header/Header"
 
 export const Router = () => {
@@ -16,7 +15,6 @@ export const Router = () => {
                 <Route index element={<PostListPage />} />
                 <Route path="/SignUp" element={<SignUpPage />} />
                 <Route path="/Post/:id" element={<PostPage />} />
-                <Route element={<ErrorPage />} />
             </Routes>
         </BrowserRouter>
     )

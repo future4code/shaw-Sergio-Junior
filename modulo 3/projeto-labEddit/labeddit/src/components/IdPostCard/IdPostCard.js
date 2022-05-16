@@ -8,7 +8,7 @@ import { BASE_URL, headers } from "../../constants/Constants";
 import axios from "axios";
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import { Button } from "@mui/material";
-
+import { Typography } from "@mui/material";
 
 export const IdPostCard = (props) => {
     const { setters, states } = useContext(GlobalContext)
@@ -21,7 +21,7 @@ export const IdPostCard = (props) => {
     let imgTop = ""
     let imgBottom = ""
 
-    //-- create / change / delete --//
+    //-- request = create / change / delete --//
     const createPostVote = () => {
         const body = {
             direction: 1
@@ -62,7 +62,7 @@ export const IdPostCard = (props) => {
             })
     }
 
-    //-- configurando as condicionais if else --//
+    //-- configurando as condicionais if else--//
     if (props.item.userVote === null) {
         imgTop = <ThumbUpOutlinedIcon />
         imgBottom = <ThumbDownAltOutlinedIcon />
@@ -78,15 +78,15 @@ export const IdPostCard = (props) => {
 
     return (
         <div>
-            <p>Enviado por: {props.item.username}</p>
-            <h3>
+            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>sent by: {props.item.username}</Typography>
+            <Typography variant="h5" component="div">
                 {props.item.body}
-            </h3>
+            </Typography>
             <p>
                 <Button onClick={() => onClickTop()}>{imgTop}</Button> {props.item?.voteSum ? props.item?.voteSum : 0}
                 <Button onClick={() => onClickBottom()}>{imgBottom}</Button>
                 <Button>
-                <ModeCommentIcon/>
+                    <ModeCommentIcon />
                 </Button>
                 {props.item?.commentCount ? props.item?.commentCount : 0}
             </p>

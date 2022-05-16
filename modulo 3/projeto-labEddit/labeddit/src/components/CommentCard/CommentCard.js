@@ -21,7 +21,7 @@ export const CommentCard = (props) => {
     let imgBottom = ""
 
 
-    //-- create / change / delete --//
+    //-- requests = create / change / delete --//
     const createCommentVote = () => {
         const body = {
             direction: 1
@@ -79,7 +79,7 @@ export const CommentCard = (props) => {
     return (
         <ContainerBoxCommentCard>
             <ContainerCommentCard>
-            <p>Enviado por: {props.comment.username}</p>
+            <p>Sent by: {props.comment.username}</p>
             <p>
                 {props.comment.body}
             </p>

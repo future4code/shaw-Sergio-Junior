@@ -19,10 +19,9 @@ export default function LoginForm() {
             .post(`${BASE_URL}/users/login`, form)
             .then((res) => {
                 localStorage.setItem("token", res.data.token)
-                clearFields()
-                alert("Welcome to LabEddit, Baby!")
                 goToPostListPage(navigate)
                 setters.setRightButtonText("Logout")
+                alert("Welcome to LabEddit, Baby!")
             })
             .catch((err) => {
                 alert(`Invalid password or email`)
