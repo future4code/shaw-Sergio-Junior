@@ -10,33 +10,34 @@
 
 //c)  
 
-type AmostraDeDados = {
-    numeros: number[],
-    obterEstatisticas: (numeros: number[]) => object
-}
-
 type Amostra = { maior: number, menor: number, media: number }
 
-
-function obterEstatisticas(numeros: number[]): object {
-
-    const numerosOrdenados: number[] = numeros.sort(
-        (a, b) => a - b
-    )
-
-    let soma: number | null = null
-
-    for (let num of numeros) {
-        soma += num
-    }
-
-    const estatisticas: Amostra = {
-        maior: numerosOrdenados[numeros.length - 1],
-        menor: numerosOrdenados[0],
-        media: soma / numeros.length
-    }
-
-    return estatisticas
+type AmostraDeDados = {
+    numeros: number[],
+    obterEstatisticas: (numeros: number[]) => Amostra
 }
 
-console.table(obterEstatisticas([2, 6, 8, 4, 9, 3]))
+const amostraDeDados: AmostraDeDados = {
+    numeros: [2, 6, 8, 4, 9, 3],
+    obterEstatisticas: (numeros): Amostra => {
+        const numerosOrdenados: number[] = numeros.sort(
+            (a, b) => a - b
+        )
+
+        let soma: number | null = null
+
+        for (let num of numeros) {
+            soma += num
+        }
+
+        const estatisticas = {
+            maior: numerosOrdenados[numeros.length - 1],
+            menor: numerosOrdenados[0],
+            media: soma / numeros.length
+        }
+
+        return estatisticas
+    }
+}
+
+console.table(amostraDeDados.obterEstatisticas(amostraDeDados.numeros))
