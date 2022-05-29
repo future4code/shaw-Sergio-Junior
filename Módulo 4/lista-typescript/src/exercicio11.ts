@@ -62,3 +62,5 @@ const converterRomanos = (numero: number): string => {
 
     return numeroRomano.join('')
 }
+
+console.log(converterRomanos(1999))
