@@ -1,4 +1,4 @@
-import express, { Express, Request, response, Response } from "express";
+import express, { Express, Request, Response } from "express";
 import cors from "cors"
 import { users } from "./data/data";
 import { Balance, BankStatement, NewUser, Transfer, User } from "./types";
@@ -10,28 +10,35 @@ app.use(cors())
 
 const getDate: string = new Date().toLocaleDateString()
 const todayDate: number = Date.parse(getDate)
+// 18 anos em milisegundos
+const appropriateAge: number = 568036800000
 
 //-- Get All Users - controle
 app.get('/users', (req: Request, res: Response) => {
-    res.status(200).send(users)
+    try {
+        const token = req.headers.auth
+
+        if (!token) {
+            throw new Error("You are not allowed to see this. Enter a valid token!");
+        }
+
+        res.status(200).send(users)
+    } catch (error: any) {
+        res.status(401).send(error.message)
+    }
 })
-
 //-- CRIAR CONTA  
-//Verificar tipo de CPF
 app.post('/createUser', (req: Request, res: Response) => {
-    //-- Datas para verificação 
-    const appropriateAge: number = 567648000000
-    let errorCode = 400
-
+    let errorCode: number = 400
     try {
         const newUser: NewUser = req.body
+        const birthDate: number = Date.parse(newUser.birthDate)
         //-- checa formato da data idade  
         if (!Date.parse(newUser.birthDate)) {
             errorCode = 422
             throw new Error("Please enter a date in the following format 'mm/dd/yyyy'");
         }
         //-- Checar idade do usuário
-        const birthDate: number = Date.parse(newUser.birthDate)
         if ((todayDate - birthDate) < appropriateAge) {
             errorCode = 403
             throw new Error("Age must to be 18 at least!");
@@ -41,69 +48,84 @@ app.post('/createUser', (req: Request, res: Response) => {
             errorCode = 422
             throw new Error("SIN is invalid, check your parameter");
         }
-        //-- Checar CPF se contém todos os caracteres (14) - patterns no front
+        //-- Checar CPF se contém todos os caracteres (14) - patterns no front - adicionar regex CPF 
         if (newUser.SIN.length != 14) {
             errorCode = 422
             throw new Error("Your SIN number must be in this format '000.000.000-00'.");
         }
-        //-- Checar CPF por números
-        const sinNumbers = newUser.SIN.replace(/[\s.-]*/igm, '')
+        //-- Criar variável e checar CPF por números - regex 
+        const sinNumbers: string = newUser.SIN.replace(/[\s.-]*/igm, '')
         if (!sinNumbers || sinNumbers.length !== 11) {
             errorCode = 422
             throw new Error("SIN is invalid, check your parameter")
         }
-        //-- Checar CPF já existente
-        const findSIN = users.find((user) => user.SIN === newUser.SIN)
+        //-- Buscar sin number nos dados e checar CPF já existente
+        const findSIN: User | undefined = users.find((user) => user.SIN === newUser.SIN)
         if (findSIN) {
             errorCode = 409
             throw new Error("SIN number already exists, please check your SIN number.");
         }
         //-- Criar então o novo usuário
         const createNewUser: User = { ...newUser, balance: 0, bankStatement: [] }
+        //-- adicionando novo usuario nos dados do sistema
         users.push(createNewUser)
         //--Response
-        res.status(201).send(users)
+        res.status(201).send(createNewUser)
     } catch (err: any) {
         res.status(errorCode).send(err.message)
     }
 })
-
 //-- CHECAR SALDO DA CONTA 
 app.get('/balance', (req: Request, res: Response) => {
-    let errorCode = 400
-
+    let errorCode: number = 400
     try {
+        const token = req.headers.auth
         const body: Balance = req.body
+        //-- checa token
+        if (!token) {
+            errorCode = 401
+            throw new Error("You are not allowed to see this. Enter a valid token!");
+        }
+        //-- checando se está recebendo o body
         if (!body.name || !body.SIN) {
             errorCode = 401
-            throw new Error("You donnot have access! Check your body.");
+            throw new Error("You don not have access! Check your body parameters.");
         }
+        //-- checando os types
         if (typeof body.name != "string" || typeof body.SIN != "string") {
             errorCode = 422
             throw new Error("Invalid parameters, check it out.");
         }
-        const findUser = users.find((user) => {
+        //-- procurando usuario
+        const findUser: User | undefined = users.find((user) => {
             if (user.SIN === body.SIN && user.name === body.name) {
                 return user.balance
             }
         })
+        //-- check se não encontrar user
         if (!findUser) {
             errorCode = 422
             throw new Error("Please, check your name and SIN number, something went wrong.");
         }
-        const checkBalance = `Your balance is: R$${findUser.balance.toFixed(2)}`
+        //-- atualizando saldo na conta
+        const checkBalance: string = `Your balance is: R$${findUser.balance.toFixed(2)}`
+        //-- response
         res.status(200).send(checkBalance)
     } catch (err: any) {
         res.status(errorCode).send(err.message)
     }
 })
-
 //-- ADICIONAR SALDO NA CONTA
 app.put('/addBalance', (req: Request, res: Response) => {
     let errorCode: number = 400
-
     try {
-        const { name, SIN, balance }: Balance = req.body
+        const token = req.headers.auth
+        let { name, SIN, balance }: Balance = req.body
+        //-- checar token
+        if (!token) {
+            errorCode = 401
+            throw new Error("You are not allowed to see this. Enter a valid token!");
+        }
         //-- checar se campos estão sendo passados 
         if (!name || !SIN) {
             errorCode = 401
@@ -114,31 +136,38 @@ app.put('/addBalance', (req: Request, res: Response) => {
             errorCode = 422
             throw new Error("Invalid parameters, check it out.");
         }
-
-        const findUser = users.find((user) => (user.SIN === SIN && user.name === name))
+        //-- checar valor do balance a ser adicionado 
+        if (balance < 0) {
+            errorCode = 422
+            throw new Error("Balance has to be a positive number, bigger than zero.");
+        }
+        //-- encontrar usuário
+        const findUser: User | undefined = users.find((user) => (user.SIN === SIN && user.name === name))
         // checar se há algum usuário
         if (!findUser) {
             errorCode = 422
             throw new Error("Please check your name and SIN number, something went wrong.");
         }
-
         //-- Adicionando saldo 
-        const addBalance = { ...findUser, balance: findUser.balance + balance }
-
+        const addBalance: User = { ...findUser, balance: findUser.balance + balance }
+        //-- response 
         res.status(200).send(addBalance)
-
     } catch (err: any) {
         res.status(errorCode).send(err.message)
     }
 })
-
 //-- PAGANDO CONTAS 
 app.put('/payBills', (req: Request, res: Response) => {
-    let errorCode = 400
-
+    let errorCode: number = 400
     try {
+        const token = req.headers.auth
         let { value, date, description, SIN }: BankStatement = req.body
-        const userAccount = users.find((user) => user.SIN === SIN)
+        let userAccount: User | undefined = users?.find((user) => user.SIN === SIN)
+        //-- checar token
+        if (!token) {
+            errorCode = 401
+            throw new Error("You are not allowed to see this. Enter a valid token!");
+        }
         //-- checar se tem autorização
         if (!userAccount) {
             errorCode = 401
@@ -158,12 +187,15 @@ app.put('/payBills', (req: Request, res: Response) => {
             errorCode = 401
             throw new Error("You donnot have access! Check your body.");
         }
-
+        //-- checa value negativo
+        if (value < 0) {
+            errorCode = 422
+            throw new Error("Value must to be bigger than 0. Check the field value.");
+        }
         //-- data automatica 
         if (!date) {
             date = getDate
         }
-
         //-- checar os tipos dos campos passados
         if (typeof description != "string" || typeof value != "number") {
             errorCode = 422
@@ -174,24 +206,28 @@ app.put('/payBills', (req: Request, res: Response) => {
             errorCode = 422
             throw new Error("Please enter a real expire date.");
         }
-
-        const payBill = {
+        //-- atualiza conta pós pagamento
+        const payBill: User = {
             ...userAccount, balance: userAccount.balance - value,
             bankStatement: [...userAccount.bankStatement,
             { value: - value, description: description, date: date }]
         }
-
+        //-- response
         res.status(200).send(payBill)
     } catch (error: any) {
         res.status(errorCode).send(error.message)
     }
 })
-
 //-- TRANSFERINDO MONEY 
 app.put('/transfers', (req: Request, res: Response) => {
-    let errorCode = 400
+    let errorCode: number = 400
     try {
+        const token = req.headers.auth
         const { nameFrom, SINFrom, nameTo, SINTo, value }: Transfer = req.body
+        if (!token) {
+            errorCode = 401
+            throw new Error("You are not allowed to see this. Enter a valid token!");
+        }
         //-- checando se tudo está sendo passsado
         if (!nameFrom || !SINFrom || !nameTo || !SINTo || !value) {
             errorCode = 422
@@ -202,7 +238,13 @@ app.put('/transfers', (req: Request, res: Response) => {
             errorCode = 422
             throw new Error("Check your value, it must be a number.");
         }
-        const userFrom = users.find((user) => (user.SIN === SINFrom && user.name === nameFrom))
+        //-- checa value negativo
+        if (value < 0) {
+            errorCode = 422
+            throw new Error("Value must to be bigger than 0. Check the field value.");
+        }
+        //-- localizando usuários para fazer a ted
+        const userFrom: User | undefined = users.find((user) => (user.SIN === SINFrom && user.name === nameFrom))
         //-- checar se usuario sin ta correto
         if (!userFrom) {
             errorCode = 422
@@ -213,35 +255,26 @@ app.put('/transfers', (req: Request, res: Response) => {
             errorCode = 401
             throw new Error("You do not have enough funds.");
         }
-        const userTo = users.find((user) => (user.SIN === SINTo && user.name === nameTo))
+        //-- localizando usuários para receber a ted
+        const userTo: User | undefined = users.find((user) => (user.SIN === SINTo && user.name === nameTo))
         //-- checar se usuario destino sin ta correto
         if (!userTo) {
             errorCode = 422
             throw new Error("Sorry, we couldnt have found your destiny User SIN.");
         }
-        const newUserFrom = {
+        //-- atualizando conta do usuário que fez a ted
+        const newUserFrom: User = {
             ...userFrom, balance: userFrom.balance - value,
             bankStatement: [...userFrom.bankStatement, { value: - value, description: `Transfer to ${userTo.name}`, date: getDate }]
         }
-        const newUserTo = {
-            ...userTo, balance: userTo.balance + value,
-            bankStatement: [...userTo.bankStatement, { value: value, description: `Transfer from ${userFrom.name}`, date: getDate }]
-        }
-        const newUsers = users.map((user) => {
-            if (user.SIN === SINFrom) {
-                return user = newUserFrom
-            }
-            if (user.SIN === SINTo) {
-                return user = newUserTo
-            }
-        })
-        res.status(200).send(newUsers)
+
+        res.status(200).send(newUserFrom)
     } catch (err: any) {
         res.status(errorCode).send(err.message)
     }
 })
-
-const server = app.listen(3003, () => {
+//-- LISTEN
+app.listen(3003, () => {
     console.log(`Server is running in http://localhost:3003`)
 })
 
