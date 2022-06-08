@@ -1,0 +1,36 @@
+GET http://localhost:3003/users/003
+
+### 
+
+GET http://localhost:3003/actor
+
+### 
+
+GET http://localhost:3003/actor/TonyRamos
+
+### 
+
+GET http://localhost:3003/actor_by_gender/female
+
+### 
+PUT http://localhost:3003/update_salary/003
+Content-Type: application/json
+
+{
+    "salary": 500
+}
+
+### 
+DELETE http://localhost:3003/actor/004
+
+###
+
+GET http://localhost:3003/avg_salary/male
+
+###
+
+GET http://localhost:3003/actor_id/001
+
+###
+
+GET http://localhost:3003/actors/gender?gender=female

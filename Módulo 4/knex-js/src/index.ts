@@ -1,11 +1,135 @@
-import express, { Express } from 'express'
+import express, { Express, Request, Response } from 'express'
 import cors from 'cors'
-import { connection } from './connection';
+import connection from './connection';
 
 const app: Express = express();
 
 app.use(express.json());
 app.use(cors());
+
+app.get('/actor', async (req: Request, res: Response) => {
+    try {
+        const [result] = await connection.raw(`SELECT * FROM Actor`)
+        console.log(result)
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(500).send("Unexpected error")
+    }
+})
+
+// EX 1  -------------------------------//-------------------------------------
+// A) Resposta vem com um array contendo várias iformações
+// que acabam não sendo muito relevantes para nós,
+// por isso "filtramos" com posição que queremos. [0][0]
+// B)
+// GET ACTOR BY NAME 
+const getActorByName = async (name: string): Promise<any> => {
+    const [result] = await connection.raw(`
+    SELECT * FROM Actor WHERE name = '${name}'
+    `)
+    return result
+}
+app.get('/actor/:name', async (req: Request, res: Response) => {
+    try {
+        const name = req.params.name
+        console.log(name)
+        console.log(await getActorByName(name))
+        res.end()
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(500).send("Unexpected error")
+    }
+})
+// C)
+// GET QUANTITY MALE - FEMALE 
+const getGenderQuantity = async (gender: string): Promise<any> => {
+    const [result] = await connection.raw(` 
+    SELECT COUNT(*), gender FROM Actor 
+    GROUP BY gender 
+    `)
+    return result
+}
+app.get('/actor_by_gender/:gender', async (req: Request, res: Response) => {
+    try {
+        const gender: string = req.params.gender
+        console.log(await getGenderQuantity(gender))
+        res.end()
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(500).send("Unexpected error")
+    }
+})
+
+// EX 2 -------------------------------//-------------------------------------
+// A) SALARIO E ID 
+app.put("/update_salary/:id", async (req: Request, res: Response) => {
+    try {
+        await connection("Actor")
+            .update({
+                salary: req.body.salary
+            })
+            .where('id', req.params.id)
+        res.send("Salary updated!")
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(500).send("Unexpected error")
+    }
+})
+// B) DELETE BY ID 
+app.delete('/actor/:id', async (req: Request, res: Response) => {
+    try {
+        await connection("Actor")
+            .delete()
+            .where('id', req.params.id)
+        console.log("Actor deleted!")
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(500).send("Unexpected error")
+    }
+})
+// C) AVG SALARY BY GENDER
+app.get('/avg_salary/:gender', async (req: Request, res: Response) => {
+    try {
+        const [result] = await connection("Actor")
+            .avg("salary as salary")
+            .where({ gender: req.params.gender })
+        console.log(`${req.params.gender} average salary is : R$${result.salary}`)
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(500).send("Unexpected error")
+    }
+})
+
+// EX 3 -------------------------------//-------------------------------------
+// A) GET ACTOR BY ID
+app.get("/actor_id/:id", async (req: Request, res: Response) => {
+    try {
+        const [result] = await connection("Actor")
+            .select('*')
+            .where({ id: req.params.id })
+        console.log(result)
+    } catch (err: any) {
+        res.status(400).send({ message: err.message });
+    }
+});
+// B) ACTOR BY GENDER QUERY PARAMS
+const countActors = async (gender: string): Promise<any> => {
+    const [result] = await connection.raw(`
+    SELECT COUNT(*) as count FROM Actor WHERE gender = '${gender}'
+    `)
+    return result
+}
+
+app.get('/actors/gender', async (req: Request, res: Response) => {
+    try {
+        const count = await countActors(req.query.gender as string)
+        console.log(`There is ${count[0].count} ${req.query.gender}`)
+    } catch (err: any) {
+        res.status(400).send({ message: err.message });
+    }
+})
+
+
 
 app.listen(3003, () => {
     console.log(`Server in running in http://localhost:3003`)
