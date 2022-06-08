@@ -119,7 +119,6 @@ const countActors = async (gender: string): Promise<any> => {
     `)
     return result
 }
-
 app.get('/actors/gender', async (req: Request, res: Response) => {
     try {
         const count = await countActors(req.query.gender as string)
@@ -129,6 +128,45 @@ app.get('/actors/gender', async (req: Request, res: Response) => {
     }
 })
 
+// EX 4 -------------------------------//-------------------------------------
+// POST  
+app.post("/actor", async (req: Request, res: Response) => {
+    try {
+        const result: { id: string, name: string, salary: number, birth_date: Date, gender: string } = await {
+            id: req.body.id,
+            name: req.body.name,
+            salary: req.body.salary,
+            birth_date: req.body.birth_date,
+            gender: req.body.gender
+        }
+
+        await connection("Actor").insert(result)
+        console.log('Actor created successfully')
+    } catch (err: any) {
+        res.status(400).send({ message: err.message });
+    }
+})
+// A) Endpoint para atualizar salário com id
+app.put("/actor/:id", async (req: Request, res: Response) => {
+    try {
+        await connection("Actor")
+            .update({ salary: req.body.salary })
+            .where({ id: req.params.id })
+        console.log("Actor has been updated!")
+    } catch (err: any) {
+        res.status(400).send({ message: err.message });
+    }
+})
+// B) Endpoint para deletar ator da tabela
+app.delete("/actor/:id", async (req: Request, res: Response) => {
+    try {
+        await connection("Actor").delete()
+            .where({ id: req.params.id })
+        console.log("Actor has been deleted!")
+    } catch (err: any) {
+        res.status(400).send({ message: err.message });
+    }
+})
 
 
 app.listen(3003, () => {
