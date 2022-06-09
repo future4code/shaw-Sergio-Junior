@@ -51,3 +51,30 @@ Content-Type: application/json
 ### 
 DELETE http://localhost:3003/actor/26
 
+
+
+
+
+
+
+
+
+// MOVIESSSSSS 
+
+### 
+GET http://localhost:3003/movie/all
+
+###
+POST http://localhost:3003/movie
+Content-Type: application/json
+
+{
+    "id": "006",
+    "Título": "Juvenal Antena",
+    "sinopse": "parararararar lalalalalal lilili",
+    "release_date": "2018/05/24",
+    "rating": 8
+}
+
+### 
+GET http://localhost:3003/movie/search?search=a

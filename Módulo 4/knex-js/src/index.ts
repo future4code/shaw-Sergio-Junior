@@ -132,7 +132,7 @@ app.get('/actors/gender', async (req: Request, res: Response) => {
 // POST  
 app.post("/actor", async (req: Request, res: Response) => {
     try {
-        const result: { id: string, name: string, salary: number, birth_date: Date, gender: string } = await {
+        const result: { id: string, name: string, salary: number, birth_date: Date, gender: string } = {
             id: req.body.id,
             name: req.body.name,
             salary: req.body.salary,
@@ -168,6 +168,56 @@ app.delete("/actor/:id", async (req: Request, res: Response) => {
     }
 })
 
+// EX 5 -------------------------------//-------------------------------------
+app.post("/movie", async (req: Request, res: Response) => {
+    try {
+        const result: {
+            id: string,
+            Título: string,
+            sinopse: string,
+            release_date: Date,
+            rating: number
+        } = {
+            id: req.body.id,
+            Título: req.body.Título,
+            sinopse: req.body.sinopse,
+            release_date: req.body.release_date,
+            rating: req.body.rating
+        }
+
+        await connection('Movies').insert(result)
+
+        console.log("Movie successfully created!")
+    } catch (err: any) {
+        res.status(400).send({ message: err.message });
+    }
+})
+
+// EX 6 -------------------------------//-------------------------------------
+app.get('/movie/all', async (req: Request, res: Response) => {
+    try {
+        const [result] = await connection.raw(`SELECT * FROM Movies LIMIT 15`)
+        console.log(result)
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(500).send("Unexpected error")
+    }
+})
+
+// EX 6 -------------------------------//-------------------------------------
+app.get('/movie/search', async (req: Request, res: Response) => {
+    try {
+        const [result] = await connection.raw(`
+    SELECT * FROM Movies 
+    WHERE Título LIKE "%${req.query.search}%" OR sinopse LIKE "%${req.query.search}%"
+    ORDER BY release_date ASC
+    `)
+        console.log(result)
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(500).send("Unexpected error")
+    }
+})
 
 app.listen(3003, () => {
     console.log(`Server in running in http://localhost:3003`)
