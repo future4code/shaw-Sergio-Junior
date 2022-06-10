@@ -1,7 +1,8 @@
 import express, { Express, Request, response, Response } from "express";
 import cors from "cors";
 import { connection } from "./connection";
-import { CreateUser, GetUserById, CreateTask } from "./types";
+import { CreateUser, GetUserBy, CreateTask, GetTask } from "./types";
+import { read } from "fs";
 
 
 const app: Express = express();
@@ -9,19 +10,7 @@ const app: Express = express();
 app.use(express.json());
 app.use(cors());
 
-let errorCode = 400
-
-// 6 - Get all Users
-app.get("/users", async (req: Request, res: Response): Promise<any> => {
-    try {
-        const result = await connection("Users")
-            .select("*")
-        res.status(200).send(result)
-    } catch (error: any) {
-        console.log(error.message)
-        res.status(errorCode).send(error.message)
-    }
-})
+let errorCode: number = 400
 
 // 1 - Criar usuário 
 app.post('/user', async (req: Request, res: Response): Promise<any> => {
@@ -49,7 +38,7 @@ app.post('/user', async (req: Request, res: Response): Promise<any> => {
 // 2 - Pegar usuário pelo id
 app.get('/user/:id', async (req: Request, res: Response): Promise<any> => {
     try {
-        const [result]: GetUserById[] = await connection("Users")
+        const [result]: GetUserBy[] = await connection("Users")
             .select("id", "nickname")
             .where({ id: req.params.id })
 
@@ -126,16 +115,70 @@ app.post('/task', async (req: Request, res: Response): Promise<any> => {
 // 5 - Pegar tarefa pelo id
 app.get("/task/:id", async (req: Request, res: Response): Promise<any> => {
     try {
-        let [result] = await connection("Tasks").select("*").where("id", req.params.id)
+        let [result]: GetTask[] = await connection("Tasks").select("*").where("id", req.params.id)
         if (!result) {
             errorCode = 422
             throw new Error("Please check if your task 'id' is correct!");
         }
 
-        const date = `${result.due_Date.getDate()}/${result.due_Date.getMonth()}/${result.due_Date.getFullYear()}`
+        let dateUnformated: Date = result.due_Date as Date
+        const date: string = `${dateUnformated.getDate()}/${dateUnformated.getMonth()}/${dateUnformated.getFullYear()}`
 
-        let newResult = { ...result, due_Date: date }
+        let newResult: GetTask = { ...result, due_Date: date }
         res.status(200).send(newResult)
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(errorCode).send(error.message)
+    }
+})
+
+// 6 - Get all Users
+app.get("/users", async (req: Request, res: Response): Promise<any> => {
+    try {
+        const result: GetUserBy[] = await connection("Users")
+            .select("*")
+        res.status(200).send(result)
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(errorCode).send(error.message)
+    }
+})
+
+// 7 - Pegar tarefas criadas por um usuário
+app.get('/task', async (req: Request, res: Response): Promise<any> => {
+    try {
+        if (!req.query.creatorId) {
+            errorCode = 422
+            throw new Error("Please check your query, probably your CreatorId is wrong!");
+        }
+
+        let result: GetTask[] = await connection("Tasks")
+            .select('*').where({ 'creator_user_id': req.query.creatorId })
+
+        if (result.length === 0) {
+            result = []
+            console.log("Empty array!")
+        }
+
+        res.status(200).send(result)
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(errorCode).send(error.message)
+    }
+})
+
+// 8 - Pesquisar usuário 
+app.get('/user', async (req: Request, res: Response): Promise<any> => {
+    try {
+        if (!req.query.searchUser) {
+            errorCode = 422
+            throw new Error("Please check your query, probably your 'searchUser' is wrong!");
+        }
+        let [result]: GetUserBy[] = await connection.raw(`
+        SELECT id, nickname FROM Users 
+        WHERE (nickname LIKE '%${req.query.searchUser}%' OR email LIKE '%${req.query.searchUser}%') 
+        `)
+        res.status(200).send(result)
     } catch (error: any) {
         console.log(error.message)
         res.status(errorCode).send(error.message)

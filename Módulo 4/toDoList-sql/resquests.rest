@@ -41,3 +41,9 @@ GET http://localhost:3003/task/1654886487971
 
 ### 
 DELETE http://localhost:3003/task/1654886487971
+
+### 
+GET http://localhost:3003/task?creatorId=1654877950937
+
+### 
+GET http://localhost:3003/user?searchUser=o
