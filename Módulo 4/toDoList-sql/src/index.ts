@@ -1,7 +1,8 @@
 import express, { Express, Request, response, Response } from "express";
 import cors from "cors";
 import { connection } from "./connection";
-import { CreateUser, GetUserBy, CreateTask, GetTask, CreateResponsible } from './types';
+import { CreateUser, GetUserBy, CreateTask, GetTask, CreateResponsible, GetResponsibleUserById } from './types';
+import { read } from "fs";
 
 const app: Express = express();
 
@@ -89,20 +90,20 @@ app.get("/tasks", async (req: Request, res: Response): Promise<any> => {
 app.post('/task', async (req: Request, res: Response): Promise<any> => {
     try {
 
-        const { id, title, description, due_Date, creator_user_id }: CreateTask = {
-            id: Date.now().toString(),
+        const { id_task, title, description, due_Date, creator_user_id }: CreateTask = {
+            id_task: Date.now().toString(),
             title: req.body.title,
             description: req.body.description,
             due_Date: req.body.dueDate.split('/').reverse().join('/'),
             creator_user_id: req.body.creatorUserId
         }
 
-        if (!id || !title || !description || !due_Date || !creator_user_id) {
+        if (!id_task || !title || !description || !due_Date || !creator_user_id) {
             errorCode = 422
             throw new Error("Please check your title, your description, your creatorUserId or your dueDate!");
         }
 
-        await connection("Tasks").insert({ id, title, description, due_Date, creator_user_id })
+        await connection("Tasks").insert({ id_task, title, description, due_Date, creator_user_id })
         res.status(201).send("Task created!")
     } catch (error: any) {
         console.log(error.message)
@@ -113,7 +114,7 @@ app.post('/task', async (req: Request, res: Response): Promise<any> => {
 // 5 - Pegar tarefa pelo id
 app.get("/task/:id", async (req: Request, res: Response): Promise<any> => {
     try {
-        let [result]: GetTask[] = await connection("Tasks").select("*").where("id", req.params.id)
+        let [result]: GetTask[] = await connection("Tasks").select("*").where("id_task", req.params.id)
         if (!result) {
             errorCode = 422
             throw new Error("Please check if your task 'id' is correct!");
@@ -207,17 +208,77 @@ app.post('/task/responsible', async (req: Request, res: Response): Promise<any> 
     }
 })
 
-
-// 19 - Deletar tarefa (parcial)
-app.delete('/task/:id', async (req: Request, res: Response): Promise<any> => {
+// 10 - Pegar usuários responsáveis por uma tarefa
+app.get('/task/:id/responsible', async (req: Request, res: Response): Promise<any> => {
     try {
-        await connection("Tasks").delete().where("id", req.params.id)
-        res.status(200).send("Task deleted!")
+        if (!req.params.id) {
+            errorCode = 422
+            throw new Error("Task id missing!");
+        }
+
+        const result = await connection.raw(`
+        SELECT id, nickname FROM Tasks 
+        JOIN ResponsibleUser ON ${req.params.id} = ResponsibleUser.task_id
+        JOIN Users ON ResponsibleUser.responsible_user_id = Users.id
+        `)
+
+        if (!result[0].length) {
+            errorCode = 422
+            throw new Error("Please check your TaskID");
+        }
+
+        res.status(200).send(result[0])
     } catch (error: any) {
         console.log(error.message)
         res.status(errorCode).send(error.message)
     }
 })
+
+// 11 - Pegar tarefa pelo id e os responsáveis por ela
+// app.get('/task/:id/responsiblesTask', async (req: Request, res: Response): Promise<any> => {
+//     try {
+//         const result = await connection.raw(`
+//         SELECT * FROM Tasks 
+//         `)
+
+//         console.log(result)
+//     } catch (error: any) {
+//         console.log(error.message)
+//         res.status(errorCode).send(error.message)
+//     }
+// })
+
+// 12 - Atualizar o status da tarefa pelo id
+app.put("/task/status/:id", async (req: Request, res: Response): Promise<any> => {
+    try {
+        if (!req.params.id || !req.body.status) {
+            errorCode = 422
+            throw new Error("Please, check your params and body!");
+        }
+
+        await connection("Tasks")
+            .update({
+                status: req.body.status
+            })
+            .where("id_task", req.params.id)
+
+        res.status(200).send("Task status updated")
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(errorCode).send(error.message)
+    }
+})
+
+// 19 - Deletar tarefa (parcial)
+// app.delete('/task/:id', async (req: Request, res: Response): Promise<any> => {
+//     try {
+//         await connection("Tasks").delete().where("id_task", req.params.id)
+//         res.status(200).send("Task deleted!")
+//     } catch (error: any) {
+//         console.log(error.message)
+//         res.status(errorCode).send(error.message)
+//     }
+// })
 
 
 
