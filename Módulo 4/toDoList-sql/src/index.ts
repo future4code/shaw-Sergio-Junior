@@ -1,9 +1,7 @@
 import express, { Express, Request, response, Response } from "express";
 import cors from "cors";
 import { connection } from "./connection";
-import { CreateUser, GetUserBy, CreateTask, GetTask } from "./types";
-import { read } from "fs";
-
+import { CreateUser, GetUserBy, CreateTask, GetTask, CreateResponsible } from './types';
 
 const app: Express = express();
 
@@ -184,6 +182,31 @@ app.get('/user', async (req: Request, res: Response): Promise<any> => {
         res.status(errorCode).send(error.message)
     }
 })
+
+// 9 - Atribuir um usuário responsável a uma tarefa
+app.post('/task/responsible', async (req: Request, res: Response): Promise<any> => {
+    try {
+
+        if (!req.body.taskId || !req.body.responsibleUser) {
+            errorCode = 422
+            throw new Error("Please check your taskId or your responsibleUser!");
+        }
+
+        const result: CreateResponsible = {
+            task_id: req.body.taskId,
+            responsible_user_id: req.body.responsibleUser
+        }
+
+        await connection("ResponsibleUser")
+            .insert(result)
+
+        res.status(200).send("Responsible user created!")
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(errorCode).send(error.message)
+    }
+})
+
 
 // 19 - Deletar tarefa (parcial)
 app.delete('/task/:id', async (req: Request, res: Response): Promise<any> => {

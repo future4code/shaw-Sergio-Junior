@@ -47,3 +47,12 @@ GET http://localhost:3003/task?creatorId=1654877950937
 
 ### 
 GET http://localhost:3003/user?searchUser=o
+
+### 
+POST http://localhost:3003/task/responsible
+Content-Type: application/json
+
+{
+	"taskId": "1654885083962",
+	"responsibleUser": "1654881506322"
+}

@@ -26,3 +26,8 @@ export type GetTask = {
     creator_user_id: string,
     status: string
 }
+
+export type CreateResponsible = {
+    task_id: string,
+    responsible_user_id: string
+}
