@@ -67,3 +67,13 @@ Content-Type: application/json
 {
 	"status": "doing" 
 }
+
+### 
+GET http://localhost:3003/tasks?status=doing
+
+###
+
+### 
+GET http://localhost:3003/tasks/delayed
+
+### 

@@ -76,15 +76,15 @@ app.put('/user/edit/:id', async (req: Request, res: Response): Promise<any> => {
 })
 
 // 4.0 - Get all tasks
-app.get("/tasks", async (req: Request, res: Response): Promise<any> => {
-    try {
-        const result = await connection("Tasks").select("*")
-        res.status(200).send(result)
-    } catch (error: any) {
-        console.log(error.message)
-        res.status(errorCode).send(error.message)
-    }
-})
+// app.get("/tasks", async (req: Request, res: Response): Promise<any> => {
+//     try {
+//         const result = await connection("Tasks").select("*")
+//         res.status(200).send(result)
+//     } catch (error: any) {
+//         console.log(error.message)
+//         res.status(errorCode).send(error.message)
+//     }
+// })
 
 // 4 - Criar tarefa
 app.post('/task', async (req: Request, res: Response): Promise<any> => {
@@ -268,6 +268,69 @@ app.put("/task/status/:id", async (req: Request, res: Response): Promise<any> =>
         res.status(errorCode).send(error.message)
     }
 })
+
+// 13 - 
+app.get("/tasks", async (req: Request, res: Response): Promise<any> => {
+    try {
+
+        if (!req.query.status) {
+            errorCode = 422
+            throw new Error("Please, check your query status!");
+        }
+
+        let result: GetTask[] = await connection("Tasks")
+            .select("*")
+            .where({ status: req.query.status })
+
+        if (!result.length) {
+            errorCode = 422
+            throw new Error("Please, check your query status!");
+        }
+
+        let newResult: GetTask[] = result.map((item) => {
+            let date = item.due_Date as Date
+            return {
+                ...item,
+                due_Date: `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+            }
+        })
+
+        res.status(200).send(newResult)
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(errorCode).send(error.message)
+    }
+})
+
+// 14 - 
+app.get("/tasks/delayed", async (req: Request, res: Response): Promise<any> => {
+    try {
+        let [result]: GetTask[] = await connection.raw(`
+        SELECT * FROM Tasks 
+        WHERE due_Date < CURDATE()
+        `)
+        if (![result].length) {
+            errorCode = 422
+            throw new Error("Please, check your tasks due_Date, probably you donnot have any dalayed tasks!");
+        }
+
+        // let date = new Date(result.due_Date)
+        // let newDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+
+        res.status(200).send(result)
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(errorCode).send(error.message)
+    }
+})
+// 15 - 
+
+
+// 16 - 
+
+// 17 - 
+
+// 18 - 
 
 // 19 - Deletar tarefa (parcial)
 // app.delete('/task/:id', async (req: Request, res: Response): Promise<any> => {
