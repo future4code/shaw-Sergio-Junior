@@ -69,11 +69,15 @@ Content-Type: application/json
 }
 
 ### 
-GET http://localhost:3003/tasks?status=doing
+GET http://localhost:3003/tasks/status?status=doing
 
 ###
 
 ### 
 GET http://localhost:3003/tasks/delayed
+
+### 
+
+DELETE  http://localhost:3003/task/1654923681390/responsible/1654923316259
 
 ### 

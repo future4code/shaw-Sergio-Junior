@@ -2,7 +2,6 @@ import express, { Express, Request, response, Response } from "express";
 import cors from "cors";
 import { connection } from "./connection";
 import { CreateUser, GetUserBy, CreateTask, GetTask, CreateResponsible, GetResponsibleUserById } from './types';
-import { read } from "fs";
 
 const app: Express = express();
 
@@ -76,15 +75,15 @@ app.put('/user/edit/:id', async (req: Request, res: Response): Promise<any> => {
 })
 
 // 4.0 - Get all tasks
-// app.get("/tasks", async (req: Request, res: Response): Promise<any> => {
-//     try {
-//         const result = await connection("Tasks").select("*")
-//         res.status(200).send(result)
-//     } catch (error: any) {
-//         console.log(error.message)
-//         res.status(errorCode).send(error.message)
-//     }
-// })
+app.get("/tasks", async (req: Request, res: Response): Promise<any> => {
+    try {
+        const result = await connection("Tasks").select("*")
+        res.status(200).send(result)
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(errorCode).send(error.message)
+    }
+})
 
 // 4 - Criar tarefa
 app.post('/task', async (req: Request, res: Response): Promise<any> => {
@@ -269,8 +268,8 @@ app.put("/task/status/:id", async (req: Request, res: Response): Promise<any> =>
     }
 })
 
-// 13 - 
-app.get("/tasks", async (req: Request, res: Response): Promise<any> => {
+// 13 - task?status=valor_do_status
+app.get("/tasks/status", async (req: Request, res: Response): Promise<any> => {
     try {
 
         if (!req.query.status) {
@@ -302,7 +301,7 @@ app.get("/tasks", async (req: Request, res: Response): Promise<any> => {
     }
 })
 
-// 14 - 
+// 14 - Pegar todas as tarefas atrasadas
 app.get("/tasks/delayed", async (req: Request, res: Response): Promise<any> => {
     try {
         let [result]: GetTask[] = await connection.raw(`
@@ -323,8 +322,23 @@ app.get("/tasks/delayed", async (req: Request, res: Response): Promise<any> => {
         res.status(errorCode).send(error.message)
     }
 })
-// 15 - 
+// 15 - Retirar um usuário responsável de uma tarefa
+app.delete("/task/:taskId/responsible/:responsibleUserId", async (req: Request, res: Response): Promise<any> => {
+    try {
+        const [result] = await connection.raw(`
+        SELECT * FROM Tasks 
+        JOIN ResponsibleUser ON ${req.params.taskId} = ResponsibleUser.task_id
+        DELETE WHERE ${req.params.responsibleUserId} = responsible_user_id AND ${req.params.taskId} = task_id
+        `)
 
+        // DELETE FROM ResponsibleUser WHERE responsible_user_id = "${req.params.responsibleUserId}"
+        console.log(result)
+
+    } catch (error: any) {
+        console.log(error.message)
+        res.status(errorCode).send(error.message)
+    }
+})
 
 // 16 - 
 
