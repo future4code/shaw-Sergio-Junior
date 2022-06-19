@@ -1,0 +1,34 @@
+GET http://localhost:3003/users/1/purchases
+
+### 
+POST http://localhost:3003/purchases
+Content-Type: application/json
+
+{ 
+    "user_id": 1,
+    "product_id": 3,
+    "quantity": 1
+}
+
+### 
+POST http://localhost:3003/users
+Content-Type: application/json
+
+{
+    "name": "Jõao",
+    "email": "joao@gmail.com",
+    "password": "010203"
+}
+
+### 
+GET http://localhost:3003/products
+
+### 
+POST http://localhost:3003/products
+Content-Type: application/json
+
+{
+    "name": "Margarina",
+    "price": 10.50,
+    "image_url": "https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ"
+}
