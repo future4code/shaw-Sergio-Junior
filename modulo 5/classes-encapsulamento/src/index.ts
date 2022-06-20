@@ -19,8 +19,10 @@ const userAccount1 = new UserAccount("02235845066", "João", 25)
 // EXERCICIO 2 : 
 const transaction1 = new Transaction("McDonalds", 32, "10/06/2022")
 
-// const transactionsDate = transaction1.getDate()
-// console.log(transactionsDate)
+const addTransaction = userAccount1.setTransaction(transaction1)
+
+const result = userAccount1.getAccount()
+console.log(result)
 
 const server = app.listen(process.env.PORT || 3003, () => {
     if (server) {

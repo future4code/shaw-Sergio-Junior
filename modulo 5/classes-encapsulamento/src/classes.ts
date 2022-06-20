@@ -25,6 +25,10 @@ export class UserAccount {
         }
     }
 
+    public setTransaction(transaction: Transaction): Transaction[] {
+        return this.transactions = [...this.transactions, transaction]
+    }
+
 }
 
 export class Transaction {
@@ -53,6 +57,14 @@ export class Transaction {
     public getDate(): string {
         return this.date
     }
+
+    public getTransaction(transaction: transaction): object {
+        return {
+            description: transaction.description,
+            value: transaction.value,
+            date: transaction.date
+        }
+    }
 }
 
 export class Bank {
@@ -65,4 +77,10 @@ export class Bank {
     public getAccounts() {
         return this.accounts
     }
+}
+
+type transaction = {
+    description: string,
+    value: number,
+    date: string
 }
