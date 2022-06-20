@@ -1,0 +1,80 @@
+GET http://localhost:3003/users/003
+
+### 
+GET http://localhost:3003/actor
+
+### 
+GET http://localhost:3003/actor/TonyRamos
+
+### 
+GET http://localhost:3003/actor_by_gender/female
+
+### 
+PUT http://localhost:3003/update_salary/003
+Content-Type: application/json
+
+{
+    "salary": 500
+}
+
+### 
+DELETE http://localhost:3003/actor/004
+
+###
+GET http://localhost:3003/avg_salary/male
+
+###
+GET http://localhost:3003/actor_id/001
+
+###
+GET http://localhost:3003/actors/gender?gender=female
+
+###
+POST http://localhost:3003/actor
+Content-Type: application/json
+
+{
+    "id": "28",
+    "name": "Juvenal",
+    "salary": 25000,
+    "birth_date": "1998/05/24",
+    "gender": "male"
+}
+
+### 
+PUT http://localhost:3003/actor/001
+Content-Type: application/json
+
+{
+    "salary": 1500
+}
+### 
+DELETE http://localhost:3003/actor/26
+
+
+
+
+
+
+
+
+
+// MOVIESSSSSS 
+
+### 
+GET http://localhost:3003/movie/all
+
+###
+POST http://localhost:3003/movie
+Content-Type: application/json
+
+{
+    "id": "006",
+    "Título": "Juvenal Antena",
+    "sinopse": "parararararar lalalalalal lilili",
+    "release_date": "2018/05/24",
+    "rating": 8
+}
+
+### 
+GET http://localhost:3003/movie/search?search=a
