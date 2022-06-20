@@ -1,0 +1,12 @@
+{
+  "name": "package-json",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "infos": "clear && node infos.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
