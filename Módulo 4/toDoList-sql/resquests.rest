@@ -1,0 +1,83 @@
+GET http://localhost:3003/users
+
+### 
+POST http://localhost:3003/user
+Content-Type: application/json
+
+{
+    "name": "Mario",
+	"nickname": "Mar",
+	"email": "Mario@dev.com"
+}
+
+### 
+GET http://localhost:3003/user/1654923316259
+
+### 
+PUT http://localhost:3003/user/edit/1654923316259
+Content-Type: application/json
+
+{
+    "name": "Jonathan",
+    "nickname": "Joninha"
+}
+
+### 
+GET http://localhost:3003/tasks
+
+### 
+POST http://localhost:3003/task
+Content-Type: application/json
+
+{
+	"title": "Criar banco dos alunos",
+	"description": "Devemos criar o banco dos alunos para o módulo do backend",
+	"dueDate": "04/05/2020",
+	"creatorUserId": "1654923316259"
+}
+
+### 
+GET http://localhost:3003/task/1654923647472
+
+### 
+DELETE http://localhost:3003/task/1654923647472
+
+### 
+GET http://localhost:3003/task?creatorId=1654923316259
+
+### 
+GET http://localhost:3003/user?searchUser=o
+
+### 
+POST http://localhost:3003/task/responsible
+Content-Type: application/json
+
+{
+	"taskId": "1654923681390",
+	"responsibleUser": "1654923316259"
+}
+
+### 
+GET http://localhost:3003/task/1654923681390/responsible
+
+### 
+PUT http://localhost:3003/task/status/1654923681390
+Content-Type: application/json
+
+{
+	"status": "doing" 
+}
+
+### 
+GET http://localhost:3003/tasks/status?status=doing
+
+###
+
+### 
+GET http://localhost:3003/tasks/delayed
+
+### 
+
+DELETE  http://localhost:3003/task/1654923681390/responsible/1654923316259
+
+### 
