@@ -58,13 +58,13 @@ export class Transaction {
         return this.date
     }
 
-    public getTransaction(transaction: transaction): object {
-        return {
-            description: transaction.description,
-            value: transaction.value,
-            date: transaction.date
-        }
-    }
+    // public getTransaction(transaction: transaction): object {
+    //     return {
+    //         description: transaction.description,
+    //         value: transaction.value,
+    //         date: transaction.date
+    //     }
+    // }
 }
 
 export class Bank {
