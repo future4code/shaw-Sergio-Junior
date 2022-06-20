@@ -1,0 +1,15 @@
+// EXERCICIO 1 a 
+GET http://localhost:3003/user?name=soter
+###
+// EXERCICIO 1 b 
+GET http://localhost:3003/user/cx
+###
+// EXERCICIO 2
+GET http://localhost:3003/ordersort?sort=name&order=desc
+###
+// EXERCICIO 3
+GET http://localhost:3003/usersPages?page=4
+###
+// EXERCICIO 4
+GET http://localhost:3003/allfilters?order=asc&name=jo&sort=id
+###
