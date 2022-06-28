@@ -1,9 +1,16 @@
+export enum UserRole {
+   NORMAL = "ADMIN",
+   ADMIN = "ADMIN"
+}
+
 export type user = {
    id: string
    email: string
-   password: string
+   password: string,
+   role: UserRole
 }
 
 export type AuthenticatorData = {
-   id: string
+   id: string,
+   role: UserRole
 }

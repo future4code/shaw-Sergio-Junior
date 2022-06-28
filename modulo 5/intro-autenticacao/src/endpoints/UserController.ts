@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import { UserDatabase } from "../data/UserDatabase";
 import { Authenticator } from "../services/Authenticator";
 import { GenerateId } from "../services/GenerateId";
-import { AuthenticatorData, user } from "../types";
+import { hashManager } from "../services/HashManager";
+import { AuthenticatorData, user, UserRole } from "../types";
 
 export class userController {
 
@@ -11,7 +12,7 @@ export class userController {
         try {
 
             const userDB = new UserDatabase()
-            const { email, password } = req.body
+            const { email, password, role } = req.body
             const user: user = await userDB.getByEmail(email)
 
             if (user) {
@@ -33,14 +34,71 @@ export class userController {
             const generateId = new GenerateId()
             const id: string = generateId.generateId()
 
-            const newUser: user = { id, email, password }
+            const newUser: user = { id, email, password, role }
 
             await userDB.createUser(newUser)
 
             const generateToken = new Authenticator()
-            const token: string = generateToken.generateToken({ id })
+            const token: string = generateToken.generateToken({ id, role })
 
             res.status(200).send({ newUser, token })
+
+        } catch (error: any) {
+            if (res.statusCode === 200) {
+                res.status(500).send({ message: "Internal server error" })
+            } else {
+                res.send({ message: error.message })
+            }
+        }
+    }
+
+    public createUserCrypt = async (req: Request, res: Response): Promise<any> => {
+        try {
+
+            const userDB = new UserDatabase()
+            const { email, password, role } = req.body
+            const user: user = await userDB.getByEmail(email)
+
+            if(role != UserRole.ADMIN || role != UserRole.NORMAL){
+                res.statusCode = 422
+                throw new Error('Please, try "NORMAL" or "ADMIN" as role.')
+            }
+
+            if (user) {
+                res.statusCode = 422
+                throw new Error('Please, try another email.')
+            }
+
+            if (!email || !password) {
+                res.statusCode = 422
+                throw new Error("Preencha os campos 'email' e 'password'.");
+            }
+
+            if (!email.includes("@")) {
+                res.statusCode = 422
+                throw new Error("Insert a valid email format with '@'.");
+            }
+
+            if (password.lenght < 6) {
+                res.statusCode = 422
+                throw new Error("Insert a valid password with at least 6 characters.");
+            }
+
+            const generateId = new GenerateId()
+            const id: string = generateId.generateId()
+
+            // - Criação da nova senha dele 
+            const HashManager = new hashManager()
+            const hash = await HashManager.hash(password)
+
+            const newUser: user = { id, email, password: hash, role }
+
+            await userDB.createUser(newUser)
+
+            const generateToken = new Authenticator()
+            const token: string = generateToken.generateToken({ id, role })
+
+            res.status(200).send({ newUser: { id, email, role }, token })
 
         } catch (error: any) {
             if (res.statusCode === 200) {
@@ -75,7 +133,51 @@ export class userController {
             }
 
             const authenticator = new Authenticator()
-            const token: string = authenticator.generateToken({ id: user.id })
+            const token: string = authenticator.generateToken({ id: user.id, role: user.role })
+
+            res.status(200).send({ token })
+
+        } catch (error: any) {
+            if (res.statusCode === 200) {
+                res.status(500).send({ message: "Internal server error" })
+            } else {
+                res.send({ message: error.message })
+            }
+        }
+    }
+
+    public userLoginCrypt = async (req: Request, res: Response): Promise<any> => {
+        try {
+
+            const userDB = new UserDatabase()
+            const { email, password } = req.body
+            const user: user = await userDB.getByEmail(email)
+
+            if (!email) {
+                res.statusCode = 422
+                throw new Error("Please enter an email!");
+            }
+
+            const HashManager = new hashManager()
+            const compare: boolean = await HashManager.compare(password, user.password)
+
+            if (!compare) {
+                res.statusCode = 401
+                throw new Error("Invalid password.")
+            }
+
+            if (!user) {
+                res.statusCode = 422
+                throw new Error("This email is not valid!");
+            }
+
+            if (!email.includes("@")) {
+                res.statusCode = 422
+                throw new Error("Insert a valid email format with '@'.");
+            }
+
+            const authenticator = new Authenticator()
+            const token: string = authenticator.generateToken({ id: user.id, role: user.role })
 
             res.status(200).send({ token })
 
@@ -92,7 +194,7 @@ export class userController {
 
         try {
             res.statusCode = 500
-            
+
             const authenticator = new Authenticator();
             const data: AuthenticatorData = authenticator.getData(req.headers.authorization as string)
 
@@ -107,7 +209,8 @@ export class userController {
             res.status(200).send({
                 user: {
                     id: user.id,
-                    email: user.email
+                    email: user.email,
+                    role: user.role
                 }
             })
 

@@ -2,8 +2,9 @@ POST http://localhost:3003/user/signup
 Content-Type: application/json
 
 {
-    "email": "jobinas@jobs.job",
-    "password": "jobina"
+    "email": "josssssjotoddy@gmail.com",
+    "password": "jobina",
+    "role": "ADMIN"
 }
 
 ###
@@ -11,11 +12,11 @@ POST http://localhost:3003/user/login
 Content-Type: application/json
 
 {
-    "email": "jobs@jobs.job",
+    "email": "jojotoddy@gmail.com",
     "password": "jobina"
 }
 
 ###
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU4NzRmZGVlLWZiNGEtNDA3MC1iZDdkLWE3ZGZiNDhlMGQ4NCIsImlhdCI6MTY1NjM1ODM5NSwiZXhwIjoxNjU2MzY1NTk1fQ.ZyEJd7E604CvsxQBoXlUid7PQB2_0zU9UFVjZGL9gaU
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMzBiZjU5LTExNTgtNGM3My05ZjVmLWZjMjFhMTM4ODUxNyIsImlhdCI6MTY1NjQyMzc5OSwiZXhwIjoxNjU2NDMwOTk5fQ.ruTiWjzAcbn8BNJ_CIuqjkDFUhrQ7FmPR2Q03yNmOoA
 GET http://localhost:3003/user/profile
 Authorization: {{token}}
