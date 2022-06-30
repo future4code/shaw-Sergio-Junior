@@ -57,6 +57,7 @@ export class userController {
 
             const userDB = new UserDatabase()
             const { email, password, role } = req.body
+            //- feito para verificacao
             const user: user = await userDB.getByEmail(email)
 
             if (role != UserRole.ADMIN || role != UserRole.NORMAL) {
@@ -208,7 +209,7 @@ export class userController {
 
             const userDB = new UserDatabase()
             const user: user = await userDB.getById(data.id)
-console.log(user.role)
+            console.log(user.role)
             if (user.role !== UserRole.NORMAL) {
                 res.statusCode = 401
                 throw new Error("User unauthorized!");
