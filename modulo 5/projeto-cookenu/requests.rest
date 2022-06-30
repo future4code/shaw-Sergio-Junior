@@ -1,0 +1,42 @@
+POST http://localhost:3003/user/signup
+Content-Type: application/json
+
+{
+   "name": "Maya",
+   "email": "maya04@gmail.com",
+   "password": "123456"
+}
+
+###
+POST http://localhost:3003/user/login
+Content-Type: application/json
+
+{
+   "email": "maya03@gmail.com",
+   "password": "123456"
+}
+
+###
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUyNmRlMTQ1LWFiZTUtNDVhZC05OTgyLTAzZmFjYTUyMzExMSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTY1NDExMTUsImV4cCI6MTY1NjU0NDcxNX0.f7fbvuyWYqluN7eDir1FOGqX4hexOu2jVdooVRH7k2Q
+@token2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUyNmRlMTQ1LWFiZTUtNDVhZC05OTgyLTAzZmFjYTUyMzExMSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTY1NDU5MTksImV4cCI6MTY1NjU0OTUxOX0.9MW5gVw8lRXitx5ZebT6WFGnp1PbAdEX4uiU8zIwtrU
+GET http://localhost:3003/user/profile
+Authorization: {{token}}
+
+###
+GET http://localhost:3003/user/e26de145-abe5-45ad-9982-03faca523111
+Authorization: {{token2}}
+
+###
+POST http://localhost:3003/user/create/recipe
+Authorization: {{token2}}
+Content-Type: application/json
+
+{
+   "title": "Oi!",
+   "description": "Minha segunda receita."
+}
+
+###
+GET http://localhost:3003/recipe/94ac3b27-3742-4cfe-98ba-0e6d23c766c5
+Authorization: {{token2}}
