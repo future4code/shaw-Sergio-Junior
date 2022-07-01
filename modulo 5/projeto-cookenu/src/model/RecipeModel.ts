@@ -3,13 +3,14 @@ export class RecipeModel {
         private id: string,
         private title: string,
         private description: string,
-        private date?: string
+        private userId: string,
+        private date?: Date
     ) { }
 
 
     static toRecipeModel = (data: any): RecipeModel => {
-        console.log(data.date)
-        return new RecipeModel(data.id, data.title, data.description, data.date)
+        // do jeito que vem do DB
+        return new RecipeModel(data.id, data.title, data.description, data.user_id, data.created_at)
     }
     public getId() {
         return this.id
@@ -19,6 +20,9 @@ export class RecipeModel {
     }
     public getDescription() {
         return this.description
+    }
+    public getUserId() {
+        return this.userId
     }
     public getDate() {
         return this.date

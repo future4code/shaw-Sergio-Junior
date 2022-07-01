@@ -1,42 +1,85 @@
+@token2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ3MDFhMWY1LTNlYTgtNDc1Ny1hZTc1LWQ0OTc2YzJjY2ExZCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1NjY5MjI2NiwiZXhwIjoxNjU2Njk1ODY2fQ.B2OmRMcrcb1FuCjKGioIUZDE59Z8WKqObZrk35H3AxY
+
+### USER SIGN UP
 POST http://localhost:3003/user/signup
 Content-Type: application/json
 
 {
-   "name": "Maya",
-   "email": "maya04@gmail.com",
-   "password": "123456"
+   "name": "Joao",
+   "email": "joao@gmail.com",
+   "password": "123456",
+   "role": "NORMAL"
 }
 
-###
+### USER LOGIN
 POST http://localhost:3003/user/login
 Content-Type: application/json
 
 {
-   "email": "maya03@gmail.com",
+   "email": "joao@gmail.com",
    "password": "123456"
 }
 
-###
-
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUyNmRlMTQ1LWFiZTUtNDVhZC05OTgyLTAzZmFjYTUyMzExMSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTY1NDExMTUsImV4cCI6MTY1NjU0NDcxNX0.f7fbvuyWYqluN7eDir1FOGqX4hexOu2jVdooVRH7k2Q
-@token2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUyNmRlMTQ1LWFiZTUtNDVhZC05OTgyLTAzZmFjYTUyMzExMSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTY1NDU5MTksImV4cCI6MTY1NjU0OTUxOX0.9MW5gVw8lRXitx5ZebT6WFGnp1PbAdEX4uiU8zIwtrU
+### GET USER BY TOKEN
+# @name getProfile
 GET http://localhost:3003/user/profile
-Authorization: {{token}}
-
-###
-GET http://localhost:3003/user/e26de145-abe5-45ad-9982-03faca523111
 Authorization: {{token2}}
 
-###
+### GET USER BY ID
+GET http://localhost:3003/user/{{getProfile.response.body.id}}
+Authorization: {{token2}}
+
+### CREATE RECIPE
 POST http://localhost:3003/user/create/recipe
 Authorization: {{token2}}
 Content-Type: application/json
 
 {
-   "title": "Oi!",
+   "title": "Torta de ameixa seca!",
    "description": "Minha segunda receita."
 }
 
-###
-GET http://localhost:3003/recipe/94ac3b27-3742-4cfe-98ba-0e6d23c766c5
+### GET RECIPE BY ID 
+GET http://localhost:3003/recipe/091a94af-3702-43be-a38a-0fe281df31c6
 Authorization: {{token2}}
+
+### GET RECIPES FEED OF FOLLOWEDS
+GET http://localhost:3003/feed/recipes
+Authorization: {{token2}}
+
+### FOLLOW USER
+POST http://localhost:3003/follow/user
+Authorization: {{token2}}
+Content-Type: application/json
+
+{
+   "userToFollowId": "609a8d40-4158-450b-9224-a215cc9761db"
+}
+
+### UNFOLLOW USER
+DELETE http://localhost:3003/unfollow/user
+Authorization: {{token2}}
+Content-Type: application/json
+
+{
+   "userToUnfollowId": "609a8d40-4158-450b-9224-a215cc9761db"
+}
+
+### EDIT RECIPE
+PUT http://localhost:3003/edit/recipe/091a94af-3702-43be-a38a-0fe281df31c6
+Authorization: {{token2}}
+Content-Type: application/json
+
+{
+   "title": "Torta de mamão",
+   "description": "Mamao e leite condensado e deu!"
+}
+
+### DELETE RECIPE
+DELETE http://localhost:3003/delete/recipe/091a94af-3702-43be-a38a-0fe281df31c6
+Authorization: {{token2}}
+
+### DELETE USER
+DELETE http://localhost:3003/delete/user/c8a26b21-c0f2-4dc3-9963-6d55aa2caf26
+Authorization: {{token2}}
+

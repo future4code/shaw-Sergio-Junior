@@ -4,10 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node --inspect ./build/index.js",
+    "start": "node --inspect ./build/index.js",
     "dev": "ts-node-dev ./src/index.ts",
-    "test": "ts-node-dev ./src/services/authenticator.ts"
-},
+    "test": "ts-node-dev ./src/services/authenticator.ts",
+    "build": "tsc",
+    "postinstall": "tsc"
+  },
+  "engines": {
+    "node": "v17.9.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

@@ -1,15 +1,10 @@
-export enum UserRole {
-    NORMAL = "NORMAL",
-    ADMIN = "ADMIN"
-}
-
 export class UserModel {
     constructor(
         private id: string,
         private name: string,
         private email: string,
         private password: string,
-        private role: UserRole
+        private role: "NORMAL" | "ADMIN"
     ) { }
 
     static toUserModel = (data: any): UserModel => {
