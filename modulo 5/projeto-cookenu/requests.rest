@@ -1,7 +1,7 @@
-@token2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ3MDFhMWY1LTNlYTgtNDc1Ny1hZTc1LWQ0OTc2YzJjY2ExZCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1NjY5MjI2NiwiZXhwIjoxNjU2Njk1ODY2fQ.B2OmRMcrcb1FuCjKGioIUZDE59Z8WKqObZrk35H3AxY
+@token2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ3MDFhMWY1LTNlYTgtNDc1Ny1hZTc1LWQ0OTc2YzJjY2ExZCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1NjcwNjQzNCwiZXhwIjoxNjU2NzEwMDM0fQ.stLnvwPuOKz5s6QA2U01HNn-SrDEkC7Yl7M5snMGcao
 
 ### USER SIGN UP
-POST http://localhost:3003/user/signup
+POST https://cookenu-shaw.herokuapp.com/user/signup
 Content-Type: application/json
 
 {
@@ -12,25 +12,25 @@ Content-Type: application/json
 }
 
 ### USER LOGIN
-POST http://localhost:3003/user/login
+POST https://cookenu-shaw.herokuapp.com/user/login
 Content-Type: application/json
 
 {
-   "email": "joao@gmail.com",
+   "email": "maya01@gmail.com",
    "password": "123456"
 }
 
 ### GET USER BY TOKEN
 # @name getProfile
-GET http://localhost:3003/user/profile
+GET https://cookenu-shaw.herokuapp.com/user/profile
 Authorization: {{token2}}
 
 ### GET USER BY ID
-GET http://localhost:3003/user/{{getProfile.response.body.id}}
+GET https://cookenu-shaw.herokuapp.com/user/{{getProfile.response.body.id}}
 Authorization: {{token2}}
 
 ### CREATE RECIPE
-POST http://localhost:3003/user/create/recipe
+POST https://cookenu-shaw.herokuapp.com/user/create/recipe
 Authorization: {{token2}}
 Content-Type: application/json
 
@@ -40,15 +40,15 @@ Content-Type: application/json
 }
 
 ### GET RECIPE BY ID 
-GET http://localhost:3003/recipe/091a94af-3702-43be-a38a-0fe281df31c6
+GET https://cookenu-shaw.herokuapp.com/recipe/091a94af-3702-43be-a38a-0fe281df31c6
 Authorization: {{token2}}
 
 ### GET RECIPES FEED OF FOLLOWEDS
-GET http://localhost:3003/feed/recipes
+GET https://cookenu-shaw.herokuapp.com/feed/recipes
 Authorization: {{token2}}
 
 ### FOLLOW USER
-POST http://localhost:3003/follow/user
+POST https://cookenu-shaw.herokuapp.com/follow/user
 Authorization: {{token2}}
 Content-Type: application/json
 
@@ -57,7 +57,7 @@ Content-Type: application/json
 }
 
 ### UNFOLLOW USER
-DELETE http://localhost:3003/unfollow/user
+DELETE https://cookenu-shaw.herokuapp.com/unfollow/user
 Authorization: {{token2}}
 Content-Type: application/json
 
@@ -66,7 +66,7 @@ Content-Type: application/json
 }
 
 ### EDIT RECIPE
-PUT http://localhost:3003/edit/recipe/091a94af-3702-43be-a38a-0fe281df31c6
+PUT https://cookenu-shaw.herokuapp.com/edit/recipe/091a94af-3702-43be-a38a-0fe281df31c6
 Authorization: {{token2}}
 Content-Type: application/json
 
@@ -76,10 +76,10 @@ Content-Type: application/json
 }
 
 ### DELETE RECIPE
-DELETE http://localhost:3003/delete/recipe/091a94af-3702-43be-a38a-0fe281df31c6
+DELETE https://cookenu-shaw.herokuapp.com/delete/recipe/091a94af-3702-43be-a38a-0fe281df31c6
 Authorization: {{token2}}
 
 ### DELETE USER
-DELETE http://localhost:3003/delete/user/c8a26b21-c0f2-4dc3-9963-6d55aa2caf26
+DELETE https://cookenu-shaw.herokuapp.com/delete/user/c8a26b21-c0f2-4dc3-9963-6d55aa2caf26
 Authorization: {{token2}}
 

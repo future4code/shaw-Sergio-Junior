@@ -296,6 +296,7 @@ export class UserController {
             // instanciar e checar tipo de usuario 
             const userDB = new UserDataBase()
             const getUserToCheckRole = await userDB.getUserById(loggedUserId)
+
             if (getUserToCheckRole.getRole() !== "ADMIN" && getUserToCheckRole.getId() !== userId) {
                 errorCode = 404
                 throw new Error("Unauthorized!");
@@ -303,6 +304,10 @@ export class UserController {
 
             // checar se id n é de admin 
             const getUserToDeleRole = await userDB.getUserById(userId)
+            if (getUserToDeleRole === undefined) {
+                errorCode = 422
+                throw new Error("UserId not valid, inser a valid userId!");
+            }
             if (getUserToDeleRole.getRole() === "ADMIN" && getUserToDeleRole.getId() !== loggedUserId) {
                 errorCode = 404
                 throw new Error("Unauthorized! You cannot delete an ADMIN user even if you are an ADMIN.");
