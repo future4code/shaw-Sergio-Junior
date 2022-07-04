@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { UserDataBase } from "../data/UserDataBase";
+import { FollowersModel } from "../model/FollowersModel";
 import { UserModel } from "../model/UserModel";
 import { AuthenticationData, Authenticator } from "../services/Authenticator";
 import { GenerateId } from "../services/GenerateId";
 import { HashManager } from "../services/HashManager";
 
 export class UserController {
-
     // CREATE USER ENDPOINT
     public createUser = async (req: Request, res: Response) => {
         let errorCode: number = 500
@@ -95,7 +95,7 @@ export class UserController {
 
             //comparar senhas 
             const hashManager = new HashManager()
-            const comparePassword = await hashManager.compare(password, user.getPassword())
+            const comparePassword: boolean = await hashManager.compare(password, user.getPassword())
             if (!comparePassword) {
                 errorCode = 404
                 throw new Error("Unhnautorized. Verify your email and password.");
@@ -103,10 +103,10 @@ export class UserController {
 
             //-/ criar token
             const authenticator = new Authenticator()
-            const token = authenticator.generateToken({ id: user.getId(), role: user.getRole() })
+            const token: string = authenticator.generateToken({ id: user.getId(), role: user.getRole() })
 
             res.status(200).send({
-                message: "Login successed.",
+                message: "Login succeeded.",
                 token
             })
 
@@ -119,7 +119,7 @@ export class UserController {
         let errorCode: number = 500
         try {
             // pega o token do headers
-            const token = req.headers.authorization
+            const token: string = req.headers.authorization as string
 
             // verifica se está sendo passado um authorization
             if (!token) {
@@ -129,7 +129,7 @@ export class UserController {
 
             // pegar o token data 
             const authorization = new Authenticator()
-            const tokenData = authorization.getData(token)
+            const tokenData: AuthenticationData = authorization.getData(token)
 
             // instanciar userDb e pegar user solicitado 
             const userDb = new UserDataBase()
@@ -162,7 +162,7 @@ export class UserController {
 
             // instanciar userDb e verificar id 
             const userDb = new UserDataBase()
-            const validateId = await userDb.getUserById(id)
+            const validateId: UserModel = await userDb.getUserById(id)
             if (!validateId) {
                 errorCode = 422
                 throw new Error("You need to insert a valid id.");
@@ -200,14 +200,14 @@ export class UserController {
 
             // pegar o id atraves do token data 
             const authenticator = new Authenticator()
-            const tokenData = authenticator.getData(token)
+            const tokenData: AuthenticationData = authenticator.getData(token)
 
             // pegar o id do perfil desejado 
             const userToFollowId: string = req.body.userToFollowId
 
             // instanciar userDb e verificar id 
             const userDb = new UserDataBase()
-            const validateId = await userDb.getUserById(userToFollowId)
+            const validateId: UserModel = await userDb.getUserById(userToFollowId)
             if (!validateId) {
                 errorCode = 422
                 throw new Error("You need to insert a valid id.");
@@ -246,21 +246,21 @@ export class UserController {
 
             // pegar o id atraves do token data 
             const authenticator = new Authenticator()
-            const tokenData = authenticator.getData(token)
+            const tokenData: AuthenticationData = authenticator.getData(token)
 
             // pegar o id do perfil desejado 
             const userToUnfollowId: string = req.body.userToUnfollowId
 
             // instanciar userDb e verificar id 
             const userDb = new UserDataBase()
-            const validateId = await userDb.getUserById(userToUnfollowId)
+            const validateId: UserModel = await userDb.getUserById(userToUnfollowId)
             if (!validateId) {
                 errorCode = 422
                 throw new Error("You need to insert a valid id.");
             }
 
             // checar se eu de fato sigo esse userid 
-            const doIFollowU = await userDb.getFollowedUserById(userToUnfollowId, tokenData.id)
+            const doIFollowU: FollowersModel[] = await userDb.getFollowedUserById(userToUnfollowId, tokenData.id)
             if (!doIFollowU.length) {
                 errorCode = 422
                 throw new Error("You already donnot follow this dude.");
@@ -286,7 +286,7 @@ export class UserController {
             }
 
             //id do user a deletar 
-            const userId = req.params.id
+            const userId: string = req.params.id
 
             // gerar token data 
             const authorization = new Authenticator()
@@ -295,7 +295,7 @@ export class UserController {
 
             // instanciar e checar tipo de usuario 
             const userDB = new UserDataBase()
-            const getUserToCheckRole = await userDB.getUserById(loggedUserId)
+            const getUserToCheckRole: UserModel = await userDB.getUserById(loggedUserId)
 
             if (getUserToCheckRole.getRole() !== "ADMIN" && getUserToCheckRole.getId() !== userId) {
                 errorCode = 404
@@ -303,7 +303,7 @@ export class UserController {
             }
 
             // checar se id n é de admin 
-            const getUserToDeleRole = await userDB.getUserById(userId)
+            const getUserToDeleRole: UserModel = await userDB.getUserById(userId)
             if (getUserToDeleRole === undefined) {
                 errorCode = 422
                 throw new Error("UserId not valid, inser a valid userId!");

@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 import { RecipeDataBase } from "../data/RecipeDataBase";
 import { UserDataBase } from "../data/UserDataBase";
-import { FollowersModel } from "../model/FollowersModel";
 import { RecipeModel } from "../model/RecipeModel";
-import { UpdateRecipeModel } from "../model/updateRecipeModel";
+import { UserModel } from "../model/UserModel";
 import { AuthenticationData, Authenticator } from "../services/Authenticator";
 import { GenerateId } from "../services/GenerateId";
 
@@ -49,7 +48,6 @@ export class RecipeController {
             const newRecipe = new RecipeModel(id, title, description, userId)
             await recipeDB.createRecipe(newRecipe)
 
-
             // retorna message and recipe 
             res.status(200).send({
                 message: "Recipe successfully created!",
@@ -77,8 +75,8 @@ export class RecipeController {
             // instanciar recipeDb
             const recipeDB = new RecipeDataBase()
 
-            // verificar id 
-            const validateId = await recipeDB.getRecipeById(id)
+            // verificar id pegando receita por id
+            const validateId: RecipeModel = await recipeDB.getRecipeById(id)
             if (!validateId) {
                 errorCode = 422
                 throw new Error("You need to insert a valid id.");
@@ -92,7 +90,6 @@ export class RecipeController {
             const recipe: RecipeModel = await recipeDB.getRecipeById(id)
 
             res.status(200).send(recipe)
-
         } catch (error: any) {
             res.status(errorCode).send({ message: error.message || "Internal server error" })
         }
@@ -119,7 +116,7 @@ export class RecipeController {
             const recipeDB = new RecipeDataBase()
 
             // GET ALL RECIPES
-            const recipes = await recipeDB.getRecipesFeed(loggedUserId)
+            const recipes: RecipeModel[] = await recipeDB.getRecipesFeed(loggedUserId)
             if (!recipes.length) {
                 throw new Error("None of your friends have recipes!");
             }
@@ -153,8 +150,8 @@ export class RecipeController {
             // pegar id da receita por params 
             const recipeId: string = req.params.id
 
-            // ver se tem receita 
-            const getRecipe = await recipeDB.getRecipeById(recipeId)
+            // ver se tem receita pelo id
+            const getRecipe: RecipeModel = await recipeDB.getRecipeById(recipeId)
             if (!getRecipe) {
                 errorCode = 422
                 throw new Error("Please insert a valid recipeId in the params!");
@@ -203,18 +200,15 @@ export class RecipeController {
 
             // instanciar checar se a receita é do user 
             const recipeDB = new RecipeDataBase()
-            const getRecipeToCompare = await recipeDB.getRecipeById(recipeId)
-
-            // checar se há recipe 
-            const getRecipe = await recipeDB.getRecipeById(recipeId)
-            if (!getRecipe) {
+            const getRecipeToCompare: RecipeModel = await recipeDB.getRecipeById(recipeId)
+            if (!getRecipeToCompare) {
                 errorCode = 422
                 throw new Error("Please insert a valid recipeId!");
             }
 
             // instanciar e checar tipo de usuario 
             const userDB = new UserDataBase()
-            const getUserToCheckRole = await userDB.getUserById(loggedUserId)
+            const getUserToCheckRole: UserModel = await userDB.getUserById(loggedUserId)
 
             if (getUserToCheckRole.getRole() !== "ADMIN" && getRecipeToCompare.getUserId() !== loggedUserId) {
                 errorCode = 404
@@ -223,7 +217,6 @@ export class RecipeController {
 
             // DELETE RECIPE
             await recipeDB.deleteRecipe(recipeId)
-
             res.status(200).send("Recipe successfully deleted.")
         } catch (error: any) {
             res.status(errorCode).send({ message: error.message || "Internal server error" })

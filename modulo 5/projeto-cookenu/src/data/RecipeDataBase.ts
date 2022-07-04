@@ -1,5 +1,6 @@
 import { RecipeModel } from "../model/RecipeModel";
 import { UpdateRecipeModel } from "../model/updateRecipeModel";
+import { UserModel } from "../model/UserModel";
 import { BaseDatabase } from "./BaseDatabase";
 
 const recipesTableName: string = "recipes_cookenu"
@@ -22,7 +23,7 @@ export class RecipeDataBase extends BaseDatabase {
             throw new Error(error.sqlMessage || error.message);
         }
     }
-    // // GET RECIPE BY TITLE
+    // GET RECIPE BY TITLE
     public getRecipeByTitle = async (title: string): Promise<RecipeModel> => {
         try {
             const result = await this.getConnection()
@@ -35,7 +36,7 @@ export class RecipeDataBase extends BaseDatabase {
             throw new Error(error.sqlMessage || error.message);
         }
     }
-    // // GET RECIPE BY ID
+    // GET RECIPE BY ID
     public getRecipeById = async (id: string): Promise<RecipeModel> => {
         try {
             const result: RecipeModel[] = await this.getConnection()
@@ -48,7 +49,7 @@ export class RecipeDataBase extends BaseDatabase {
             throw new Error(error.sqlMessage || error.message);
         }
     }
-    // esse vai retornar um array com os usuarios que seguimos
+    // GET RECIPES FEED LIST 
     public getRecipesFeed = async (id: string): Promise<any> => {
         try {
 
@@ -66,12 +67,12 @@ export class RecipeDataBase extends BaseDatabase {
                 return usersFollowedIds.push(user.user_id)
             })
 
-            // array de receitas q vao p o feed
-            const recipesToFeed = []
+            // array das receitas q vao p o feed
+            const recipesToFeed: RecipeModel[] = []
 
             // populando o array de receitas q vai para o feed 
             for (const userId of usersFollowedIds) {
-                const result = await this.getConnection()
+                const result: RecipeModel[] = await this.getConnection()
                     .select("users_cookenu.id", "title", "description", "created_at", "user_id", "name")
                     .from(recipesTableName)
                     .join(usersTableName, "recipes_cookenu.user_id", "users_cookenu.id")

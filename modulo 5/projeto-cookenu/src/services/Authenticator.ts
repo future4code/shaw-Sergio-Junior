@@ -11,7 +11,7 @@ export interface AuthenticationData {
 export class Authenticator {
 
     public generateToken = (input: AuthenticationData): string => {
-        const token = jwt.sign(
+        const token: string = jwt.sign(
             input, process.env.JWT_KEY as string,
             {
                 expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN
@@ -21,7 +21,7 @@ export class Authenticator {
     }
 
     public getData = (token: string): AuthenticationData => {
-        const data = jwt.verify(token, process.env.JWT_KEY as string) as AuthenticationData
+        const data: AuthenticationData = jwt.verify(token, process.env.JWT_KEY as string) as AuthenticationData
         return data as AuthenticationData
     }
 

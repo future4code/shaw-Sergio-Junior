@@ -23,10 +23,10 @@ export class UserDataBase extends BaseDatabase {
             throw new Error(error.sqlMessage || error.message);
         }
     }
-
+    // GET USER BY ID 
     public getUserById = async (id: string): Promise<UserModel> => {
         try {
-            const result = await this.getConnection()
+            const result: UserModel[] = await this.getConnection()
                 .select("*")
                 .from(userTableName)
                 .where({ id })
@@ -36,10 +36,10 @@ export class UserDataBase extends BaseDatabase {
             throw new Error(error.sqlMessage || error.message);
         }
     }
-
+    // GET USER BY EMAIL
     public getByEmail = async (email: string): Promise<UserModel> => {
         try {
-            const result = await this.getConnection()
+            const result: UserModel[] = await this.getConnection()
                 .select("*")
                 .from(userTableName)
                 .where({ email })
@@ -49,7 +49,7 @@ export class UserDataBase extends BaseDatabase {
             throw new Error(error.sqlMessage || error.message);
         }
     }
-
+    // FOLLOW USER
     public followUser = async (userToFollowId: string, userId: string): Promise<void> => {
         try {
             await this.getConnection()
@@ -63,7 +63,7 @@ export class UserDataBase extends BaseDatabase {
             throw new Error(error.sqlMessage || error.message);
         }
     }
-
+    // UNFOLLOW USER
     public unFollowUser = async (userToUnfollowId: string, userId: string): Promise<void> => {
         try {
             await this.getConnection()
@@ -75,10 +75,10 @@ export class UserDataBase extends BaseDatabase {
             throw new Error(error.sqlMessage || error.message);
         }
     }
-
+    // GET FOLLOWED USER BY ID
     public getFollowedUserById = async (userToFollowId: string, userId: string): Promise<FollowersModel[]> => {
         try {
-            const result = await this.getConnection()
+            const result: FollowersModel[] = await this.getConnection()
                 .select("*")
                 .from(followersTableName)
                 .where("follower_id", userId)
@@ -89,7 +89,6 @@ export class UserDataBase extends BaseDatabase {
             throw new Error(error.sqlMessage || error.message);
         }
     }
-
     // DELETE USER 
     public deleteUser = async (userId: string) => {
         try {

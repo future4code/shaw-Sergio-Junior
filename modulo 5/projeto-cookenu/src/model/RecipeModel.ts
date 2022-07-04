@@ -9,7 +9,7 @@ export class RecipeModel {
 
 
     static toRecipeModel = (data: any): RecipeModel => {
-        // do jeito que vem do DB
+        // LEMBRAR QUE AQUI É DO JEITO QUE VEM DO BD .propriedade_do_banco
         return new RecipeModel(data.id, data.title, data.description, data.user_id, data.created_at)
     }
     public getId() {
