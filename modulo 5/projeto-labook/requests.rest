@@ -1,0 +1,35 @@
+### CREATE USER
+POST http://localhost:3003/user/signup
+Content-Type: application/json
+
+{ 
+    "name": "maya",
+    "email": "maya03@gmail.com",
+    "password": "123456"
+}
+
+### USER LOGIN
+POST http://localhost:3003/user/login
+Content-Type: application/json
+
+{
+    "email": "maya03@gmail.com",
+    "password": "123456"
+}
+
+### CREATE POST
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRmOGI0MzMzLTBjMzItNGQ0Ni05OTEzLTBmYzAwNDg2N2U5MCIsImlhdCI6MTY1NzA2NTYyMiwiZXhwIjoxNjU3MDY5MjIyfQ.vGZJWtsNyEY-ZZcO2PxIqvEea0zzDYLoBmQva0wXAhA
+POST http://localhost:3003/post/create
+authorization: {{token}}
+Content-Type: application/json
+
+{
+    "photo": "URL QUALQUER",
+    "description": "MEU PRIMEIRO POST!",
+    "type": "NORMAL",
+    "createdAt": "2020/04/20"
+}
+
+### GET POST BY ID 
+GET http://localhost:3003/post/acaf8d23-e1d8-4b0f-aba7-cc202c851777
+authorization: {{token}}
