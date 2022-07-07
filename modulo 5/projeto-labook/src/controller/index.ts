@@ -18,8 +18,10 @@ const userController = new UserController(
     )
 )
 
-app.post("/user/signup", userController.signUp)
-app.post("/user/login", userController.login)
+app.post("/user/signup", userController.signUp) // CADASTRAR 
+app.post("/user/login", userController.login) // LOGAR 
+app.post("/user/friendship", userController.makeFriends) // FAZER AMIZADE 
+app.delete("/user/friendship", userController.removeFriendship) // DESFAZER AMIZADE 
 
 const postController = new PostController(
     new PostBusiness(
@@ -29,5 +31,11 @@ const postController = new PostController(
     )
 )
 
-app.post("/post/create", postController.createPost)
-app.get("/post/:id", postController.getPostById)
+app.post("/post/create", postController.createPost) // CRIAR POST 
+app.get("/post/feed", postController.getPostFeed) // VER TODO FEED 
+app.get("/post/feed/:type", postController.getPostsByType) // VER APENAS UM TIPO DE POST
+app.post("/post/like/:id", postController.likePost) // CURTIR POST 
+app.delete("/post/dislike/:id", postController.dislikePost) // DESCURTIR POST 
+app.get("/post/page", postController.getPostPage) // PAGINACAO 
+app.post("/post/:id/comment", postController.commentPost) // COMENTAR POST
+app.get("/post/:id", postController.getPostById) // PEGAR POST POR ID 

@@ -47,4 +47,35 @@ export class UserController {
             res.status(500).send(error.message)
         }
     }
+
+    makeFriends = async (req: Request, res: Response) => {
+        // preciso auth? sim!  
+        const token: string = req.headers.authorization as string
+
+        // recebo mais alguma coisa? sim o id do usuario que quero seguir
+        const { userToHaveFriendshipId } = req.body
+
+        // conversar com o business para solicitar algo
+        try {
+
+            const response: string = await this.userBusiness.makeFriends(token, userToHaveFriendshipId)
+
+            res.status(201).send(response)
+        } catch (error: any) {
+            res.status(500).send(error.message)
+        }
+    }
+
+    removeFriendship = async (req: Request, res: Response) => {
+        // pegar dados do front 
+        const token: string = req.headers.authorization as string
+        const { userToRemoveFriendshipId } = req.body
+
+        try {
+            const response: string = await this.userBusiness.removeFriendship(token, userToRemoveFriendshipId)
+            res.status(200).send(response)
+        } catch (error: any) {
+            res.status(500).send(error.message)
+        }
+    }
 }
