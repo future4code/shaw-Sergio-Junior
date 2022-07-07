@@ -220,10 +220,8 @@ export class PostBusiness {
         let offset: number = (page - 1) * size
 
         // solicitar ao banco para retornar pagina x de posts  
-        const response: Post[] = await this.postDB.getPostPage(size, offset)
-        if (!response.length) {
-            throw new Error("No posts found at this page.");
-        }
-        return response
+        const result: Post = await this.postDB.getPostPage(size, offset)
+
+        return result
     }
 }

@@ -1,5 +1,5 @@
 ### CREATE USER
-POST http://localhost:3003/user/signup
+POST https://labook-shaw.herokuapp.com/user/signup
 Content-Type: application/json
 
 { 
@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### USER LOGIN
-POST http://localhost:3003/user/login
+POST https://labook-shaw.herokuapp.com/user/login
 Content-Type: application/json
 
 {
@@ -19,7 +19,7 @@ Content-Type: application/json
 
 ### CREATE POST
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0NDhiYTQ2LTczMmQtNDNhMy05Y2UwLWMyMTZjOTEwYTE5MCIsImlhdCI6MTY1NzIwODQ0NywiZXhwIjoxNjU3MjEyMDQ3fQ.clIlT_Nh2ZZVboWnSr4ZjtbJY6EkmxVcaGnfrdJh9JU
-POST http://localhost:3003/post/create
+POST https://labook-shaw.herokuapp.com/post/create
 authorization: {{token}}
 Content-Type: application/json
 
@@ -31,11 +31,11 @@ Content-Type: application/json
 }
 
 ### GET POST BY ID 
-GET http://localhost:3003/post/acaf8d23-e1d8-4b0f-aba7-cc202c851777
+GET https://labook-shaw.herokuapp.com/post/acaf8d23-e1d8-4b0f-aba7-cc202c851777
 authorization: {{token}}
 
 ### POST NEW FRIEND 
-POST http://localhost:3003/user/friendship
+POST https://labook-shaw.herokuapp.com/user/friendship
 authorization: {{token}}
 Content-Type: application/json
 
@@ -44,7 +44,7 @@ Content-Type: application/json
 }
 
 ### DELETE NEW FRIEND 
-DELETE http://localhost:3003/user/friendship
+DELETE https://labook-shaw.herokuapp.com/user/friendship
 authorization: {{token}}
 Content-Type: application/json
 
@@ -53,27 +53,27 @@ Content-Type: application/json
 }
 
 ### GET POST FEED  
-GET http://localhost:3003/post/feed
+GET https://labook-shaw.herokuapp.com/post/feed
 authorization: {{token}}
 
 ### GET POST FEED BY TYPE
-GET http://localhost:3003/post/feed/normal
+GET https://labook-shaw.herokuapp.com/post/feed/normal
 authorization: {{token}}
 
 ### GET POST BY ID
-GET http://localhost:3003/post/e751be95-f095-4b1f-be63-a3530aef2e0c
+GET https://labook-shaw.herokuapp.com/post/e751be95-f095-4b1f-be63-a3530aef2e0c
 authorization: {{token}}
 
 ### LIKE POST  
-POST http://localhost:3003/post/like/e751be95-f095-4b1f-be63-a3530aef2e0c
+POST https://labook-shaw.herokuapp.com/post/like/e751be95-f095-4b1f-be63-a3530aef2e0c
 authorization: {{token}}
 
 ### DISLIKE POST  
-DELETE http://localhost:3003/post/dislike/e751be95-f095-4b1f-be63-a3530aef2e0c
+DELETE https://labook-shaw.herokuapp.com/post/dislike/e751be95-f095-4b1f-be63-a3530aef2e0c
 authorization: {{token}}
 
 ### POST COMMENT
-POST http://localhost:3003/post/e751be95-f095-4b1f-be63-a3530aef2e0c/comment
+POST https://labook-shaw.herokuapp.com/post/e751be95-f095-4b1f-be63-a3530aef2e0c/comment
 authorization: {{token}}
 Content-Type: application/json
 
@@ -82,5 +82,5 @@ Content-Type: application/json
 }
 
 ### GET POSTS BY PAGE
-GET http://localhost:3003/post/page?page=2
+GET https://labook-shaw.herokuapp.com/post/page?page=1
 authorization: {{token}}

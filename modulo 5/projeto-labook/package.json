@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev ./src/controller/index.ts",
-    "start": "tsc && node ./build/index.js",
+    "start": "node ./build/controller/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
     "postinstall": "tsc"
   },
   "engines": {

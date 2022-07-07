@@ -181,7 +181,7 @@ export class PostData extends BaseDataBase {
     getPostPage = async (size: number, offset: number) => {
         try {
 
-            const response: Post[] = await this.getConnection()
+            const response: Post = await this.getConnection()
                 .select()
                 .limit(size)
                 .offset(offset)
