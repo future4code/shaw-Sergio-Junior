@@ -1,0 +1,22 @@
+POST http://localhost:3003/user/signup
+Content-Type: application/json
+
+{
+   "email": "maya@maya.com",
+   "password": "123456",
+   "role": "ADMIN" 
+}
+
+###
+POST http://localhost:3003/user/login
+Content-Type: application/json
+
+{
+   "email": "maya@maya.com" ,
+   "password": "123456"
+}
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE4YmQ1M2IzLTI3OTYtNGMxMC1iZmNmLTE1MmFkNTYyZjRjNCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1NjQyODU3OSwiZXhwIjoxNjU2NDM1Nzc5fQ.JMcj1aOQSfh1Vxa_bnW4rhy__jqB2rykYl5bxG69Lgo
+###
+GET http://localhost:3003/user/profile
+Authorization: {{token}}
