@@ -154,21 +154,4 @@ describe("Testing function verifyAge", () => {
             "brazilians": { "allowed": [], "unallowed": ["Maria", "Manuela"] }
         })
     })
-
-    // test("Testing users ages.", () => {
-    //     const casino: Casino = {
-    //         name: "Conrad",
-    //         location: LOCATION.EUA
-    //     }
-
-    //     const user: UserCasino = {
-    //         name: "Maria",
-    //         age: 25,
-    //         nacionality: NACIONALITY.BRAZILIAN
-    //     }
-
-    //     const result = verifyAge(casino, [user])
-
-    //     expect(result).toEqual({ "americans": { "allowed": [], "unallowed": [] }, "brazilians": { "allowed": [user.name], "unallowed": [] } })
-    // })
 })
