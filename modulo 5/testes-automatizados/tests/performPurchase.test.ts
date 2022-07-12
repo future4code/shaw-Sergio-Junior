@@ -1,6 +1,7 @@
 import { Casino, LOCATION, NACIONALITY, UserCasino } from "../model/CasinoInterface";
 import { User } from "../model/UserInterface"
-import { performPurchase, verifyAge } from "../src"
+import { performPurchase, PostData, verifyAge } from "../src"
+import { Post, PostModel } from "../src/model/PostModel";
 
 describe("Testing function performPurchase", () => {
 
@@ -45,7 +46,7 @@ describe("Testing function performPurchase", () => {
 
 });
 
-// DESAFIO 3 E 4 
+// DESAFIO 3 E 4
 // a, b, c ,d :
 describe("Testing function verifyAge", () => {
 
@@ -157,8 +158,8 @@ describe("Testing function verifyAge", () => {
         })
     })
 
-    // DESAFIO 5 
-    // a: 
+    // DESAFIO 5
+    // a:
     test("Testing brazilians in BRAZIL. ", () => {
         const casino: Casino = {
             name: "Pedro Crão",
@@ -178,7 +179,7 @@ describe("Testing function verifyAge", () => {
         expect(result.brazilians.allowed.length).toBeLessThan(2)
     })
 
-    // b: 
+    // b:
     test("Testing american in BRAZIL. ", () => {
         const casino: Casino = {
             name: "Pedro Crão",
@@ -197,7 +198,7 @@ describe("Testing function verifyAge", () => {
         expect(result.americans.allowed.length).toBeGreaterThan(0)
     })
 
-    // c: 
+    // c:
     test("Testing brazilians and americans contain unallowed user name.", () => {
         const casino: Casino = {
             name: "Peter Crown",
@@ -233,7 +234,7 @@ describe("Testing function verifyAge", () => {
         expect(result.americans.unallowed).toContain("Jonny")
     })
 
-    // d: 
+    // d:
     test("Testing brazilians 19yrs old and americans 21yrs old.", () => {
         const casino: Casino = {
             name: "Peter Crown",

@@ -1,23 +1,13 @@
-import knex from 'knex'
 import { config } from 'dotenv'
 import { User } from '../model/UserInterface';
 import { Casino, LOCATION, NACIONALITY, Result, ResultItem, UserCasino } from '../model/CasinoInterface';
 
+import { Post, PostModel } from './model/PostModel';
+import Knex from 'knex';
+
 config()
 
 export const isEven = (integer: number): any => { }
-
-export const connection = knex({
-   client: "mysql",
-   connection: {
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_SCHEMA,
-      port: 3306,
-      multipleStatements: true
-   },
-});
 
 export function performPurchase(user: User, value: number): User | undefined {
    if (user.balance >= value) {
@@ -68,3 +58,50 @@ export function verifyAge(casino: Casino, users: UserCasino[]): Result {
       }
    }
 }
+
+export class BaseDataBase {
+   private static connection = Knex({
+      client: 'mysql',
+      connection: {
+         host: process.env.DB_HOST,
+         user: process.env.DB_USER,
+         password: process.env.DB_PASS,
+         database: process.env.DB_SCHEMA,
+         port: 3306,
+         multipleStatements: true
+      }
+   })
+   protected getConnection() {
+      return BaseDataBase.connection
+   }
+}
+
+export class PostData extends BaseDataBase {
+
+   protected POSTS_TABLE_NAME = "labook_posts"
+
+   createPost = async (post: PostModel | Post) => {
+      try {
+         await this.getConnection()
+            .insert(post)
+            .into(this.POSTS_TABLE_NAME)
+
+      } catch (error: any) {
+         throw new Error(error.sqlmessage || "Internal error.");
+      }
+   }
+
+   getPostById = async (id: string) => {
+      try {
+         const result = await this.getConnection()
+            .select()
+            .from(this.POSTS_TABLE_NAME)
+            .where({ id })
+
+         return result[0]
+      } catch (error: any) {
+         throw new Error(error.sqlmessage || "Internal error.");
+      }
+   }
+}
+
