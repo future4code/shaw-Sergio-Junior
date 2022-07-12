@@ -45,6 +45,8 @@ describe("Testing function performPurchase", () => {
 
 });
 
+// DESAFIO 3 E 4 
+// a, b, c ,d :
 describe("Testing function verifyAge", () => {
 
     test("Testing brazilian in Brazil.", () => {
@@ -153,5 +155,118 @@ describe("Testing function verifyAge", () => {
             "americans": { "allowed": ["Mary", "Jonny"], "unallowed": [] },
             "brazilians": { "allowed": [], "unallowed": ["Maria", "Manuela"] }
         })
+    })
+
+    // DESAFIO 5 
+    // a: 
+    test("Testing brazilians in BRAZIL. ", () => {
+        const casino: Casino = {
+            name: "Pedro Crão",
+            location: LOCATION.BRAZIL
+        }
+
+        const user: UserCasino[] = [
+            {
+                name: "Maria",
+                age: 19,
+                nacionality: NACIONALITY.BRAZILIAN
+            }
+        ]
+
+        const result = verifyAge(casino, user)
+        expect(result.brazilians.allowed.length).toBeGreaterThan(0)
+        expect(result.brazilians.allowed.length).toBeLessThan(2)
+    })
+
+    // b: 
+    test("Testing american in BRAZIL. ", () => {
+        const casino: Casino = {
+            name: "Pedro Crão",
+            location: LOCATION.BRAZIL
+        }
+
+        const user: UserCasino[] = [
+            {
+                name: "Mary",
+                age: 19,
+                nacionality: NACIONALITY.AMERICAN
+            }
+        ]
+
+        const result = verifyAge(casino, user)
+        expect(result.americans.allowed.length).toBeGreaterThan(0)
+    })
+
+    // c: 
+    test("Testing brazilians and americans contain unallowed user name.", () => {
+        const casino: Casino = {
+            name: "Peter Crown",
+            location: LOCATION.EUA
+        }
+
+        const user: UserCasino[] = [
+            {
+                name: "Maria",
+                age: 19,
+                nacionality: NACIONALITY.BRAZILIAN
+            },
+            {
+                name: "Manuela",
+                age: 19,
+                nacionality: NACIONALITY.BRAZILIAN
+            },
+            {
+                name: "Mary",
+                age: 19,
+                nacionality: NACIONALITY.AMERICAN
+            },
+            {
+                name: "Jonny",
+                age: 19,
+                nacionality: NACIONALITY.AMERICAN
+            }
+        ]
+
+        const result = verifyAge(casino, user)
+
+        expect(result.brazilians.unallowed).toContain("Maria")
+        expect(result.americans.unallowed).toContain("Jonny")
+    })
+
+    // d: 
+    test("Testing brazilians 19yrs old and americans 21yrs old.", () => {
+        const casino: Casino = {
+            name: "Peter Crown",
+            location: LOCATION.EUA
+        }
+
+        const user: UserCasino[] = [
+            {
+                name: "Maria",
+                age: 19,
+                nacionality: NACIONALITY.BRAZILIAN
+            },
+            {
+                name: "Manuela",
+                age: 19,
+                nacionality: NACIONALITY.BRAZILIAN
+            },
+            {
+                name: "Mary",
+                age: 21,
+                nacionality: NACIONALITY.AMERICAN
+            },
+            {
+                name: "Jonny",
+                age: 21,
+                nacionality: NACIONALITY.AMERICAN
+            }
+        ]
+
+        const result = verifyAge(casino, user)
+
+        expect(result.brazilians.unallowed.length).toBeGreaterThan(1)
+        expect(result.americans.unallowed.length).toBeLessThan(1)
+        expect(result.americans.allowed.length).toEqual(2)
     })
 })
