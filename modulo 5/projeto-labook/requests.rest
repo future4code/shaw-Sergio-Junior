@@ -1,0 +1,86 @@
+### CREATE USER
+POST https://labook-shaw.herokuapp.com/user/signup
+Content-Type: application/json
+
+{ 
+    "name": "maya",
+    "email": "maya020@gmail.com",
+    "password": "123456"
+}
+
+### USER LOGIN
+POST https://labook-shaw.herokuapp.com/user/login
+Content-Type: application/json
+
+{
+    "email": "maya02@gmail.com",
+    "password": "123456"
+}
+
+### CREATE POST
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0NDhiYTQ2LTczMmQtNDNhMy05Y2UwLWMyMTZjOTEwYTE5MCIsImlhdCI6MTY1NzIwODQ0NywiZXhwIjoxNjU3MjEyMDQ3fQ.clIlT_Nh2ZZVboWnSr4ZjtbJY6EkmxVcaGnfrdJh9JU
+POST https://labook-shaw.herokuapp.com/post/create
+authorization: {{token}}
+Content-Type: application/json
+
+{
+    "photo": "URL QUALQUER",
+    "description": "MEU PRIMEIRO POST!",
+    "type": "NORMAL",
+    "createdAt": "2020/04/20"
+}
+
+### GET POST BY ID 
+GET https://labook-shaw.herokuapp.com/post/acaf8d23-e1d8-4b0f-aba7-cc202c851777
+authorization: {{token}}
+
+### POST NEW FRIEND 
+POST https://labook-shaw.herokuapp.com/user/friendship
+authorization: {{token}}
+Content-Type: application/json
+
+{
+    "userToHaveFriendshipId": "4b71a9f4-b507-429d-b020-053b747a5437" 
+}
+
+### DELETE NEW FRIEND 
+DELETE https://labook-shaw.herokuapp.com/user/friendship
+authorization: {{token}}
+Content-Type: application/json
+
+{
+    "userToRemoveFriendshipId": "71cf2654-28b3-4730-a5b6-ad7598f4aad1" 
+}
+
+### GET POST FEED  
+GET https://labook-shaw.herokuapp.com/post/feed
+authorization: {{token}}
+
+### GET POST FEED BY TYPE
+GET https://labook-shaw.herokuapp.com/post/feed/normal
+authorization: {{token}}
+
+### GET POST BY ID
+GET https://labook-shaw.herokuapp.com/post/e751be95-f095-4b1f-be63-a3530aef2e0c
+authorization: {{token}}
+
+### LIKE POST  
+POST https://labook-shaw.herokuapp.com/post/like/e751be95-f095-4b1f-be63-a3530aef2e0c
+authorization: {{token}}
+
+### DISLIKE POST  
+DELETE https://labook-shaw.herokuapp.com/post/dislike/e751be95-f095-4b1f-be63-a3530aef2e0c
+authorization: {{token}}
+
+### POST COMMENT
+POST https://labook-shaw.herokuapp.com/post/e751be95-f095-4b1f-be63-a3530aef2e0c/comment
+authorization: {{token}}
+Content-Type: application/json
+
+{
+    "comment": "segundo comment da maya 02" 
+}
+
+### GET POSTS BY PAGE
+GET https://labook-shaw.herokuapp.com/post/page?page=1
+authorization: {{token}}
