@@ -1,0 +1,84 @@
+@token2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNkY2RlM2IwLTVjYTEtNDFjYi1hNTdjLWRkNTQzOWE3ZGJjYSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTY5MDcxMDksImV4cCI6MTY1NjkxMDcwOX0.9RGB1YB4B5UjGtm7uiAhVgbHX9qeI1a6r2ei8_TOnB0
+
+### USER SIGN UP
+POST https://cookenu-shaw.herokuapp.com/user/signup
+Content-Type: application/json
+
+{
+   "name": "Joao",
+   "email": "joaozinho@gmail.com",
+   "password": "123456",
+   "role": "NORMAL"
+}
+
+### USER LOGIN
+POST https://cookenu-shaw.herokuapp.com/user/login
+Content-Type: application/json
+
+{
+   "email": "joaozinho@gmail.com",
+   "password": "123456"
+}
+
+### GET USER BY TOKEN
+GET https://cookenu-shaw.herokuapp.com/user/profile
+Authorization: {{token2}}
+
+### GET USER BY ID
+GET https://cookenu-shaw.herokuapp.com/user/3dcde3b0-5ca1-41cb-a57c-dd5439a7dbca
+Authorization: {{token2}}
+
+### CREATE RECIPE
+POST https://cookenu-shaw.herokuapp.com/user/create/recipe
+Authorization: {{token2}}
+Content-Type: application/json
+
+{
+   "title": "Torta de ameixa seca 02!",
+   "description": "Minha segunda receita."
+}
+
+### GET RECIPE BY ID 
+GET https://cookenu-shaw.herokuapp.com/recipe/0fffcc84-70c6-4910-b0af-89c44742ad22
+Authorization: {{token2}}
+
+### FOLLOW USER
+POST https://cookenu-shaw.herokuapp.com/follow/user
+Authorization: {{token2}}
+Content-Type: application/json
+
+{
+   "userToFollowId": "609a8d40-4158-450b-9224-a215cc9761db"
+}
+
+### GET RECIPES FEED OF FOLLOWEDS
+GET https://cookenu-shaw.herokuapp.com/feed/recipes
+Authorization: {{token2}}
+
+### UNFOLLOW USER
+DELETE https://cookenu-shaw.herokuapp.com/unfollow/user
+Authorization: {{token2}}
+Content-Type: application/json
+
+{
+   "userToUnfollowId": "609a8d40-4158-450b-9224-a215cc9761db"
+}
+
+### EDIT RECIPE
+PUT https://cookenu-shaw.herokuapp.com/edit/recipe/0fffcc84-70c6-4910-b0af-89c44742ad22
+Authorization: {{token2}}
+Content-Type: application/json
+
+{
+   "title": "Torta de limaozinho",
+   "description": "Limao e leite condensado e deu!"
+}
+
+### DELETE RECIPE
+DELETE https://cookenu-shaw.herokuapp.com/delete/recipe/091a94af-3702-43be-a38a-0fe281df31c6
+Authorization: {{token2}}
+
+### DELETE USER
+DELETE https://cookenu-shaw.herokuapp.com/delete/user/c8a26b21-c0f2-4dc3-9963-6d55aa2caf26
+Authorization: {{token2}}
+
