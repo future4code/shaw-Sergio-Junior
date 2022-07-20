@@ -1,4 +1,3 @@
-import { group } from "console";
 import { CustomError } from "../error/CustomError";
 import { GetFilteredProducts, GetProduct, GetTags, ProductModel } from "../model/ProductModel";
 import { BaseDatabase } from "./BaseDatabase";

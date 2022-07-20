@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 ### 
-@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjczZmU1NjA2LTUxNWEtNDkwMS05MDAwLTZhNGQ4ZTg1MGE4ZCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTgyOTczODYsImV4cCI6MTY1ODMwMDk4Nn0.6n1ln_6kNeNBflSoFxlcZhezQ24xSXEilfUYiE4d74I
+@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjczZmU1NjA2LTUxNWEtNDkwMS05MDAwLTZhNGQ4ZTg1MGE4ZCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTgzNDUwODMsImV4cCI6MTY1ODM0ODY4M30.DXbfOPKNaSQ8gS5cWuPMqYfyieRyOioYiaerexGwdKg
 POST https://case-amaro-shaw.herokuapp.com/product/addproduct
 authorization: {{adminToken}}
 Content-Type: application/json
@@ -43,7 +43,7 @@ authorization: {{adminToken}}
 Content-Type: application/json
 
 {
-    "productId": "b1910032-daf2-4ebd-b792-2508b1ba3e51"
+    "productId": "60bb17e7-d3c9-4fd7-9bab-8ef63bd62316"
 }
 
 ###  

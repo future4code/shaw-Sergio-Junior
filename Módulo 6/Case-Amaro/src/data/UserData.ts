@@ -1,4 +1,3 @@
-import { strict } from "assert";
 import { CustomError } from "../error/CustomError";
 import { GetUserByEmail, UserModel } from "../model/UserModel";
 import { BaseDatabase } from "./BaseDatabase";
