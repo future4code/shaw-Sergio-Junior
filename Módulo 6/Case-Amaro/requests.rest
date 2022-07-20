@@ -1,25 +1,25 @@
-POST http://localhost:3003/user/signup
+POST https://case-amaro-shaw.herokuapp.com/user/signup
 Content-Type: application/json
 
 {
-    "userName": "Maya",
+    "userName": "Manuela",
     "password": "123456",
-    "email": "maya2@bol.com",
+    "email": "manu@bol.com",
     "role": "NORMAL"
 }
 
 ### 
-POST http://localhost:3003/user/login
+POST https://case-amaro-shaw.herokuapp.com/user/login
 Content-Type: application/json
 
 { 
-    "email": "juninho@bol.com",
+    "email": "manu@bol.com",
     "password": "123456"
 }
 
 ### 
-@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU5MDk4ZWYyLWEzODItNDI4YS1iY2RiLWE4NDg1OGRjZjA0OSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTgyOTYzMDAsImV4cCI6MTY1ODI5OTkwMH0.5jdAfugJ8oKudSxnnZy2w8Ob-tDOpB5jwdOwhGxtXFk
-POST http://localhost:3003/product/addproduct
+@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjczZmU1NjA2LTUxNWEtNDkwMS05MDAwLTZhNGQ4ZTg1MGE4ZCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTgyOTczODYsImV4cCI6MTY1ODMwMDk4Nn0.6n1ln_6kNeNBflSoFxlcZhezQ24xSXEilfUYiE4d74I
+POST https://case-amaro-shaw.herokuapp.com/product/addproduct
 authorization: {{adminToken}}
 Content-Type: application/json
 
@@ -29,7 +29,7 @@ Content-Type: application/json
 }
 
 ### 
-GET http://localhost:3003/product/getproducts
+GET https://case-amaro-shaw.herokuapp.com/product/getproducts
 authorization: {{adminToken}}
 Content-Type: application/json
 
@@ -38,7 +38,7 @@ Content-Type: application/json
 }
 
 ###  
-GET http://localhost:3003/product/getproducts
+GET https://case-amaro-shaw.herokuapp.com/product/getproducts
 authorization: {{adminToken}}
 Content-Type: application/json
 
@@ -47,7 +47,7 @@ Content-Type: application/json
 }
 
 ###  
-GET http://localhost:3003/product/getproducts
+GET https://case-amaro-shaw.herokuapp.com/product/getproducts
 authorization: {{adminToken}}
 Content-Type: application/json
 
