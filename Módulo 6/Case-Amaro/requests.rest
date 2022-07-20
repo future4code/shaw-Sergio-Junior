@@ -4,7 +4,7 @@ Content-Type: application/json
 {
     "userName": "Maya",
     "password": "123456",
-    "email": "maya@bol.com",
+    "email": "maya2@bol.com",
     "role": "NORMAL"
 }
 
@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 ### 
-@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlkM2FkODVjLTMxNDktNDUyNC05NDdlLTA4MThmNzcxMGQ2ZiIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTgyODI0MzUsImV4cCI6MTY1ODI4NjAzNX0.A6UFhTM_hUGR-qI3tC2Bf2k_tO_bLNPJceafnGsBKbI
+@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU5MDk4ZWYyLWEzODItNDI4YS1iY2RiLWE4NDg1OGRjZjA0OSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTgyOTYzMDAsImV4cCI6MTY1ODI5OTkwMH0.5jdAfugJ8oKudSxnnZy2w8Ob-tDOpB5jwdOwhGxtXFk
 POST http://localhost:3003/product/addproduct
 authorization: {{adminToken}}
 Content-Type: application/json

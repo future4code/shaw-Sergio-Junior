@@ -4,10 +4,10 @@
   "description": "Template para o projeto Amaro",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "start": "ts-node ./src/index.ts",
-    "dev": "clear && ts-node-dev ./src/index.ts",
+    "start": "ts-node ./build/src/index.js",
+    "dev": "ts-node-dev ./src/index.ts",
     "build": "tsc",
+    "test": "jest",
     "postinstall": "tsc"
   },
   "engines": {

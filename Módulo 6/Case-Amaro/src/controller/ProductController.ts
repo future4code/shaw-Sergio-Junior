@@ -41,7 +41,7 @@ export class ProductController {
                 response = await this.productBusiness.getProductByTag(req.body.productTag, token)
             }
 
-            res.status(200).send(response)
+            res.status(200).send({ products: response })
         } catch (error: any) {
             res.status(error.statusCode || 400).send({ message: error.message });
         }

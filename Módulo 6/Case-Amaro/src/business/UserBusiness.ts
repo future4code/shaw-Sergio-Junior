@@ -23,14 +23,14 @@ export class UserBusiness {
             if (password.length < 6) {
                 throw new CustomError(422, "Password needs at least 6 characters.");
             }
-            if (role.toUpperCase() !== USER_ROLE.ADMIN || role.toUpperCase() !== USER_ROLE.NORMAL) {
+            if (role.toUpperCase() !== USER_ROLE.ADMIN && role.toUpperCase() !== USER_ROLE.NORMAL) {
                 throw new CustomError(422, "Role must be 'ADMIN' or 'NORMAL'.");
             }
 
             const hash: string = await this.hashManager.hash(password)
             const id: string = this.idGenerator.generate()
 
-            const user = new UserModel(id, userName, password, email, role)
+            const user = new UserModel(id, userName, hash, email, role)
 
             await this.userDB.createUser(user)
 
@@ -56,9 +56,9 @@ export class UserBusiness {
             }
 
             const verifyPassword: boolean = await this.hashManager.compare(password, getUserToCompare.password)
-            // if (verifyPassword === false) {
-            //     throw new CustomError(404, "Unauthorized.");
-            // }
+            if (verifyPassword === false) {
+                throw new CustomError(404, "Unauthorized.");
+            }
 
             const token: string = this.authenticator.generateToken({ id: getUserToCompare.id, role: getUserToCompare.role })
 

@@ -9,7 +9,6 @@ export class ProductDatabase extends BaseDatabase {
     private TAG_TABLE_NAME = "product_tags";
 
     public async insertProduct(product: ProductModel) {
-        console.log(product)
         try {
             const tags: string[] = product.getTags()
 
@@ -21,7 +20,6 @@ export class ProductDatabase extends BaseDatabase {
                 .into(this.PRODUCT_TABLE_NAME)
 
             for (let tag of tags) {
-                console.log(tag)
                 await this.getConnection()
                     .insert({
                         tags: tag,
@@ -31,7 +29,6 @@ export class ProductDatabase extends BaseDatabase {
             }
 
         } catch (error: any) {
-            console.log(error)
             throw new CustomError(500, error.sqlMessage || "Internal error.")
         }
     }
@@ -53,7 +50,6 @@ export class ProductDatabase extends BaseDatabase {
                 .from(this.TAG_TABLE_NAME)
                 .where({ product_id: product[0].id })
 
-            console.log(tags)
             for (let tag of tags) {
                 if (tag.product_id === product[0].id) {
                     tagsArr.push(tag.tags)
