@@ -1,59 +1,56 @@
-@tokenADMIN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjYmViMjJlLTkwYzktNDhmZS05MzAwLWU2ZGZhNTk1ZmNlMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1NzkwOTAzOSwiZXhwIjoxNjU3OTEyNjM5fQ.eh5aJ8IuuzrF7IfjLF3KFBbY7Z872O_5Zu3GP1dMRaw
-@tokenNORMAL = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNlMTZjODM1LWIzNmItNGRhOS04NTQyLTQ2NzkwYzUzOGU1NiIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTc5MDg3MjksImV4cCI6MTY1NzkxMjMyOX0.AMJaJczK5Q5B_iAVDOMqyTPgXIK2phE2B7DhomLc8dM
-# SIGNUP
-POST http://localhost:3003/signup
-Content-Type: application/json
-
-{   "name": "supla",
-    "email": "susu@gmail.com",
-    "password": "123456789",
-    "role": ""
-}
-###
-
-
-# LOGIN
-POST http://localhost:3003/login
+POST http://localhost:3003/user/signup
 Content-Type: application/json
 
 {
-    "email": "maria@gmail.com",
-    "password": "maria123"
+    "userName": "Maya",
+    "password": "123456",
+    "email": "maya@bol.com",
+    "role": "NORMAL"
 }
 
-### ADICIONAR BANDA
-
-POST http://localhost:3003/bands
+### 
+POST http://localhost:3003/user/login
 Content-Type: application/json
-authorization: {{tokenADMIN}}
 
-{
-    "name": "Blink 182",
-    "music_genre": "Rock",
-    "responsible": "Laura"
+{ 
+    "email": "juninho@bol.com",
+    "password": "123456"
 }
 
-### ADICIONAR SHOW
-POST http://localhost:3003/show
-Content-Type: application/json
-authorization: {{tokenADMIN}}
-
-{
-    "week_day": "SUNDAY",
-    "start_time": 14,
-    "end_time": 15,
-    "band_id": "a66155b2-5e3b-4824-bf98-6dfd8d189ca7"
-}
-
-### GET BAND DETAILS
-GET http://localhost:3003/bands
-authorization: {{tokenADMIN}}
+### 
+@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlkM2FkODVjLTMxNDktNDUyNC05NDdlLTA4MThmNzcxMGQ2ZiIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTgyODI0MzUsImV4cCI6MTY1ODI4NjAzNX0.A6UFhTM_hUGR-qI3tC2Bf2k_tO_bLNPJceafnGsBKbI
+POST http://localhost:3003/product/addproduct
+authorization: {{adminToken}}
 Content-Type: application/json
 
 {
-    "id": "c4c29442-92b6-4187-823a-60e8fde5720a"
+    "productName": "Macacão",
+    "tags": ["Jeans", "Verão", "Calor"]
 }
 
-### PEGAR SHOWS POR DATA
-GET http://localhost:3003/show/Sunday
-Authorization: {{tokenADMIN}}
+### 
+GET http://localhost:3003/product/getproducts
+authorization: {{adminToken}}
+Content-Type: application/json
+
+{
+    "productTag": "jeans"
+}
+
+###  
+GET http://localhost:3003/product/getproducts
+authorization: {{adminToken}}
+Content-Type: application/json
+
+{
+    "productId": "b1910032-daf2-4ebd-b792-2508b1ba3e51"
+}
+
+###  
+GET http://localhost:3003/product/getproducts
+authorization: {{adminToken}}
+Content-Type: application/json
+
+{
+    "productName": "camiseta"
+}

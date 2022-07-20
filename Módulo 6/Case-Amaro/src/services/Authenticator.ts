@@ -28,5 +28,5 @@ export class Authenticator {
 
 export interface AuthenticationData {
   id: string;
-  role?: string;
+  role: string;
 }
