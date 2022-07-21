@@ -8,7 +8,8 @@
     "dev": "ts-node-dev ./src/index.ts",
     "build": "tsc",
     "test": "jest",
-    "postinstall": "tsc"
+    "postinstall": "tsc",
+    "migrations": "tsc && node ./build/src/data/Migrations.js" 
   },
   "engines": {
     "node": "v17.9.0"

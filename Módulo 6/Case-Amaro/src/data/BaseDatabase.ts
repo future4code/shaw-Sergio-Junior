@@ -1,5 +1,7 @@
 import Knex from "knex";
 import dotenv from "dotenv";
+import { Z_UNKNOWN } from "zlib";
+import { Migrations } from "./Migrations";
 
 dotenv.config()
 
@@ -19,4 +21,11 @@ export abstract class BaseDatabase {
     protected getConnection() {
         return BaseDatabase.connection
     }
+
+    public static async destroyConnection(): Promise<void> {
+        if (BaseDatabase.connection) {
+            await BaseDatabase.connection.destroy()
+        }
+    }
 }
+
