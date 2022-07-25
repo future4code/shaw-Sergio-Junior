@@ -1,0 +1,56 @@
+POST https://case-amaro-shaw.herokuapp.com/user/signup
+Content-Type: application/json
+
+{
+    "userName": "Manuela",
+    "password": "123456",
+    "email": "manu@bol.com",
+    "role": "NORMAL"
+}
+
+### 
+POST https://case-amaro-shaw.herokuapp.com/user/login
+Content-Type: application/json
+
+{ 
+    "email": "manu@bol.com",
+    "password": "123456"
+}
+
+### 
+@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjczZmU1NjA2LTUxNWEtNDkwMS05MDAwLTZhNGQ4ZTg1MGE4ZCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTgzNDkzMzMsImV4cCI6MTY1ODM1MjkzM30.XJxl8uYt85M-YiiFOtDPnxxM3G_g9scd8G_OAROLj9s
+POST https://case-amaro-shaw.herokuapp.com/product/addproduct
+authorization: {{adminToken}}
+Content-Type: application/json
+
+{
+    "productName": "Macacão",
+    "tags": ["Jeans", "Verão", "Calor"]
+}
+
+### 
+GET https://case-amaro-shaw.herokuapp.com/product/getproducts
+authorization: {{adminToken}}
+Content-Type: application/json
+
+{
+    "productTag": "jeans"
+}
+
+###  
+GET https://case-amaro-shaw.herokuapp.com/product/getproducts
+authorization: {{adminToken}}
+Content-Type: application/json
+
+{
+    "productId": "60bb17e7-d3c9-4fd7-9bab-8ef63bd62316"
+}
+
+###  
+GET https://case-amaro-shaw.herokuapp.com/product/getproducts
+authorization: {{adminToken}}
+Content-Type: application/json
+
+{
+    "productName": "camiseta"
+}
