@@ -7,8 +7,8 @@ Content-Type: application/json
 
 {
 "name":"Maria",
-"email": "maria@gmail.com",  
-"CPF": "12345678912"
+"email": "maria02a@gmail.com",  
+"CPF": "12365897214"
 }
 
 ### INSERT BUYER CARD
@@ -16,9 +16,25 @@ POST http://localhost:3003/buyer/card
 Content-Type: application/json
 
 {
+"cardHolderId": "6e3dc79e-9fd9-4ee2-8d6a-85b4a68bf3fb",
 "cardHolderName":"Sergio Dias",
 "cardNumber":"1634 1117 4569 7895",
 "cardExpDate":"2025/12/31",
 "cardCvv": "456"
 }
+
+### INSERT PAYMENT
+POST http://localhost:3003/payment
+Content-Type: application/json
+
+{
+"productOwnerId":"1658eadd-57a2-4af5-9fe9-2190ff830453",
+"buyerId":"6e3dc79e-9fd9-4ee2-8d6a-85b4a68bf3fb",
+"amount":500,
+"paymentMethod":"CREDIT CARD" 
+}
+
+### GET PAYMENT STATUS
+GET http://localhost:3003/payment/51b26142-e1c8-407e-b6fe-f237641c68b2
+
 

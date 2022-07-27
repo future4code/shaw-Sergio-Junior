@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { BuyerBusiness } from "../business/BuyerBusiness";
-import { CustomError } from "../error/CustomError";
-import { BuyerUserDTO, CardDTO } from "../model/BuyerModel";
-import { CardModel } from "../model/CardModel";
+import { BuyerUserDTO } from "../model/BuyerModel";
+import { CardDTO } from "../model/CardModel";
+
 
 export class BuyerController {
 
@@ -24,9 +24,9 @@ export class BuyerController {
     }
 
     insertBuyerCard = async (req: Request, res: Response): Promise<void> => {
-        const { cardHolderName, cardNumber, cardExpDate, cardCvv } = req.body
+        const { cardHolderId, cardHolderName, cardNumber, cardExpDate, cardCvv } = req.body
         const buyerCard: CardDTO = {
-            cardHolderName, cardNumber, cardExpDate, cardCvv
+            cardHolderId, cardHolderName, cardNumber, cardExpDate, cardCvv
         }
         try {
             const response = await this.buyerBusiness.insertBuyerCard(buyerCard)

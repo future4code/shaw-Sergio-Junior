@@ -2,6 +2,7 @@ export class CardModel {
 
     constructor(
         private id: string,
+        private cardHolderId: string,
         private cardHolderName: string,
         private cardNumber: string,
         private cardExpDate: Date,
@@ -10,6 +11,9 @@ export class CardModel {
 
     public getId() {
         return this.id
+    }
+    public getCardHolderId() {
+        return this.cardHolderId
     }
     public getCardHolderName() {
         return this.cardHolderName
@@ -23,4 +27,12 @@ export class CardModel {
     public getCardCvv() {
         return this.cardCvv
     }
+}
+
+export interface CardDTO {
+    cardHolderId: string,
+    cardHolderName: string,
+    cardNumber: string,
+    cardExpDate: Date,
+    cardCvv: string
 }

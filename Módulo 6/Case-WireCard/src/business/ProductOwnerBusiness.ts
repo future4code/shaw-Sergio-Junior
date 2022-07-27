@@ -7,7 +7,7 @@ export class ProductOwnerBusiness {
         private idGenerator = new IdGenerator,
         private productOwnerDB = new ProductOwnerDatabase
     ) { }
-    insertProductOwner = async () => {
+    insertProductOwner = async (): Promise<string> => {
         try {
             const id: string = this.idGenerator.generate()
 

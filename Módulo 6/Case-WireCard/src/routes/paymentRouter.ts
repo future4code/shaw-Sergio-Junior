@@ -7,4 +7,4 @@ export const paymentRouter = express.Router();
 const paymentController = new PaymentController();
 
 paymentRouter.post("/", paymentController.insertPayment);
-paymentRouter.get("/", paymentController.getPaymentStatus);
+paymentRouter.get("/:id", paymentController.getPaymentStatus);

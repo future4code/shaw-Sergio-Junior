@@ -26,10 +26,5 @@ export interface BuyerUserDTO {
     email: string,
     CPF: string
 }
-export interface CardDTO {
-    cardHolderName: string,
-    cardNumber: string,
-    cardExpDate: Date,
-    cardCvv: string
-}
+
 

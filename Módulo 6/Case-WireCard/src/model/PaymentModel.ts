@@ -30,4 +30,11 @@ export enum PAYMENT_METHOD {
     BOLETO = "BOLETO"
 }
 
+export interface PaymentDTO {
+    productOwnerId: string,
+    buyerId: string,
+    amount: number,
+    paymentMethod: PAYMENT_METHOD
+}
+
 

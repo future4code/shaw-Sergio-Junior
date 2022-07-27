@@ -25,6 +25,7 @@ export class BuyerDatabase extends BaseDatabase {
             await this.getConnection()
                 .insert({
                     id: buyerCard.getId(),
+                    card_holder_id: buyerCard.getCardHolderId(),
                     card_holder_name: buyerCard.getCardHolderName(),
                     card_number: buyerCard.getCardNumber(),
                     card_exp_date: buyerCard.getCardExpDate(),
@@ -33,6 +34,45 @@ export class BuyerDatabase extends BaseDatabase {
                 .into(this.BUYER_CARD_TABLE_NAME)
 
             return "Buyer card has been successfully created."
+        } catch (error: any) {
+            throw new CustomError(500, error.sqlMessage || "Internal error.")
+        }
+    }
+
+    getCardHolder = async (id: string): Promise<boolean> => {
+        try {
+            const response: BuyerModel[] = await this.getConnection()
+                .select()
+                .from(this.BUYER_TABLE_NAME)
+                .where({ id: id })
+
+            return response.length ? true : false
+        } catch (error: any) {
+            throw new CustomError(500, error.sqlMessage || "Internal error.")
+        }
+    }
+
+    getBuyerByEmail = async (email: string): Promise<boolean> => {
+        try {
+            const response: BuyerModel[] = await this.getConnection()
+                .select()
+                .from(this.BUYER_TABLE_NAME)
+                .where({ email: email })
+
+            return response.length ? true : false
+        } catch (error: any) {
+            throw new CustomError(500, error.sqlMessage || "Internal error.")
+        }
+    }
+
+    getBuyerByCPF = async (CPF: string): Promise<boolean> => {
+        try {
+            const response: BuyerModel[] = await this.getConnection()
+                .select()
+                .from(this.BUYER_TABLE_NAME)
+                .where({ CPF: CPF })
+
+            return response.length ? true : false
         } catch (error: any) {
             throw new CustomError(500, error.sqlMessage || "Internal error.")
         }
