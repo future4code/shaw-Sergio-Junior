@@ -91,8 +91,8 @@ export class PaymentDatabase extends BaseDatabase {
                 .where({ payment_id: paymentId })
 
             return response[0]
-        } catch (error) {
-
+        } catch (error: any) {
+            throw new CustomError(500, error.sqlMessage || "Internal error.")
         }
     }
 
