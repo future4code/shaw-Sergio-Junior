@@ -5,7 +5,7 @@ export class CardModel {
         private cardHolderName: string,
         private cardNumber: string,
         private cardExpDate: Date,
-        private cardCvv: number
+        private cardCvv: string
     ) { }
 
     public getId() {

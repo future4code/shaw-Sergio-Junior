@@ -20,3 +20,16 @@ export class BuyerModel {
         return this.CPF
     }
 }
+
+export interface BuyerUserDTO {
+    name: string,
+    email: string,
+    CPF: string
+}
+export interface CardDTO {
+    cardHolderName: string,
+    cardNumber: string,
+    cardExpDate: Date,
+    cardCvv: string
+}
+

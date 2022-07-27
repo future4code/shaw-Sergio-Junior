@@ -1,1 +1,1 @@
-export const CardCvv = [123, 321, 789, 987, 456, 654]
+export const CardCvv = ["123", "321", "789", "987", "456", "654"]

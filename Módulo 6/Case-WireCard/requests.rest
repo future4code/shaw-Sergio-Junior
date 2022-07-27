@@ -1,0 +1,24 @@
+### INSERT PRODUCT OWNER 
+POST http://localhost:3003/productOwner 
+
+### INSERT BUYER 
+POST http://localhost:3003/buyer/user
+Content-Type: application/json
+
+{
+"name":"Maria",
+"email": "maria@gmail.com",  
+"CPF": "12345678912"
+}
+
+### INSERT BUYER CARD
+POST http://localhost:3003/buyer/card
+Content-Type: application/json
+
+{
+"cardHolderName":"Sergio Dias",
+"cardNumber":"1634 1117 4569 7895",
+"cardExpDate":"2025/12/31",
+"cardCvv": "456"
+}
+
