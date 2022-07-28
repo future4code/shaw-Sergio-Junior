@@ -1,8 +1,8 @@
 ### INSERT PRODUCT OWNER 
-POST http://localhost:3003/productOwner 
+POST https://wirecard-shaw.herokuapp.com/productOwner 
 
 ### INSERT BUYER 
-POST http://localhost:3003/buyer/user
+POST https://wirecard-shaw.herokuapp.com/buyer/user
 Content-Type: application/json
 
 {
@@ -12,7 +12,7 @@ Content-Type: application/json
 }
 
 ### INSERT BUYER CARD
-POST http://localhost:3003/buyer/card
+POST https://wirecard-shaw.herokuapp.com/buyer/card
 Content-Type: application/json
 
 {
@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 
 ### INSERT PAYMENT
-POST http://localhost:3003/payment
+POST https://wirecard-shaw.herokuapp.com/payment
 Content-Type: application/json
 
 {
@@ -35,6 +35,6 @@ Content-Type: application/json
 }
 
 ### GET PAYMENT STATUS
-GET http://localhost:3003/payment/51b26142-e1c8-407e-b6fe-f237641c68b2
+GET https://wirecard-shaw.herokuapp.com/payment/51b26142-e1c8-407e-b6fe-f237641c68b2
 
 
