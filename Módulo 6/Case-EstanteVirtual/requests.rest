@@ -1,0 +1,39 @@
+### INSERT ATHLETE
+POST http://localhost:3003/athlete 
+Content-Type: application/json
+
+{
+"name":"Marcos",
+"nickname": "Markinho",  
+"nationality": "Brazil"
+}
+
+### GET ALL ATHLETES  
+GET http://localhost:3003/athlete
+
+### INSERT COMPETITION
+POST http://localhost:3003/competition 
+Content-Type: application/json
+
+{
+"competition": "dardo",
+"status": "finished"
+}
+
+### CHANGE STATUS
+PUT http://localhost:3003/competition 
+Content-Type: application/json
+
+{
+"id": "18a7a9ae-96b6-4a8e-85d8-8a22facb2531",
+"status": "finished"
+}
+
+### GET ALL COMPETITIONS  
+GET http://localhost:3003/competition/allCompetitions
+
+### GET FINISHED COMPETITIONS  
+GET http://localhost:3003/competition/finishedCompetitions?status=finished
+
+### GET ACTIVE COMPETITIONS  
+GET http://localhost:3003/competition/activeCompetitions?status=active
