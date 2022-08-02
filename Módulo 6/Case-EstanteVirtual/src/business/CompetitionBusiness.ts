@@ -148,12 +148,14 @@ export class CompetitionBusiness {
                 unity.toUpperCase() !== UNITY.SECONDS.toUpperCase()) {
                 throw new CustomError(422, "Competition '100M' unity need to be type of 's' - seconds.");
             }
+            
             if (checkCompetition.competition.toUpperCase() === COMPETITION.DARDO.toUpperCase()) {
                 const checkAthleteAttempts: ResultModel[] = await this.competitionDB.getAllResultsById(athlete_id)
                 if (checkAthleteAttempts.length >= 3) {
                     throw new CustomError(422, "This athlete does not have any attempt left.");
                 }
             }
+
             if (checkCompetition.competition.toUpperCase() === COMPETITION.HUNDRED_METERS.toUpperCase()) {
                 const checkAthleteAttempts: ResultModel[] = await this.competitionDB.getAllResultsById(athlete_id)
                 if (checkAthleteAttempts.length >= 1) {
@@ -171,7 +173,7 @@ export class CompetitionBusiness {
 
     getResultsRank = async (competition_id: string): Promise<ResultsData[]> => {
         try {
-            const checkCompetition = await this.competitionDB.getCompetitionById(competition_id)
+            const checkCompetition: CompetitionStatusData = await this.competitionDB.getCompetitionById(competition_id)
             if (!checkCompetition) {
                 throw new CustomError(422, "Invalid competition id.");
             }
@@ -186,7 +188,7 @@ export class CompetitionBusiness {
             if (checkCompetition.competition.toUpperCase() === COMPETITION.DARDO.toUpperCase()) {
                 for (let result of results) {
                     results.filter((competitor) => {
-                        if (result.value > competitor.value && result.athlete_id === competitor.athlete_id) {
+                        if (result.value >= competitor.value && result.athlete_id === competitor.athlete_id) {
                             if (!response.find((athlete) => athlete.athlete_id === competitor.athlete_id)) {
                                 response.push(result)
                             }

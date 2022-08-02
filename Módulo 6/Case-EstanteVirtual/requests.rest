@@ -1,5 +1,5 @@
 ### INSERT ATHLETE
-POST http://localhost:3003/athlete 
+POST https://estante-virtual-shaw.herokuapp.com/athlete 
 Content-Type: application/json
 
 {
@@ -9,10 +9,10 @@ Content-Type: application/json
 }
 
 ### GET ALL ATHLETES  
-GET http://localhost:3003/athlete
+GET https://estante-virtual-shaw.herokuapp.com/athlete
 
 ### INSERT COMPETITION
-POST http://localhost:3003/competition 
+POST https://estante-virtual-shaw.herokuapp.com/competition 
 Content-Type: application/json
 
 {
@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ### CHANGE STATUS
-PUT http://localhost:3003/competition 
+PUT https://estante-virtual-shaw.herokuapp.com/competition 
 Content-Type: application/json
 
 {
@@ -30,24 +30,24 @@ Content-Type: application/json
 }
 
 ### GET ALL COMPETITIONS  
-GET http://localhost:3003/competition/allCompetitions
+GET https://estante-virtual-shaw.herokuapp.com/competition/allCompetitions
 
 ### GET FINISHED COMPETITIONS  
-GET http://localhost:3003/competition/finishedCompetitions?status=finished
+GET https://estante-virtual-shaw.herokuapp.com/competition/finishedCompetitions?status=finished
 
 ### GET ACTIVE COMPETITIONS  
-GET http://localhost:3003/competition/activeCompetitions?status=active
+GET https://estante-virtual-shaw.herokuapp.com/competition/activeCompetitions?status=active
 
 ### INSERT RESULTS
-POST http://localhost:3003/competition/result
+POST https://estante-virtual-shaw.herokuapp.com/competition/result
 Content-Type: application/json
 
 {
-"athlete_id": "50ee81f8-a343-4ae8-8e86-d47f24e40bfe", 
-"competition_id": "18a7a9ae-96b6-4a8e-85d8-8a22facb2531", 
-"value":8.6, 
-"unity": "s"
+"athlete_id": "f049872b-020d-4bc0-9d33-b28145ab64f9", 
+"competition_id": "649d772e-f310-4c83-93b4-283c0f6f6f7b", 
+"value":86.5, 
+"unity": "m"
 }
 
 ### GET RESULTS RANK  
-GET http://localhost:3003/competition/result/18a7a9ae-96b6-4a8e-85d8-8a22facb2531
+GET https://estante-virtual-shaw.herokuapp.com/competition/result/649d772e-f310-4c83-93b4-283c0f6f6f7b
