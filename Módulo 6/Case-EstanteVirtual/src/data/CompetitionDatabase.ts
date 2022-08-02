@@ -1,10 +1,12 @@
 import { CustomError } from "../error/CustomError";
 import { CompetitionModel, CompetitionStatusData, CompetitionStatusDTO } from "../model/CompetitionModel";
+import { ResultModel, ResultsData } from "../model/ResultModel";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class CompetitionDatabase extends BaseDatabase {
 
     private TABLE_NAME = "competition";
+    private RESULT_TABLE_NAME = "results";
 
     insertCompetition = async (competitionModel: CompetitionModel): Promise<string> => {
         try {
@@ -80,5 +82,41 @@ export class CompetitionDatabase extends BaseDatabase {
         }
     }
 
+    getAllResultsById = async (athlete_id: string): Promise<ResultModel[]> => {
+        try {
+            const response: ResultModel[] = await this.getConnection()
+                .select()
+                .from(this.RESULT_TABLE_NAME)
+                .where({ athlete_id })
 
+            return response
+        } catch (error: any) {
+            throw new CustomError(500, error.sqlMessage || "Internal error.")
+        }
+    }
+
+    insertCompetitionResult = async (newResult: ResultModel): Promise<string> => {
+        try {
+            await this.getConnection()
+                .insert(newResult)
+                .into(this.RESULT_TABLE_NAME)
+
+            return "Result successfully registered."
+        } catch (error: any) {
+            throw new CustomError(500, error.sqlMessage || "Internal error.")
+        }
+    }
+
+    getResultsRank = async (competition_id: string): Promise<ResultsData[]> => {
+        try {
+            const response: ResultsData[] = await this.getConnection()
+                .select()
+                .from(this.RESULT_TABLE_NAME)
+                .where({ competition_id })
+
+            return response
+        } catch (error: any) {
+            throw new CustomError(500, error.sqlMessage || "Internal error.")
+        }
+    }
 }

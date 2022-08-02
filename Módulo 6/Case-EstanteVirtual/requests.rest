@@ -26,7 +26,7 @@ Content-Type: application/json
 
 {
 "id": "18a7a9ae-96b6-4a8e-85d8-8a22facb2531",
-"status": "finished"
+"status": "active"
 }
 
 ### GET ALL COMPETITIONS  
@@ -37,3 +37,17 @@ GET http://localhost:3003/competition/finishedCompetitions?status=finished
 
 ### GET ACTIVE COMPETITIONS  
 GET http://localhost:3003/competition/activeCompetitions?status=active
+
+### INSERT RESULTS
+POST http://localhost:3003/competition/result
+Content-Type: application/json
+
+{
+"athlete_id": "50ee81f8-a343-4ae8-8e86-d47f24e40bfe", 
+"competition_id": "18a7a9ae-96b6-4a8e-85d8-8a22facb2531", 
+"value":8.6, 
+"unity": "s"
+}
+
+### GET RESULTS RANK  
+GET http://localhost:3003/competition/result/18a7a9ae-96b6-4a8e-85d8-8a22facb2531

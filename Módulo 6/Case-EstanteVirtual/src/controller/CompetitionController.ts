@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { CompetitionBusiness } from "../business/CompetitionBusiness";
 import { CompetitionDTO, CompetitionModel, CompetitionStatusData, CompetitionStatusDTO } from "../model/CompetitionModel";
+import { CompetitionResultDTO } from "../model/ResultModel";
 
 export class CompetitionController {
 
@@ -68,16 +69,25 @@ export class CompetitionController {
     }
 
     insertCompetitionResult = async (req: Request, res: Response): Promise<void> => {
-        try {
 
+        const { athlete_id, competition_id, value, unity } = req.body
+        const newCompetitionResult: CompetitionResultDTO = { athlete_id, competition_id, value, unity }
+
+        try {
+            const response = await this.competitionBusiness.insertCompetitionResult(newCompetitionResult)
+            res.status(201).send(response)
         } catch (error: any) {
             res.status(error.statusCode || 400).send({ message: error.message });
         }
     }
 
     getResultsRank = async (req: Request, res: Response): Promise<void> => {
-        try {
 
+        const competition_id: string = req.params.competition_id
+
+        try {
+            const response = await this.competitionBusiness.getResultsRank(competition_id)
+            res.status(200).send(response)
         } catch (error: any) {
             res.status(error.statusCode || 400).send({ message: error.message });
         }
