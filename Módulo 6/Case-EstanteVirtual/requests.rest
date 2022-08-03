@@ -1,0 +1,53 @@
+### INSERT ATHLETE
+POST https://estante-virtual-shaw.herokuapp.com/athlete 
+Content-Type: application/json
+
+{
+"name":"Marcos",
+"nickname": "Markinho",  
+"nationality": "Brazil"
+}
+
+### GET ALL ATHLETES  
+GET https://estante-virtual-shaw.herokuapp.com/athlete
+
+### INSERT COMPETITION
+POST https://estante-virtual-shaw.herokuapp.com/competition 
+Content-Type: application/json
+
+{
+"competition": "dardo",
+"status": "finished"
+}
+
+### CHANGE STATUS
+PUT https://estante-virtual-shaw.herokuapp.com/competition 
+Content-Type: application/json
+
+{
+"id": "18a7a9ae-96b6-4a8e-85d8-8a22facb2531",
+"status": "active"
+}
+
+### GET ALL COMPETITIONS  
+GET https://estante-virtual-shaw.herokuapp.com/competition/allCompetitions
+
+### GET FINISHED COMPETITIONS  
+GET https://estante-virtual-shaw.herokuapp.com/competition/finishedCompetitions?status=finished
+
+### GET ACTIVE COMPETITIONS  
+GET https://estante-virtual-shaw.herokuapp.com/competition/activeCompetitions?status=active
+
+### INSERT RESULTS
+POST https://estante-virtual-shaw.herokuapp.com/competition/result
+Content-Type: application/json
+
+{
+"athlete_id": "f049872b-020d-4bc0-9d33-b28145ab64f9", 
+"competition_id": "649d772e-f310-4c83-93b4-283c0f6f6f7b", 
+"value":86.5, 
+"unity": "m"
+}
+
+### GET RESULTS RANK  
+GET https://estante-virtual-shaw.herokuapp.com/competition/result/649d772e-f310-4c83-93b4-283c0f6f6f7b
