@@ -1,0 +1,37 @@
+### CADASTRAR BIKE
+POST https://bike-store-hubees.herokuapp.com/insert/bike 
+Content-Type: application/json
+
+{
+    "color": "Black",
+    "speeds": 3,
+    "brand": "Bentley",
+    "model": "Classic",
+    "price": 106500
+}
+
+### PEGAR TODAS AS BIKES
+GET https://bike-store-hubees.herokuapp.com/bikes
+
+### PEGAR BIKES POR COR
+GET https://bike-store-hubees.herokuapp.com/bikes/bycolor?color=blue
+
+### PEGAR BIKES POR PREÇO
+GET https://bike-store-hubees.herokuapp.com/bikes/byprice?price=20000
+
+### PEGAR BIKES ORDENADAS PELO PREÇO ASC 
+GET https://bike-store-hubees.herokuapp.com/bikes/priceordered
+
+### VENDER UMA BICICLETA
+DELETE https://bike-store-hubees.herokuapp.com/sell/bike/68aac27a-c1bc-4560-8aea-8e6e4c4c6e31
+
+### PEGAR BIKES VENDIDAS
+GET https://bike-store-hubees.herokuapp.com/sold/bikes
+
+### ALTERAR PREÇO DA BIKE
+PUT https://bike-store-hubees.herokuapp.com/price/bike/66120d26-7df7-4520-b642-2725d117ce68
+Content-Type: application/json
+
+{
+    "bikeNewPrice": 3190
+}
